@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Komponenten – Fit &amp; Einkauf</title>
+  <script>/* ?thema=hell|dunkel erzwingt eine Darstellung (Bildschirmfotos) */ const t = new URLSearchParams(location.search).get("thema"); if (t) document.documentElement.dataset.theme = t;</script>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/komponenten.css">
+</head>
+<body>
+<main class="app">
+
+  <header class="titelleiste">
+    <div class="titelleiste__aktionen"></div>
+    <h1 class="titelleiste__titel">Komponenten</h1>
+    <p class="titelleiste__unter">Musterseite der UI-Grundlage</p>
+  </header>
+
+  <div class="segment-rahmen">
+    <fieldset class="segment" style="border: 0; margin: 0">
+      <legend class="nur-vorlesen">Darstellung</legend>
+      <input type="radio" name="thema" id="th-system" value="system" checked><label for="th-system">System</label>
+      <input type="radio" name="thema" id="th-hell" value="hell"><label for="th-hell">Hell</label>
+      <input type="radio" name="thema" id="th-dunkel" value="dunkel"><label for="th-dunkel">Dunkel</label>
+    </fieldset>
+  </div>
+
+  <!-- Einkauf -->
+  <section id="einkauf">
+    <div class="segment-rahmen" style="margin-top: var(--a-6)">
+      <fieldset class="segment" style="border: 0; margin: 0">
+        <legend class="nur-vorlesen">Einkaufsliste ordnen</legend>
+        <input type="radio" name="ansicht" id="an-markt" checked><label for="an-markt">Nach Markt</label>
+        <input type="radio" name="ansicht" id="an-rezept"><label for="an-rezept">Nach Rezept</label>
+      </fieldset>
+    </div>
+
+    <div class="gruppe">
+      <div class="gruppe__inhalt">
+        <label class="zeile">
+          <span class="zeile__haupt zeile__titel">Grundvorrat ausblenden</span>
+          <input class="schalter" type="checkbox" role="switch">
+        </label>
+      </div>
+    </div>
+
+    <section class="gruppe" style="--markt: var(--markt-hofer);">
+      <h2 class="marktkopf">
+        <span class="marktkopf__punkt"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#tasche"/></svg></span>
+        <span class="marktkopf__name">Hofer</span>
+        <span class="marktkopf__anzahl">5</span>
+      </h2>
+      <ul class="gruppe__inhalt">
+        <li class="kategorie">Obst &amp; Gemüse</li>
+        <li><label class="abhaken">
+          <input type="checkbox">
+          <span class="abhaken__kreis"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg></span>
+          <span class="abhaken__haupt">
+            <span class="abhaken__name">Paprika</span>
+            <span class="abhaken__meta"><span class="abhaken__menge">4 Stück</span></span>
+          </span>
+        </label></li>
+        <li><label class="abhaken">
+          <input type="checkbox" checked>
+          <span class="abhaken__kreis"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg></span>
+          <span class="abhaken__haupt">
+            <span class="abhaken__name">Bananen</span>
+            <span class="abhaken__meta"><span class="abhaken__menge">10 Stück</span></span>
+          </span>
+        </label></li>
+        <li class="kategorie">Fleisch &amp; Fisch</li>
+        <li><label class="abhaken">
+          <input type="checkbox">
+          <span class="abhaken__kreis"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg></span>
+          <span class="abhaken__haupt">
+            <span class="abhaken__name">Hühnerbrustfilet</span>
+            <span class="abhaken__meta"><span class="abhaken__menge">1.000 g</span><span class="etikett etikett--gefahr">Aktion 7,99 € · bis Sa</span></span>
+          </span>
+        </label></li>
+        <li class="kategorie">Vorrat</li>
+        <li><label class="abhaken">
+          <input type="checkbox">
+          <span class="abhaken__kreis"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg></span>
+          <span class="abhaken__haupt">
+            <span class="abhaken__name">Reis</span>
+            <span class="abhaken__meta"><span class="abhaken__menge">1.500 g</span><span class="etikett">Vorrat</span></span>
+          </span>
+        </label></li>
+        <li><label class="abhaken">
+          <input type="checkbox">
+          <span class="abhaken__kreis"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg></span>
+          <span class="abhaken__haupt">
+            <span class="abhaken__name">Olivenöl</span>
+            <span class="abhaken__meta"><span class="abhaken__menge">1 Flasche</span><span class="etikett etikett--tint">Aufgebraucht</span></span>
+          </span>
+        </label></li>
+      </ul>
+      <p class="gruppe__fuss">Lange drücken, um den Markt zu ändern oder Vorrat als aufgebraucht zu markieren.</p>
+    </section>
+
+    <section class="gruppe" style="--markt: var(--markt-spar)">
+      <h2 class="marktkopf">
+        <span class="marktkopf__punkt"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#tasche"/></svg></span>
+        <span class="marktkopf__name">Spar</span>
+        <span class="marktkopf__anzahl">0</span>
+      </h2>
+      <div class="gruppe__inhalt leer">
+        <svg class="symbol leer__icon" aria-hidden="true"><use href="../bilder/symbole.svg#haken"/></svg>
+        <p class="leer__titel">Alles für Spar erledigt</p>
+        <p class="leer__text">Die Jausen vom Spar kaufst du an den Arbeitstagen direkt in der Feinkost.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- Essen -->
+  <section id="essen" class="gruppe">
+    <h2 class="gruppe__kopf gruppe__kopf--gross">Typischer Tag</h2>
+    <div class="gruppe__inhalt">
+      <div class="naehrwert" style="--anteil: 0.963">
+        <div class="naehrwert__kopf">
+          <span class="naehrwert__name">Kalorien</span>
+          <span class="naehrwert__zahl"><b>2.840</b> von 2.950 kcal</span>
+        </div>
+        <div class="naehrwert__bahn" aria-hidden="true"><div class="naehrwert__balken"></div><div class="naehrwert__ziel"></div></div>
+      </div>
+      <div class="naehrwert naehrwert--erreicht" style="--anteil: 1.054">
+        <div class="naehrwert__kopf">
+          <span class="naehrwert__name">Protein</span>
+          <span class="naehrwert__zahl"><b>137</b> von 130 g</span>
+        </div>
+        <div class="naehrwert__bahn" aria-hidden="true"><div class="naehrwert__balken"></div><div class="naehrwert__ziel"></div></div>
+      </div>
+    </div>
+    <p class="gruppe__fuss">Der Strich markiert dein Ziel. Die Skala bleibt immer gleich, damit Wochen vergleichbar sind.</p>
+  </section>
+
+  <section class="gruppe">
+    <h2 class="gruppe__kopf">Abendessen diese Woche</h2>
+    <ul class="gruppe__inhalt">
+      <li><a class="zeile" href="#r1">
+        <div class="zeile__haupt">
+          <div class="zeile__titel">Hühner-Reis-Pfanne mit Paprika</div>
+          <div class="zeile__unter">4 Portionen · 30 min · 1.100 kcal · 73 g Protein</div>
+        </div>
+        <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+      </a></li>
+      <li><a class="zeile" href="#r2">
+        <div class="zeile__haupt">
+          <div class="zeile__titel">Chili con Carne mit Reis</div>
+          <div class="zeile__unter">4 Portionen · 40 min · 1.160 kcal · 62 g Protein</div>
+        </div>
+        <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- Training: Zustände -->
+  <section class="gruppe">
+    <h2 class="gruppe__kopf">Satz-Felder: erreicht · darunter · aktiv · offen</h2>
+    <div class="gruppe__inhalt uebung">
+      <ol class="saetze" style="--anzahl: 4; margin-top: 0">
+        <li class="satz satz--erreicht"><span>Satz 1</span><span class="satz__wert">15</span></li>
+        <li class="satz satz--unter"><span class="satz__marke">−2</span><span class="satz__wert">13</span></li>
+        <li class="satz satz--aktiv"><span>Satz 3</span><span class="satz__wert">15</span></li>
+        <li class="satz"><span>Satz 4</span><span class="satz__wert satz__wert--leer">–</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="gruppe">
+    <h2 class="gruppe__kopf">Zähler: normal · am Minimum</h2>
+    <div class="gruppe__inhalt uebung">
+      <div class="zaehler" role="group" aria-label="Wiederholungen" style="margin-top: 0">
+        <button class="zaehler__taste" type="button" aria-label="Eine weniger"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#minus"/></svg></button>
+        <div class="zaehler__mitte"><output class="zaehler__wert">15</output><span class="zaehler__einheit">Wiederholungen</span></div>
+        <button class="zaehler__taste" type="button" aria-label="Eine mehr"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#plus"/></svg></button>
+      </div>
+      <div class="zaehler" role="group" aria-label="Sekunden">
+        <button class="zaehler__taste" type="button" aria-label="5 Sekunden weniger" disabled><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#minus"/></svg></button>
+        <div class="zaehler__mitte"><output class="zaehler__wert">0</output><span class="zaehler__einheit">Sekunden</span></div>
+        <button class="zaehler__taste" type="button" aria-label="5 Sekunden mehr"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#plus"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="gruppe">
+    <h2 class="gruppe__kopf">Pausen-Leiste: läuft · vorbei</h2>
+    <div style="display: grid; gap: var(--a-2)">
+      <div class="pause pause--statisch">
+        <div class="pause__info"><div class="pause__label">Pause · dann Satz 2</div><div class="pause__zeit">0:56</div></div>
+        <button class="knopf knopf--getoent knopf--klein" type="button">+15 s</button>
+        <button class="knopf knopf--schlicht knopf--klein" type="button">Weiter</button>
+        <div class="pause__balken" aria-hidden="true"><div class="pause__rest" style="--rest: 0.62"></div></div>
+      </div>
+      <div class="pause pause--statisch pause--fertig">
+        <div class="pause__info"><div class="pause__label pause__label--fertig">Pause vorbei – los geht’s</div><div class="pause__zeit">0:00</div></div>
+        <button class="knopf knopf--getoent knopf--klein" type="button">+15 s</button>
+        <button class="knopf knopf--schlicht knopf--klein" type="button">Weiter</button>
+        <div class="pause__balken" aria-hidden="true"><div class="pause__rest" style="--rest: 1"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hinweis" role="status">
+    <div class="hinweis__kopf">
+      <span class="hinweis__icon"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#hoch"/></svg></span>
+      <div>
+        <p class="hinweis__titel">Stark – nächste Stufe?</p>
+        <p class="hinweis__text">Zweimal in Folge 3 × 15 Liegestütz geschafft. Nächstes Mal Diamond-Liegestütz 3 × 12.</p>
+      </div>
+    </div>
+    <div class="knopfreihe">
+      <button class="knopf knopf--getoent" type="button">Später</button>
+      <button class="knopf knopf--gefuellt" type="button">Ja, steigern</button>
+    </div>
+  </div>
+
+  <!-- Mehr -->
+  <section id="mehr">
+    <div class="hinweis hinweis--info" role="status">
+      <div class="hinweis__kopf">
+        <span class="hinweis__icon"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#export"/></svg></span>
+        <div>
+          <p class="hinweis__titel">Letzte Sicherung vor 16 Tagen</p>
+          <p class="hinweis__text">Deine Daten liegen nur auf diesem iPhone. Exportiere sie, damit nichts verloren geht.</p>
+        </div>
+      </div>
+      <div class="knopfreihe"><button class="knopf knopf--gefuellt" type="button">Jetzt exportieren</button></div>
+    </div>
+
+    <section class="gruppe">
+      <ul class="gruppe__inhalt">
+        <li><a class="zeile zeile--mit-symbol" href="#gewicht">
+          <span class="zeile__icon" style="background: var(--erreicht-flaeche)"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#waage"/></svg></span>
+          <span class="zeile__haupt zeile__titel">Gewicht</span>
+          <span class="zeile__wert">72,4 kg</span>
+          <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+        </a></li>
+        <li><a class="zeile zeile--mit-symbol" href="#ziele">
+          <span class="zeile__icon"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#ziel"/></svg></span>
+          <span class="zeile__haupt zeile__titel">Zielwerte</span>
+          <span class="zeile__wert">2.950 kcal</span>
+          <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+        </a></li>
+        <li><a class="zeile zeile--mit-symbol" href="#abneigungen">
+          <span class="zeile__icon" style="background: var(--markt-egal)"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#liste"/></svg></span>
+          <span class="zeile__haupt zeile__titel">Abneigungen</span>
+          <span class="zeile__wert">Curry, Tofu</span>
+          <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+        </a></li>
+        <li><a class="zeile zeile--mit-symbol" href="#pausen">
+          <span class="zeile__icon" style="background: var(--pause-flaeche)"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#uhr"/></svg></span>
+          <span class="zeile__haupt zeile__titel">Pausenzeiten</span>
+          <span class="zeile__wert">90 / 60 s</span>
+          <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="gruppe">
+      <div class="gruppe__inhalt">
+        <label class="zeile">
+          <span class="zeile__haupt">
+            <span class="zeile__titel" style="display: block">Klimmzugstange vorhanden</span>
+            <span class="zeile__unter" style="display: block">Ersetzt Tischrudern durch Klimmzüge</span>
+          </span>
+          <input class="schalter" type="checkbox" role="switch" checked>
+        </label>
+      </div>
+    </section>
+
+    <section class="gruppe">
+      <h2 class="gruppe__kopf">Knöpfe</h2>
+      <div class="gruppe__inhalt uebung" style="display: grid; gap: var(--a-2)">
+        <button class="knopf knopf--gefuellt knopf--gross knopf--breit" type="button">Training starten</button>
+        <div class="knopfreihe">
+          <button class="knopf knopf--getoent" type="button">In den Plan</button>
+          <button class="knopf knopf--gefahr" type="button">Entfernen</button>
+        </div>
+        <div class="knopfreihe">
+          <button class="knopf knopf--schlicht" type="button">Austauschen</button>
+          <button class="knopf knopf--gefuellt" type="button" disabled>Gesperrt</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+</main>
+
+<nav class="tableiste" aria-label="Bereiche">
+  <a class="tableiste__tab" href="training.html">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#training"/></svg>Training
+  </a>
+  <a class="tableiste__tab" href="#essen">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#essen"/></svg>Essen
+  </a>
+  <a class="tableiste__tab" href="#einkauf" aria-current="page">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#einkauf"/></svg>Einkauf
+  </a>
+  <a class="tableiste__tab" href="#mehr">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#mehr"/></svg>Mehr
+  </a>
+</nav>
+
+<script type="module" src="muster.js"></script>
+</body>
+</html>

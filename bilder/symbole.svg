@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Fit & Einkauf – Symbole. 24er-Raster, Kontur, runde Enden. Verwendung: <svg class="symbol"><use href="bilder/symbole.svg#name"/></svg> -->
+  <symbol id="training" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></symbol>
+  <symbol id="essen" viewBox="0 0 24 24"><path d="M7 3v18M4.5 3v5a2.5 2.5 0 0 0 5 0V3M17.5 21V3c-2.2 1.4-3.5 4-3.5 7.5V13h3.5"/></symbol>
+  <symbol id="einkauf" viewBox="0 0 24 24"><path d="M2.5 4h2.3l2.3 11.3a1 1 0 0 0 1 .7h9.6a1 1 0 0 0 1-.8L20.5 8H5.6"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></symbol>
+  <symbol id="mehr" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01" stroke-width="2.6"/></symbol>
+  <symbol id="minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="haken" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="chevron" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="hoch" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="runter" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="uhr" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2.5h4"/></symbol>
+  <symbol id="waage" viewBox="0 0 24 24"><path d="M5.5 20h13l-1.6-11.5H7.1z"/><path d="M9.5 8.5a2.5 2.5 0 0 1 5 0"/></symbol>
+  <symbol id="export" viewBox="0 0 24 24"><path d="M12 15V3.5M7 8l5-5 5 5M5 13.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5.5"/></symbol>
+  <symbol id="tasche" viewBox="0 0 24 24"><path d="M5.5 8h13l-1 12.5h-11z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="vorrat" viewBox="0 0 24 24"><path d="M4 7.5l8-4 8 4v9l-8 4-8-4z"/><path d="M4 7.5l8 4 8-4M12 11.5v9"/></symbol>
+  <symbol id="liste" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" /></symbol>
+  <symbol id="ziel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12h.01" stroke-width="2.6"/></symbol>
+  <symbol id="verlauf" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 4v4.5H8"/><path d="M12 8v4.5l3 2"/></symbol>
+</svg>

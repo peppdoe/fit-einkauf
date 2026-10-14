@@ -1,0 +1,558 @@
+/* Fit & Einkauf – Kernkomponenten
+   Setzt tokens.css voraus. Jede Tipp-Fläche ist mindestens --tipp (48 px) hoch. */
+
+/* ---------- Grundlage ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: var(--grund);
+  color: var(--text);
+  font: var(--t-text);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+::selection { background: var(--tint-zart); }
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--tint);
+  outline-offset: 2px;
+  border-radius: var(--r-feld);
+}
+
+.symbol {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.symbol--klein { width: 18px; height: 18px; stroke-width: 2.2; }
+
+.nur-vorlesen {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- App-Gerüst ---------- */
+
+.app {
+  min-height: 100dvh;
+  /* Platz für Tab-Leiste; mit laufender Pause zusätzlich für die Pausen-Leiste */
+  padding-bottom: calc(var(--tableiste) + var(--sicher-unten) + var(--a-6));
+}
+.app--mit-pause {
+  padding-bottom: calc(var(--tableiste) + var(--sicher-unten) + 132px);
+}
+
+/* ---------- Titelleiste (großer Titel) ---------- */
+
+.titelleiste {
+  padding: calc(var(--sicher-oben) + var(--a-3)) var(--a-5) var(--a-2);
+}
+.titelleiste__aktionen {
+  display: flex;
+  justify-content: flex-end;
+  min-height: var(--tipp);
+  margin-right: calc(var(--a-3) * -1);
+}
+.titelleiste__titel { font: var(--t-grosstitel); letter-spacing: 0.01em; }
+.titelleiste__unter {
+  margin-top: 2px;
+  font: var(--t-unter);
+  color: var(--text-2);
+}
+
+/* ---------- Gruppen (Inset-Listen) ---------- */
+
+.gruppe { margin: var(--a-6) var(--rand) 0; }
+.gruppe__kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--a-3);
+  padding: 0 var(--a-4) 6px;
+  font: var(--t-fuss);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+}
+.gruppe__kopf--gross {
+  font: var(--t-titel3);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+  padding-bottom: var(--a-2);
+}
+.gruppe__inhalt {
+  background: var(--zelle);
+  border-radius: var(--r-zelle);
+  overflow: hidden;
+}
+.gruppe__fuss {
+  padding: 6px var(--a-4) 0;
+  font: var(--t-fuss);
+  color: var(--text-2);
+}
+
+/* ---------- Zeile ---------- */
+
+.zeile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--a-3);
+  width: 100%;
+  min-height: var(--tipp);
+  padding: var(--a-2) var(--a-4);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--kurz) var(--ease);
+}
+/* Haarlinie, eingerückt wie unter iOS */
+.zeile + .zeile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--a-4);
+  right: 0;
+  border-top: 0.5px solid var(--haarlinie);
+}
+.zeile--mit-symbol + .zeile--mit-symbol::before { left: 60px; }
+button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zelle-gedrueckt); }
+
+.zeile__haupt { flex: 1; min-width: 0; }
+.zeile__titel { font: var(--t-text); }
+.zeile__unter { font: var(--t-unter); color: var(--text-2); margin-top: 1px; }
+.zeile__wert { font: var(--t-text); color: var(--text-2); white-space: nowrap; }
+.zeile__chevron { width: 14px; height: 14px; color: var(--text-3); stroke-width: 2.4; }
+
+.zeile__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  color: #fff;
+  background: var(--tint-flaeche);
+}
+.zeile__icon .symbol { width: 18px; height: 18px; stroke-width: 2; }
+
+/* ---------- Knöpfe ---------- */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--a-2);
+  min-height: var(--tipp);
+  padding: 0 var(--a-5);
+  border: 0;
+  border-radius: var(--r-knopf);
+  font: var(--t-kopf);
+  text-decoration: none;
+  transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease), background-color var(--kurz) var(--ease);
+}
+.knopf:active { transform: scale(0.97); opacity: 0.85; }
+.knopf:disabled, .knopf[aria-disabled="true"] { background: var(--zelle-gedrueckt); color: var(--text-3); pointer-events: none; }
+
+.knopf--gefuellt { background: var(--tint-flaeche); color: var(--text-auf-tint); }
+.knopf--getoent { background: var(--tint-zart); color: var(--tint); }
+.knopf--schlicht { background: transparent; color: var(--tint); padding: 0 var(--a-3); }
+.knopf--gefahr { background: var(--gefahr-zart); color: var(--gefahr); }
+.knopf--gross { min-height: var(--knopf-gross); font-size: 1.1875rem; } /* 19 px: großer Text auch für WCAG */
+.knopf--breit { display: flex; width: 100%; }
+.knopf--klein { min-height: 36px; padding: 0 var(--a-3); font: 600 0.9375rem/1 var(--schrift); }
+/* kleine Knöpfe behalten 48 px Tipp-Fläche */
+.knopf--klein { position: relative; }
+.knopf--klein::after { content: ""; position: absolute; inset: -6px 0; }
+
+.knopfreihe { display: flex; gap: var(--a-2); }
+.knopfreihe > .knopf { flex: 1; }
+
+/* ---------- Schalter (iOS-Toggle) ---------- */
+
+.schalter {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex: none;
+  width: 51px;
+  height: 31px;
+  margin: 0;
+  border-radius: 16px;
+  background: var(--zelle-gedrueckt);
+  transition: background-color var(--mittel) var(--ease);
+  cursor: pointer;
+}
+.schalter::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.16);
+  transition: transform var(--mittel) var(--ease);
+}
+.schalter:checked { background: var(--erreicht-flaeche); }
+.schalter:checked::after { transform: translateX(20px); }
+.schalter:focus-visible { border-radius: 16px; }
+
+/* ---------- Segment-Umschalter ---------- */
+
+.segment {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--zelle-gedrueckt);
+}
+.segment input { position: absolute; opacity: 0; pointer-events: none; }
+.segment label {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  border-radius: 8px;
+  font: 500 0.9375rem/1 var(--schrift);
+  cursor: pointer;
+  transition: background-color var(--kurz) var(--ease);
+}
+.segment input:checked + label {
+  background: var(--zelle);
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+.segment input:focus-visible + label { outline: 3px solid var(--tint); outline-offset: 1px; }
+.segment-rahmen { position: relative; padding: 0 var(--rand); margin-top: var(--a-3); }
+/* 40 px sichtbar + Rahmen = 44; Tipp-Fläche über das umgebende Padding auf 48 */
+.segment label { position: relative; }
+.segment label::after { content: ""; position: absolute; inset: -4px 0; }
+
+/* ---------- Etiketten ---------- */
+
+.etikett {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font: 600 0.75rem/1 var(--schrift);
+  background: var(--zelle-2);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.etikett--tint { background: var(--tint-zart); color: var(--tint); }
+.etikett--erreicht { background: var(--erreicht-zart); color: var(--erreicht); }
+.etikett--pause { background: var(--pause-zart); color: var(--pause); }
+.etikett--gefahr { background: var(--gefahr-zart); color: var(--gefahr); }
+
+/* ---------- Übungskarte ---------- */
+
+.uebung { padding: var(--a-4); }
+.uebung__kopf { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--a-3); }
+.uebung__name { font: var(--t-titel2); }
+.uebung__ziel { margin-top: 2px; font: var(--t-unter); color: var(--text-2); }
+.uebung__stufe { display: flex; gap: var(--a-2); margin-top: var(--a-4); }
+.uebung__stufe .knopf { flex: 1; }
+
+/* ---------- Satz-Felder ---------- */
+
+.saetze {
+  display: grid;
+  grid-template-columns: repeat(var(--anzahl, 3), 1fr);
+  gap: var(--a-2);
+  margin-top: var(--a-4);
+}
+.satz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 72px;
+  border: 0;
+  border-radius: var(--r-feld);
+  background: var(--zelle-2);
+  color: var(--text-2);
+  font: var(--t-fuss);
+  transition: background-color var(--kurz) var(--ease), box-shadow var(--kurz) var(--ease);
+}
+.satz__wert { font: var(--t-zahl-mittel); color: var(--text); }
+.satz__wert--leer { color: var(--text-3); }
+.satz--aktiv { background: var(--zelle); box-shadow: inset 0 0 0 2px var(--tint); color: var(--tint); }
+.satz--erreicht { background: var(--erreicht-zart); color: var(--erreicht); }
+.satz--erreicht .satz__wert { color: var(--erreicht); }
+.satz--unter { background: var(--zelle-2); color: var(--text-2); }  /* neutral: Orange gehört nur der Pause */
+.satz__marke { display: inline-flex; align-items: center; gap: 2px; font-weight: 600; }
+
+/* ---------- Zähler (−/+) ---------- */
+
+.zaehler {
+  display: grid;
+  grid-template-columns: 76px 1fr 76px;
+  align-items: center;
+  gap: var(--a-2);
+  margin-top: var(--a-4);
+}
+.zaehler__taste {
+  display: grid;
+  place-items: center;
+  height: 64px;
+  border: 0;
+  border-radius: var(--r-knopf);
+  background: var(--zelle-2);
+  color: var(--tint);
+  transition: transform var(--kurz) var(--ease), background-color var(--kurz) var(--ease);
+}
+.zaehler__taste .symbol { width: 28px; height: 28px; stroke-width: 2.6; }
+.zaehler__taste:active { transform: scale(0.94); background: var(--zelle-gedrueckt); }
+.zaehler__taste:disabled { color: var(--text-3); pointer-events: none; }
+.zaehler__mitte { text-align: center; }
+.zaehler__wert { display: block; font: var(--t-zahl-gross); letter-spacing: -0.01em; }
+.zaehler__einheit { display: block; margin-top: 4px; font: var(--t-fuss); color: var(--text-2); }
+
+/* ---------- Pausen-Leiste (Live-Activity-Stil, an die Tab-Leiste angedockt) ---------- */
+
+.pause {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--tableiste) + var(--sicher-unten));
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--a-2);
+  padding: var(--a-3) var(--a-3) var(--a-3) var(--a-5);
+  border-radius: var(--r-material) var(--r-material) 0 0;
+  background: var(--material);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08), 0 -0.5px 0 var(--haarlinie);
+  transition: transform var(--mittel) var(--ease), opacity var(--mittel) var(--ease);
+}
+.pause[hidden] { display: grid; transform: translateY(24px); opacity: 0; pointer-events: none; }
+/* für die Musterseite: Pausen-Leiste im Fluss statt fixiert */
+.pause--statisch { position: relative; bottom: auto; z-index: auto; border-radius: var(--r-zelle); box-shadow: none; }
+.pause__info { min-width: 0; }
+.pause__label { font: 600 0.9375rem/1.2 var(--schrift); color: var(--pause); }
+.pause__label--fertig { color: var(--erreicht); }
+.pause__zeit { display: block; margin-top: 2px; font: var(--t-zahl-pause); letter-spacing: -0.01em; }
+.pause__balken {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--pause-zart);
+  overflow: hidden;
+}
+.pause__rest {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--pause-flaeche);
+  transform-origin: left center;
+  transform: scaleX(var(--rest, 1));
+}
+.pause--fertig .pause__rest { background: var(--erreicht-flaeche); }
+.pause .knopf { min-height: var(--tipp); }
+
+/* ---------- Tab-Leiste ---------- */
+
+.tableiste {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: var(--sicher-unten);
+  background: var(--material);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid var(--haarlinie);
+}
+.tableiste__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--tableiste);
+  padding-top: 4px;
+  color: var(--text-2);
+  text-decoration: none;
+  font: 500 0.6875rem/1.1 var(--schrift);   /* 11 */
+}
+.tableiste__tab .symbol { width: 26px; height: 26px; }
+.tableiste__tab[aria-current="page"] { color: var(--tint); }
+.tableiste__tab[aria-current="page"] .symbol { stroke-width: 2.2; }
+.tableiste__tab:focus-visible { outline-offset: -4px; }
+
+/* ---------- Abhak-Zeile (Einkauf) ---------- */
+
+.abhaken {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--a-3);
+  min-height: 56px;
+  padding: var(--a-3) var(--a-4);
+  cursor: pointer;
+}
+.abhaken input { position: absolute; opacity: 0; pointer-events: none; }
+.abhaken__kreis {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -1px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--text-3);
+  color: transparent;
+  transition: background-color var(--kurz) var(--ease), box-shadow var(--kurz) var(--ease);
+}
+.abhaken__kreis .symbol { width: 16px; height: 16px; stroke-width: 3; }
+.abhaken input:checked + .abhaken__kreis {
+  background: var(--tint-flaeche);
+  box-shadow: none;
+  color: #fff;
+}
+.abhaken input:focus-visible + .abhaken__kreis { outline: 3px solid var(--tint); outline-offset: 2px; }
+.abhaken__haupt { flex: 1; min-width: 0; }
+.abhaken__name { font: var(--t-text); transition: color var(--kurz) var(--ease); }
+.abhaken__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 3px; font: var(--t-unter); color: var(--text-2); }
+.abhaken__menge { font: var(--t-text); font-weight: 500; color: var(--text-2); white-space: nowrap; }
+.abhaken:has(input:checked) .abhaken__name { color: var(--text-2); text-decoration: line-through; text-decoration-color: var(--text-3); }
+.abhaken:has(input:checked) .etikett { opacity: 0.6; }
+
+/* Markt-Kopf wie eine Liste in Erinnerungen */
+.marktkopf {
+  display: flex;
+  align-items: center;
+  gap: var(--a-3);
+  padding: 0 var(--a-1) var(--a-2);
+}
+.marktkopf__punkt {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--markt, var(--markt-egal));
+  color: #fff;
+}
+.marktkopf__punkt .symbol { width: 17px; height: 17px; stroke-width: 2.2; }
+.marktkopf__name { flex: 1; font: var(--t-titel3); color: var(--markt-text, var(--text)); }
+.marktkopf__anzahl { font: var(--t-titel3); color: var(--text-2); }
+
+/* Kategorie-Trenner innerhalb eines Markts */
+.kategorie {
+  padding: var(--a-3) var(--a-4) var(--a-1);
+  font: 600 0.8125rem/1.2 var(--schrift);
+  color: var(--text-2);
+  background: var(--zelle);
+}
+
+/* ---------- Nährwert-Balken (fester Maßstab: Ziel immer bei 80 %) ---------- */
+
+.naehrwert { padding: var(--a-3) var(--a-4); }
+.naehrwert + .naehrwert { border-top: 0.5px solid var(--haarlinie); }
+.naehrwert__kopf { display: flex; justify-content: space-between; align-items: baseline; }
+.naehrwert__name { font: var(--t-kopf); }
+.naehrwert__zahl { font: var(--t-unter); color: var(--text-2); }
+.naehrwert__zahl b { font-weight: 600; color: var(--text); }
+.naehrwert__bahn {
+  position: relative;
+  height: 8px;
+  margin-top: var(--a-2);
+  border-radius: 4px;
+  background: var(--zelle-2);
+}
+.naehrwert__balken {
+  height: 100%;
+  width: min(calc(var(--anteil) * 80%), 100%);
+  border-radius: 4px;
+  background: var(--tint-flaeche);
+}
+.naehrwert--erreicht .naehrwert__balken { background: var(--erreicht-flaeche); }
+.naehrwert__ziel {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 80%;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--text);
+}
+
+/* ---------- Hinweis (inline, statt Dialog) ---------- */
+
+.hinweis {
+  margin: var(--a-6) var(--rand) 0;
+  padding: var(--a-4);
+  border-radius: var(--r-zelle);
+  background: var(--zelle);
+}
+.hinweis__kopf { display: flex; gap: var(--a-3); align-items: flex-start; }
+.hinweis__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--erreicht-zart);
+  color: var(--erreicht);
+}
+.hinweis--info .hinweis__icon { background: var(--tint-zart); color: var(--tint); }
+.hinweis__titel { font: var(--t-kopf); }
+.hinweis__text { margin-top: 2px; font: var(--t-unter); color: var(--text-2); }
+.hinweis .knopfreihe { margin-top: var(--a-4); }
+
+/* ---------- Leerzustand ---------- */
+
+.leer {
+  padding: var(--a-8) var(--a-6);
+  text-align: center;
+}
+.leer__icon { width: 40px; height: 40px; color: var(--text-3); stroke-width: 1.5; }
+.leer__titel { margin-top: var(--a-3); font: var(--t-kopf); }
+.leer__text { margin: 4px auto 0; max-width: 30ch; font: var(--t-unter); color: var(--text-2); }
+.leer .knopf { margin-top: var(--a-4); }
+
+/* ---------- Bewegung reduzieren ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+  }
+}

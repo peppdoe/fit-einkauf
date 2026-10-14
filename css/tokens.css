@@ -1,0 +1,147 @@
+/* Fit & Einkauf – Design-Tokens
+   iOS-Standard: Systemfarben, SF Pro, gruppierte Inset-Listen.
+   Hell/Dunkel folgt dem System; data-theme="hell|dunkel" erzwingt eine Variante. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Flächen */
+  --grund: #F2F2F7;            /* gruppierter Hintergrund */
+  --zelle: #FFFFFF;            /* Zellen, Karten */
+  --zelle-2: #F2F2F7;          /* Felder in Zellen (Satz-Felder, Zähler-Tasten) */
+  --zelle-gedrueckt: #E5E5EA;  /* Zelle beim Antippen */
+  --material: rgba(249, 249, 249, 0.82); /* Tab-Leiste, Pausen-Leiste (mit Unschärfe) */
+  --haarlinie: rgba(60, 60, 67, 0.29);
+
+  /* Text */
+  --text: #000000;
+  --text-2: #6C6C70;           /* sekundär, ≥ 4.5:1 auf Zelle und Grund */
+  --text-3: #8E8E93;           /* nur für Platzhalter-Striche und Symbole, nie für Lesetext */
+  --text-auf-tint: #FFFFFF;
+
+  /* App-Tint und Zustände */
+  --tint: #0066CC;             /* Text, Symbole, Auswahl */
+  --tint-flaeche: #0066CC;     /* gefüllte Knöpfe */
+  --tint-zart: rgba(0, 102, 204, 0.12);
+  --erreicht: #1A7431;         /* Text/Symbol: Ziel erreicht, erledigt */
+  --erreicht-flaeche: #34C759;
+  --erreicht-zart: rgba(52, 199, 89, 0.14);
+  --pause: #9A4A00;            /* Text: Pause läuft */
+  --pause-flaeche: #FF9500;
+  --pause-zart: rgba(255, 149, 0, 0.16);
+  --gefahr: #D70015;
+  --gefahr-zart: rgba(255, 59, 48, 0.12);
+
+  /* Märkte (wie Listenfarben in Erinnerungen) */
+  --markt-lidl: #0066CC;
+  --markt-hofer: #FF9500;
+  --markt-spar: #34C759;
+  --markt-egal: #8E8E93;
+
+  /* Schrift */
+  --schrift: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --schrift-rund: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --t-grosstitel: 700 2.125rem/1.2 var(--schrift);   /* 34 */
+  --t-titel2: 700 1.375rem/1.27 var(--schrift);      /* 22 */
+  --t-titel3: 600 1.25rem/1.25 var(--schrift);       /* 20 */
+  --t-kopf: 600 1.0625rem/1.3 var(--schrift);        /* 17 semibold */
+  --t-text: 400 1.0625rem/1.3 var(--schrift);        /* 17 */
+  --t-unter: 400 0.9375rem/1.33 var(--schrift);      /* 15 */
+  --t-fuss: 400 0.8125rem/1.38 var(--schrift);       /* 13 */
+  --t-klein: 400 0.75rem/1.33 var(--schrift);        /* 12 */
+  --t-zahl-gross: 600 4rem/1 var(--schrift-rund);    /* 64 – Zähler */
+  --t-zahl-pause: 600 3.25rem/1 var(--schrift-rund);  /* 52 – Pausen-Zeit, aus 1–2 m lesbar */
+  --t-zahl-mittel: 600 1.75rem/1 var(--schrift-rund);/* 28 – Satz-Felder */
+
+  /* Abstände (4er-Raster) */
+  --a-1: 4px;
+  --a-2: 8px;
+  --a-3: 12px;
+  --a-4: 16px;
+  --a-5: 20px;
+  --a-6: 24px;
+  --a-8: 32px;
+  --rand: 16px;                /* seitlicher Rand der Inset-Gruppen */
+
+  /* Formen */
+  --r-zelle: 12px;
+  --r-feld: 10px;
+  --r-knopf: 12px;
+  --r-material: 18px;
+
+  /* Maße */
+  --tipp: 48px;                /* Mindestgröße jeder Tipp-Fläche */
+  --knopf-gross: 56px;
+  --tableiste: 49px;
+  --sicher-unten: env(safe-area-inset-bottom, 0px);
+  --sicher-oben: env(safe-area-inset-top, 0px);
+
+  /* Bewegung */
+  --kurz: 160ms;
+  --mittel: 240ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --schatten-material: 0 6px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="hell"]) {
+    --grund: #000000;
+    --zelle: #1C1C1E;
+    --zelle-2: #2C2C2E;
+    --zelle-gedrueckt: #3A3A3C;
+    --material: rgba(30, 30, 30, 0.8);
+    --haarlinie: rgba(84, 84, 88, 0.6);
+    --text: #FFFFFF;
+    --text-2: #A1A1A6;
+    --text-3: #6E6E73;
+    --tint: #4DA3FF;
+    --tint-flaeche: #0A6FE0;
+    --tint-zart: rgba(10, 132, 255, 0.22);
+    --erreicht: #4CD964;
+    --erreicht-flaeche: #30D158;
+    --erreicht-zart: rgba(48, 209, 88, 0.2);
+    --pause: #FFB340;
+    --pause-flaeche: #FF9F0A;
+    --pause-zart: rgba(255, 159, 10, 0.22);
+    --gefahr: #FF6961;
+    --gefahr-zart: rgba(255, 69, 58, 0.2);
+    --markt-lidl: #0A84FF;
+    --markt-hofer: #FF9F0A;
+    --markt-spar: #30D158;
+    --markt-egal: #8E8E93;
+    --schatten-material: 0 6px 24px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:root[data-theme="dunkel"] {
+  color-scheme: dark;
+  --grund: #000000;
+  --zelle: #1C1C1E;
+  --zelle-2: #2C2C2E;
+  --zelle-gedrueckt: #3A3A3C;
+  --material: rgba(30, 30, 30, 0.8);
+  --haarlinie: rgba(84, 84, 88, 0.6);
+  --text: #FFFFFF;
+  --text-2: #A1A1A6;
+  --text-3: #6E6E73;
+  --tint: #4DA3FF;
+  --tint-flaeche: #0A6FE0;
+  --tint-zart: rgba(10, 132, 255, 0.22);
+  --erreicht: #4CD964;
+  --erreicht-flaeche: #30D158;
+  --erreicht-zart: rgba(48, 209, 88, 0.2);
+  --pause: #FFB340;
+  --pause-flaeche: #FF9F0A;
+  --pause-zart: rgba(255, 159, 10, 0.22);
+  --gefahr: #FF6961;
+  --gefahr-zart: rgba(255, 69, 58, 0.2);
+  --markt-lidl: #0A84FF;
+  --markt-hofer: #FF9F0A;
+  --markt-spar: #30D158;
+  --markt-egal: #8E8E93;
+  --schatten-material: 0 6px 24px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="hell"] { color-scheme: light; }

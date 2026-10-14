@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T18:19:17.935Z",
+  "title": "Design System: Fit & Einkauf",
+  "extensions": {
+    "colorMeta": {
+      "grund": {
+        "role": "neutral",
+        "displayName": "Gruppierter Grund",
+        "canonical": "#F2F2F7",
+        "dark": "#000000",
+        "tonalRamp": [
+          "#49494A",
+          "#79797C",
+          "#A9A9AD",
+          "#D5D5D9",
+          "#F2F2F7",
+          "#F7F7FA",
+          "#FAFAFC",
+          "#FDFDFE"
+        ]
+      },
+      "zelle": {
+        "role": "neutral",
+        "displayName": "Zelle",
+        "canonical": "#FFFFFF",
+        "dark": "#1C1C1E",
+        "tonalRamp": [
+          "#4D4D4D",
+          "#808080",
+          "#B3B3B3",
+          "#E0E0E0",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF"
+        ]
+      },
+      "zelle-2": {
+        "role": "neutral",
+        "displayName": "Zelle 2",
+        "canonical": "#F2F2F7",
+        "dark": "#2C2C2E",
+        "tonalRamp": [
+          "#49494A",
+          "#79797C",
+          "#A9A9AD",
+          "#D5D5D9",
+          "#F2F2F7",
+          "#F7F7FA",
+          "#FAFAFC",
+          "#FDFDFE"
+        ]
+      },
+      "zelle-gedrueckt": {
+        "role": "neutral",
+        "displayName": "Zelle gedrückt",
+        "canonical": "#E5E5EA",
+        "dark": "#3A3A3C",
+        "tonalRamp": [
+          "#454546",
+          "#737375",
+          "#A0A0A4",
+          "#CACACE",
+          "#E5E5EA",
+          "#EEEEF1",
+          "#F6F6F8",
+          "#FCFCFC"
+        ]
+      },
+      "material": {
+        "role": "neutral",
+        "displayName": "Material (mit Unschärfe)",
+        "canonical": "rgba(249, 249, 249, 0.82)",
+        "dark": "rgba(30, 30, 30, 0.8)"
+      },
+      "haarlinie": {
+        "role": "neutral",
+        "displayName": "Haarlinie",
+        "canonical": "rgba(60, 60, 67, 0.29)",
+        "dark": "rgba(84, 84, 88, 0.6)"
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Text",
+        "canonical": "#000000",
+        "dark": "#FFFFFF",
+        "tonalRamp": [
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#595959",
+          "#A6A6A6",
+          "#E0E0E0"
+        ]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Text 2 (sekundär)",
+        "canonical": "#6C6C70",
+        "dark": "#A1A1A6",
+        "tonalRamp": [
+          "#202022",
+          "#363638",
+          "#4C4C4E",
+          "#5F5F63",
+          "#6C6C70",
+          "#9F9FA2",
+          "#CCCCCD",
+          "#EDEDEE"
+        ]
+      },
+      "text-3": {
+        "role": "neutral",
+        "displayName": "Text 3 (nur Platzhalter und Symbole)",
+        "canonical": "#8E8E93",
+        "dark": "#6E6E73",
+        "tonalRamp": [
+          "#2B2B2C",
+          "#47474A",
+          "#636367",
+          "#7D7D81",
+          "#8E8E93",
+          "#B6B6B9",
+          "#D7D7D9",
+          "#F1F1F2"
+        ]
+      },
+      "text-auf-tint": {
+        "role": "neutral",
+        "displayName": "Text auf Tint",
+        "canonical": "#FFFFFF",
+        "dark": "#FFFFFF",
+        "tonalRamp": [
+          "#4D4D4D",
+          "#808080",
+          "#B3B3B3",
+          "#E0E0E0",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF"
+        ]
+      },
+      "tint": {
+        "role": "primary",
+        "displayName": "Systemblau, nachgedunkelt",
+        "canonical": "#0066CC",
+        "dark": "#4DA3FF",
+        "tonalRamp": [
+          "#001F3D",
+          "#003366",
+          "#00478F",
+          "#005AB4",
+          "#0066CC",
+          "#599CDE",
+          "#A6C9ED",
+          "#E0EDF9"
+        ]
+      },
+      "tint-flaeche": {
+        "role": "primary",
+        "displayName": "Tint-Fläche",
+        "canonical": "#0066CC",
+        "dark": "#0A6FE0",
+        "tonalRamp": [
+          "#001F3D",
+          "#003366",
+          "#00478F",
+          "#005AB4",
+          "#0066CC",
+          "#599CDE",
+          "#A6C9ED",
+          "#E0EDF9"
+        ]
+      },
+      "tint-zart": {
+        "role": "primary",
+        "displayName": "Tint zart",
+        "canonical": "rgba(0, 102, 204, 0.12)",
+        "dark": "rgba(10, 132, 255, 0.22)"
+      },
+      "erreicht": {
+        "role": "secondary",
+        "displayName": "Erreicht-Grün (Text)",
+        "canonical": "#1A7431",
+        "dark": "#4CD964",
+        "tonalRamp": [
+          "#08230F",
+          "#0D3A19",
+          "#125122",
+          "#17662B",
+          "#1A7431",
+          "#6AA579",
+          "#AFCEB7",
+          "#E4EEE6"
+        ]
+      },
+      "erreicht-flaeche": {
+        "role": "secondary",
+        "displayName": "Erreicht-Grün (Fläche)",
+        "canonical": "#34C759",
+        "dark": "#30D158",
+        "tonalRamp": [
+          "#103C1B",
+          "#1A642D",
+          "#248B3E",
+          "#2EAF4E",
+          "#34C759",
+          "#7BDB93",
+          "#B8EBC5",
+          "#E7F8EB"
+        ]
+      },
+      "erreicht-zart": {
+        "role": "secondary",
+        "displayName": "Erreicht zart",
+        "canonical": "rgba(52, 199, 89, 0.14)",
+        "dark": "rgba(48, 209, 88, 0.2)"
+      },
+      "pause": {
+        "role": "tertiary",
+        "displayName": "Pausen-Orange (Text)",
+        "canonical": "#9A4A00",
+        "dark": "#FFB340",
+        "tonalRamp": [
+          "#2E1600",
+          "#4D2500",
+          "#6C3400",
+          "#884100",
+          "#9A4A00",
+          "#BD8959",
+          "#DCC0A6",
+          "#F3E9E0"
+        ]
+      },
+      "pause-flaeche": {
+        "role": "tertiary",
+        "displayName": "Pausen-Orange (Fläche)",
+        "canonical": "#FF9500",
+        "dark": "#FF9F0A",
+        "tonalRamp": [
+          "#4D2D00",
+          "#804B00",
+          "#B36800",
+          "#E08300",
+          "#FF9500",
+          "#FFBA59",
+          "#FFDAA6",
+          "#FFF2E0"
+        ]
+      },
+      "pause-zart": {
+        "role": "tertiary",
+        "displayName": "Pause zart",
+        "canonical": "rgba(255, 149, 0, 0.16)",
+        "dark": "rgba(255, 159, 10, 0.22)"
+      },
+      "gefahr": {
+        "role": "tertiary",
+        "displayName": "Gefahr-Rot",
+        "canonical": "#D70015",
+        "dark": "#FF6961",
+        "tonalRamp": [
+          "#410006",
+          "#6C000B",
+          "#97000F",
+          "#BD0012",
+          "#D70015",
+          "#E55967",
+          "#F1A6AD",
+          "#FAE0E3"
+        ]
+      },
+      "gefahr-zart": {
+        "role": "tertiary",
+        "displayName": "Gefahr zart",
+        "canonical": "rgba(255, 59, 48, 0.12)",
+        "dark": "rgba(255, 69, 58, 0.2)"
+      },
+      "markt-lidl": {
+        "role": "accent",
+        "displayName": "Markt Lidl (Blau)",
+        "canonical": "#0066CC",
+        "dark": "#0A84FF",
+        "tonalRamp": [
+          "#001F3D",
+          "#003366",
+          "#00478F",
+          "#005AB4",
+          "#0066CC",
+          "#599CDE",
+          "#A6C9ED",
+          "#E0EDF9"
+        ]
+      },
+      "markt-hofer": {
+        "role": "accent",
+        "displayName": "Markt Hofer (Orange)",
+        "canonical": "#FF9500",
+        "dark": "#FF9F0A",
+        "tonalRamp": [
+          "#4D2D00",
+          "#804B00",
+          "#B36800",
+          "#E08300",
+          "#FF9500",
+          "#FFBA59",
+          "#FFDAA6",
+          "#FFF2E0"
+        ]
+      },
+      "markt-spar": {
+        "role": "accent",
+        "displayName": "Markt Spar (Grün)",
+        "canonical": "#34C759",
+        "dark": "#30D158",
+        "tonalRamp": [
+          "#103C1B",
+          "#1A642D",
+          "#248B3E",
+          "#2EAF4E",
+          "#34C759",
+          "#7BDB93",
+          "#B8EBC5",
+          "#E7F8EB"
+        ]
+      },
+      "markt-egal": {
+        "role": "accent",
+        "displayName": "Markt egal (Grau)",
+        "canonical": "#8E8E93",
+        "dark": "#8E8E93",
+        "tonalRamp": [
+          "#2B2B2C",
+          "#47474A",
+          "#636367",
+          "#7D7D81",
+          "#8E8E93",
+          "#B6B6B9",
+          "#D7D7D9",
+          "#F1F1F2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "grosstitel": {
+        "displayName": "Großtitel",
+        "purpose": "Seitentitel in der Titelleiste, z. B. die heutige Einheit."
+      },
+      "titel2": {
+        "displayName": "Titel 2",
+        "purpose": "Name der aktuellen Übung."
+      },
+      "titel3": {
+        "displayName": "Titel 3",
+        "purpose": "Große Gruppen-Köpfe, Markt-Name und -Anzahl."
+      },
+      "kopf": {
+        "displayName": "Kopf",
+        "purpose": "Knopf-Text, Hinweis-Titel, Nährwert-Name; großer Knopf 19 px."
+      },
+      "text": {
+        "displayName": "Text",
+        "purpose": "Zeilentitel, Fließtext."
+      },
+      "unter": {
+        "displayName": "Unter",
+        "purpose": "Untertitel, Zeilen-Untertext, Hinweis-Text."
+      },
+      "fuss": {
+        "displayName": "Fuß",
+        "purpose": "Gruppen-Fußnote, Satz-Beschriftung; als Gruppen-Kopf in Versalien mit 0,02em."
+      },
+      "klein": {
+        "displayName": "Klein",
+        "purpose": "Etiketten (600); Tab-Beschriftung 500, 11 px."
+      },
+      "zahl-gross": {
+        "displayName": "Zahl groß",
+        "purpose": "Zähler-Wert, 64 px gerundet."
+      },
+      "zahl-pause": {
+        "displayName": "Zahl Pause",
+        "purpose": "Pausen-Zeit, 52 px gerundet, aus 1–2 m lesbar."
+      },
+      "zahl-mittel": {
+        "displayName": "Zahl mittel",
+        "purpose": "Satz-Felder, 28 px gerundet."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pause-leiste",
+        "value": "0 -4px 16px rgba(0, 0, 0, 0.08), 0 -0.5px 0 var(--haarlinie)",
+        "purpose": "Hebt die angedockte Pausen-Leiste über den Inhalt."
+      },
+      {
+        "name": "schalter-daumen",
+        "value": "0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.16)",
+        "purpose": "Daumen des iOS-Schalters."
+      },
+      {
+        "name": "segment-gewaehlt",
+        "value": "0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04)",
+        "purpose": "Gewähltes Segment im Segment-Umschalter."
+      },
+      {
+        "name": "schatten-material",
+        "value": "0 6px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08)",
+        "purpose": "Token für Material-Flächen; Dunkel 0 6px 24px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4)."
+      },
+      {
+        "name": "material-unschaerfe",
+        "value": "backdrop-filter: saturate(180%) blur(20px)",
+        "purpose": "Nur Tab-Leiste und Pausen-Leiste."
+      },
+      {
+        "name": "fokusring",
+        "value": "outline: 3px solid var(--tint); outline-offset: 2px; border-radius: var(--r-feld)",
+        "purpose": "Sichtbarer Tastatur-Fokus auf allen Bedienelementen."
+      }
+    ],
+    "motion": [
+      {
+        "name": "kurz",
+        "value": "160ms",
+        "purpose": "Drücken, Zeilen-Hintergrund, Abhaken, Segment."
+      },
+      {
+        "name": "mittel",
+        "value": "240ms",
+        "purpose": "Schalter, Ein-/Ausblenden der Pausen-Leiste."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Einzige Kurve für alle Übergänge."
+      },
+      {
+        "name": "knopf-gedrueckt",
+        "value": "transform: scale(0.97); opacity: 0.85",
+        "purpose": "Antippen eines Knopfs; Zähler-Taste 0.94."
+      },
+      {
+        "name": "reduzierte-bewegung",
+        "value": "transition-duration: 1ms",
+        "purpose": "Bei prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "einspaltig",
+        "value": "Handybreite; keine Umbrüche, Safe-Areas über env(safe-area-inset-*)"
+      }
+    ],
+    "themes": {
+      "hell": "Standard-Werte (Frontmatter)",
+      "dunkel": "colorMeta.*.dark; aktiv per prefers-color-scheme oder :root[data-theme=\"dunkel\"]"
+    }
+  },
+  "components": [
+    {
+      "name": "Knopf gefüllt (groß, breit)",
+      "kind": "button",
+      "refersTo": "knopf-gefuellt-gross",
+      "description": "Hauptaktion einer Karte in der Daumenzone, z. B. „Satz 2 fertig“.",
+      "html": "<button class=\"ds-knopf ds-knopf-gefuellt\" type=\"button\">Satz 2 fertig</button>",
+      "css": ".ds-knopf { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 0; border-radius: var(--r-knopf); font: var(--t-kopf); transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease); } .ds-knopf-gefuellt { display: flex; width: 100%; min-height: 56px; font-size: 1.1875rem; background: var(--tint-flaeche); color: var(--text-auf-tint); } .ds-knopf:active { transform: scale(0.97); opacity: 0.85; } .ds-knopf:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; }"
+    },
+    {
+      "name": "Knopf getönt",
+      "kind": "button",
+      "refersTo": "knopf-getoent",
+      "description": "Sekundäre Aktion mit Gewicht, z. B. „+15 s“ in der Pausen-Leiste.",
+      "html": "<button class=\"ds-knopf-g\" type=\"button\">+15 s</button>",
+      "css": ".ds-knopf-g { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 0; border-radius: var(--r-knopf); font: var(--t-kopf); transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease); background: var(--tint-zart); color: var(--tint); } .ds-knopf-g:active { transform: scale(0.97); opacity: 0.85; } .ds-knopf-g:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; }"
+    },
+    {
+      "name": "Knopf schlicht",
+      "kind": "button",
+      "refersTo": "knopf-schlicht",
+      "description": "Nebenaktion als reiner Tint-Text, z. B. „Stufe zu schwer“.",
+      "html": "<button class=\"ds-knopf-s\" type=\"button\">Stufe zu schwer</button>",
+      "css": ".ds-knopf-s { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 0; border-radius: var(--r-knopf); font: var(--t-kopf); transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease); padding: 0 12px; background: transparent; color: var(--tint); } .ds-knopf-s:active { transform: scale(0.97); opacity: 0.85; } .ds-knopf-s:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; }"
+    },
+    {
+      "name": "Knopf Gefahr",
+      "kind": "button",
+      "refersTo": "knopf-gefahr",
+      "description": "Zerstörende Aktion.",
+      "html": "<button class=\"ds-knopf-r\" type=\"button\">Löschen</button>",
+      "css": ".ds-knopf-r { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 0; border-radius: var(--r-knopf); font: var(--t-kopf); transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease); background: var(--gefahr-zart); color: var(--gefahr); } .ds-knopf-r:active { transform: scale(0.97); opacity: 0.85; } .ds-knopf-r:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; }"
+    },
+    {
+      "name": "Inset-Gruppe mit Zeilen",
+      "kind": "card",
+      "refersTo": "gruppe-inhalt",
+      "description": "Gruppen-Kopf, deckende Zelle mit 12 px Ecken, eingerückte Haarlinien, Chevron-Zeilen.",
+      "html": "<section class=\"ds-gruppe\"><h2 class=\"ds-gruppe-kopf\">Als Nächstes</h2><ul class=\"ds-gruppe-inhalt\"><li><a class=\"ds-zeile\" href=\"#\"><span class=\"ds-zeile-haupt\"><span class=\"ds-zeile-titel\">Tischrudern</span><span class=\"ds-zeile-unter\">Stufe 1 von 3</span></span><span class=\"ds-zeile-wert\">3 × 12</span><span class=\"ds-chev\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 5l7 7-7 7\"/></svg></span></a></li><li><a class=\"ds-zeile\" href=\"#\"><span class=\"ds-zeile-haupt\"><span class=\"ds-zeile-titel\">Unterarmstütz</span><span class=\"ds-zeile-unter\">Stufe 1 von 3</span></span><span class=\"ds-zeile-wert\">3 × 45 s</span><span class=\"ds-chev\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 5l7 7-7 7\"/></svg></span></a></li></ul></section>",
+      "css": ".ds-gruppe { padding: 16px; background: var(--grund); } .ds-gruppe-kopf { margin: 0; padding: 0 16px 6px; font: var(--t-fuss); text-transform: uppercase; letter-spacing: 0.02em; color: var(--text-2); } .ds-gruppe-inhalt { margin: 0; padding: 0; list-style: none; background: var(--zelle); border-radius: var(--r-zelle); overflow: hidden; } .ds-zeile { position: relative; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 16px; color: var(--text); text-decoration: none; transition: background-color var(--kurz) var(--ease); } li + li .ds-zeile::before { content: ''; position: absolute; top: 0; left: 16px; right: 0; border-top: 0.5px solid var(--haarlinie); } .ds-zeile:active { background: var(--zelle-gedrueckt); } .ds-zeile:focus-visible { outline: 3px solid var(--tint); outline-offset: -3px; } .ds-zeile-haupt { flex: 1; display: grid; } .ds-zeile-titel { font: var(--t-text); } .ds-zeile-unter { font: var(--t-unter); color: var(--text-2); } .ds-zeile-wert { font: var(--t-text); color: var(--text-2); } .ds-chev { color: var(--text-3); display: grid; }"
+    },
+    {
+      "name": "Satz-Felder und Zähler",
+      "kind": "input",
+      "refersTo": "zaehler-taste",
+      "description": "Drei Satz-Felder (erreicht, aktiv, offen) über dem −/+-Zähler mit 64-px-Rundziffer.",
+      "html": "<div class=\"ds-uebung\"><ol class=\"ds-saetze\"><li class=\"ds-satz ds-satz-erreicht\"><span>Satz 1</span><b>12</b></li><li class=\"ds-satz ds-satz-aktiv\"><span>Satz 2</span><b>12</b></li><li class=\"ds-satz\"><span>Satz 3</span><b class=\"ds-leer\">–</b></li></ol><div class=\"ds-zaehler\"><button class=\"ds-taste\" type=\"button\" aria-label=\"Weniger\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/></svg></button><div class=\"ds-mitte\"><output class=\"ds-wert\">12</output><span class=\"ds-einheit\">Wiederholungen</span></div><button class=\"ds-taste\" type=\"button\" aria-label=\"Mehr\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></button></div></div>",
+      "css": ".ds-uebung { padding: 16px; background: var(--zelle); border-radius: var(--r-zelle); font-variant-numeric: tabular-nums; } .ds-saetze { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; } .ds-satz { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 72px; border-radius: var(--r-feld); background: var(--zelle-2); color: var(--text-2); font: var(--t-fuss); } .ds-satz b { font: var(--t-zahl-mittel); color: var(--text); } .ds-satz .ds-leer { color: var(--text-3); } .ds-satz-aktiv { background: var(--zelle); box-shadow: inset 0 0 0 2px var(--tint); color: var(--tint); } .ds-satz-erreicht { background: var(--erreicht-zart); color: var(--erreicht); } .ds-satz-erreicht b { color: var(--erreicht); } .ds-zaehler { display: grid; grid-template-columns: 76px 1fr 76px; align-items: center; gap: 8px; margin-top: 16px; } .ds-taste { display: grid; place-items: center; height: 64px; border: 0; border-radius: var(--r-knopf); background: var(--zelle-2); color: var(--tint); transition: transform var(--kurz) var(--ease), background-color var(--kurz) var(--ease); } .ds-taste:active { transform: scale(0.94); background: var(--zelle-gedrueckt); } .ds-taste:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; } .ds-mitte { text-align: center; } .ds-wert { display: block; font: var(--t-zahl-gross); letter-spacing: -0.01em; color: var(--text); } .ds-einheit { display: block; margin-top: 4px; font: var(--t-fuss); color: var(--text-2); }"
+    },
+    {
+      "name": "Pausen-Leiste",
+      "kind": "custom",
+      "refersTo": "pause-leiste",
+      "description": "Signatur: Live-Activity-Leiste, an die Tab-Leiste angedockt, Balken läuft in Echtzeit leer.",
+      "html": "<aside class=\"ds-pause\" aria-label=\"Pause\"><div><div class=\"ds-pause-label\">Pause · dann Satz 2</div><div class=\"ds-pause-zeit\" role=\"timer\">1:30</div></div><button class=\"ds-pk ds-pk-g\" type=\"button\">+15 s</button><button class=\"ds-pk ds-pk-s\" type=\"button\">Weiter</button><div class=\"ds-pause-balken\"><div class=\"ds-pause-rest\"></div></div></aside>",
+      "css": ".ds-pause { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 12px 12px 12px 20px; border-radius: var(--r-material) var(--r-material) 0 0; background: var(--material); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 -4px 16px rgba(0,0,0,0.08), 0 -0.5px 0 var(--haarlinie); color: var(--text); font-variant-numeric: tabular-nums; } .ds-pause-label { font: 600 0.9375rem/1.2 var(--schrift); color: var(--pause); } .ds-pause-zeit { margin-top: 2px; font: var(--t-zahl-pause); letter-spacing: -0.01em; } .ds-pk { min-height: 48px; padding: 0 12px; border: 0; border-radius: var(--r-knopf); font: 600 0.9375rem/1 var(--schrift); transition: transform var(--kurz) var(--ease), opacity var(--kurz) var(--ease); } .ds-pk:active { transform: scale(0.97); opacity: 0.85; } .ds-pk:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; } .ds-pk-g { background: var(--tint-zart); color: var(--tint); } .ds-pk-s { background: transparent; color: var(--tint); } .ds-pause-balken { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--pause-zart); overflow: hidden; } .ds-pause-rest { height: 100%; border-radius: 3px; background: var(--pause-flaeche); transform-origin: left center; transform: scaleX(0.62); }"
+    },
+    {
+      "name": "Tab-Leiste",
+      "kind": "nav",
+      "refersTo": "tableiste",
+      "description": "Vier Bereiche, Material mit Unschärfe, aktiver Tab im Tint.",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Bereiche\"><a class=\"ds-tab\" href=\"#\" aria-current=\"page\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11\"/></svg>Training</a><a class=\"ds-tab\" href=\"#\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 3v18M4.5 3v5a2.5 2.5 0 0 0 5 0V3M17.5 21V3c-2.2 1.4-3.5 4-3.5 7.5V13h3.5\"/></svg>Essen</a><a class=\"ds-tab\" href=\"#\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.5 4h2.3l2.3 11.3a1 1 0 0 0 1 .7h9.6a1 1 0 0 0 1-.8L20.5 8H5.6\"/><circle cx=\"9\" cy=\"20\" r=\"1.3\"/><circle cx=\"17\" cy=\"20\" r=\"1.3\"/></svg>Einkauf</a><a class=\"ds-tab\" href=\"#\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12h.01M12 12h.01M16 12h.01\" stroke-width=\"2.6\"/></svg>Mehr</a></nav>",
+      "css": ".ds-tabs { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--material); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-top: 0.5px solid var(--haarlinie); } .ds-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 49px; padding-top: 4px; color: var(--text-2); text-decoration: none; font: 500 0.6875rem/1.1 var(--schrift); } .ds-tab[aria-current='page'] { color: var(--tint); } .ds-tab:focus-visible { outline: 3px solid var(--tint); outline-offset: -4px; }"
+    },
+    {
+      "name": "Abhak-Zeile",
+      "kind": "custom",
+      "refersTo": "zeile",
+      "description": "Einkaufs-Eintrag mit rundem Abhak-Kreis, abgehakt im Tint gefüllt und durchgestrichen.",
+      "html": "<label class=\"ds-abhaken\"><input type=\"checkbox\" checked><span class=\"ds-kreis\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7.5\"/></svg></span><span class=\"ds-abhaken-name\">Topfen 40 %</span><span class=\"ds-abhaken-menge\">2 × 250 g</span></label>",
+      "css": ".ds-abhaken { position: relative; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 12px 16px; background: var(--zelle); border-radius: var(--r-zelle); cursor: pointer; } .ds-abhaken input { position: absolute; opacity: 0; } .ds-kreis { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--text-3); color: transparent; transition: background-color var(--kurz) var(--ease), box-shadow var(--kurz) var(--ease); } .ds-abhaken input:checked + .ds-kreis { background: var(--tint-flaeche); box-shadow: none; color: #fff; } .ds-abhaken input:focus-visible + .ds-kreis { outline: 3px solid var(--tint); outline-offset: 2px; } .ds-abhaken-name { flex: 1; font: var(--t-text); color: var(--text); } .ds-abhaken:has(input:checked) .ds-abhaken-name { color: var(--text-2); text-decoration: line-through; text-decoration-color: var(--text-3); } .ds-abhaken-menge { font: var(--t-text); font-weight: 500; color: var(--text-2); }"
+    },
+    {
+      "name": "Nährwert-Balken",
+      "kind": "custom",
+      "refersTo": "gruppe-inhalt",
+      "description": "Fester Maßstab: Ziel-Strich immer bei 80 %, Balken füllt Anteil × 80 %.",
+      "html": "<div class=\"ds-nw\" style=\"--anteil: 0.963\"><div class=\"ds-nw-kopf\"><span class=\"ds-nw-name\">Kalorien</span><span class=\"ds-nw-zahl\"><b>2.840</b> von 2.950 kcal</span></div><div class=\"ds-nw-bahn\"><div class=\"ds-nw-balken\"></div><div class=\"ds-nw-ziel\"></div></div></div>",
+      "css": ".ds-nw { padding: 12px 16px; background: var(--zelle); border-radius: var(--r-zelle); color: var(--text); font-variant-numeric: tabular-nums; } .ds-nw-kopf { display: flex; justify-content: space-between; align-items: baseline; } .ds-nw-name { font: var(--t-kopf); } .ds-nw-zahl { font: var(--t-unter); color: var(--text-2); } .ds-nw-zahl b { font-weight: 600; color: var(--text); } .ds-nw-bahn { position: relative; height: 8px; margin-top: 8px; border-radius: 4px; background: var(--zelle-2); } .ds-nw-balken { height: 100%; width: min(calc(var(--anteil) * 80%), 100%); border-radius: 4px; background: var(--tint-flaeche); } .ds-nw-ziel { position: absolute; top: -3px; bottom: -3px; left: 80%; width: 2px; border-radius: 1px; background: var(--text); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Aus demselben Haus wie Apple Fitness",
+    "overview": "Fit & Einkauf spielt den iOS-Standard, ohne Ironie und ohne eingeschmuggelte Eigenheiten. Messlatte ist die Verarbeitungsqualität von Apple Fitness/Health, Things 3 und Erinnerungen: gruppierte Inset-Listen auf grauem Grund, weiße Zellen, Haarlinien, ein einziger App-Tint, Systemschrift. Die App soll sich anfühlen, als wäre sie mit dem iPhone gekommen. Wer eine Stelle für Persönlichkeit sucht, findet sie in der Sorgfalt, nicht im Ornament.\n\nDie Dichte ist die einer iOS-Einstellungs- oder Erinnerungen-Liste, mit einer Ausnahme: Was gezählt wird (Wiederholungen, Pausen-Sekunden, Satz-Werte), wird groß, gerundet und aus 1–2 m lesbar gesetzt. Jede Tipp-Fläche misst mindestens 48 px, die wichtigen Aktionen liegen unten in der Daumenzone. Rückfragen und Erfolge erscheinen als Hinweis-Karten im Fluss, nie als Dialog über dem Inhalt.\n\nAbgelehnt sind der Fitness-App-Look (Schwarz mit Neon, Ringe, Gamification), Verspieltes und Buntes sowie Web-Apps mit eigenwilligen Steuerelementen. Hell und Dunkel folgen dem System; beide Varianten sind vollwertig.",
+    "keyCharacteristics": [
+      "Gruppierte Inset-Listen (16 px seitlicher Rand, 12 px Ecken) auf gruppiertem Grund.",
+      "Ein App-Tint für Aktionen und Auswahl; Grün, Orange und Rot tragen je genau eine Bedeutung.",
+      "SF Pro für alles Lesbare, SF Pro Rounded nur für große Messzahlen.",
+      "Material-Unschärfe ausschließlich in Tab-Leiste und Pausen-Leiste.",
+      "Signatur: die an die Tab-Leiste angedockte Pausen-Leiste, deren Balken in Echtzeit leerläuft.",
+      "Eigene SVG-Symbole (Strich 1,8, runde Enden) aus einem Sprite, keine Zeichen-Icons."
+    ],
+    "rules": [
+      {
+        "name": "The Eine-Bedeutung Rule",
+        "section": "colors",
+        "body": "Tint heißt Aktion oder Auswahl. Grün heißt erreicht oder erledigt. Orange heißt nur „Pause läuft“. Rot heißt zerstörend. Ein Satz unter dem Ziel ist neutral grau, nicht orange."
+      },
+      {
+        "name": "The Markt-Punkt Rule",
+        "section": "colors",
+        "body": "Markt-Farben färben nur den Punkt im Markt-Kopf. Abhak-Kreise sind in jedem Markt im Tint gefüllt."
+      },
+      {
+        "name": "The Kontrast-vor-Systemwert Rule",
+        "section": "colors",
+        "body": "Wo ein iOS-Systemwert als Text unter 4,5:1 fällt, wird er nachgedunkelt (Hell) oder aufgehellt (Dunkel); die Systemfarbe bleibt nur für Flächen."
+      },
+      {
+        "name": "The Rund-nur-für-Messzahlen Rule",
+        "section": "typography",
+        "body": "`ui-rounded` erscheint nur in den drei Zahlen-Stufen (64, 52, 28). Titel, Knöpfe und Fließtext bleiben in SF Pro."
+      },
+      {
+        "name": "The Kein-Vortitel Rule",
+        "section": "typography",
+        "body": "Über Titeln steht keine Kleinzeile in Versalien. Der einzige Versalien-Text ist der iOS-Gruppen-Kopf, der eine Inset-Gruppe benennt und selbst die Überschrift ist."
+      },
+      {
+        "name": "The 48-px Rule",
+        "section": "layout",
+        "body": "Jede Tipp-Fläche ist mindestens 48 px hoch (tipp). Wo ein Element sichtbar kleiner ist (kleine Knöpfe 36 px, Segment 40 px), wird die Tipp-Fläche unsichtbar auf 48 px erweitert. Die Zähler-Tasten messen 76 × 64 px, der Hauptknopf 56 px."
+      },
+      {
+        "name": "The Unschärfe-nur-unten Rule",
+        "section": "elevation",
+        "body": "`backdrop-filter: saturate(180%) blur(20px)` auf Material gibt es nur in Tab-Leiste und Pausen-Leiste. Karten, Hinweise und Gruppen sind deckend."
+      }
+    ],
+    "dos": [
+      "Do jede Tipp-Fläche mindestens 48 px hoch machen; sichtbar kleinere Elemente erweitern ihre Tipp-Fläche unsichtbar.",
+      "Do Tint für Aktionen und Auswahl verwenden, Grün für erreicht/erledigt, Orange nur für „Pause läuft“, Rot nur für Zerstörendes.",
+      "Do Abhak-Kreise immer im Tint füllen, unabhängig vom Markt.",
+      "Do `ui-rounded` nur für Messzahlen in 64, 52 und 28 px setzen, mit tabellarischen Ziffern.",
+      "Do die Pausen-Leiste an die Tab-Leiste andocken und ihren Balken in Echtzeit leerlaufen lassen.",
+      "Do Nährwert-Balken auf festem Maßstab zeichnen, Ziel immer bei 80 %.",
+      "Do Rückfragen und Erfolge als Hinweis-Karte im Fluss zeigen.",
+      "Do Hell- und Dunkelwerte gemeinsam pflegen und Text-Farben auf ≥ 4,5:1 prüfen.",
+      "Do Symbole aus dem eigenen SVG-Sprite nehmen (Strich, runde Enden)."
+    ],
+    "donts": [
+      "Don't Orange für Warnungen, Unterschreitungen oder Zustände außerhalb der laufenden Pause verwenden.",
+      "Don't Markt-Farben außerhalb des Markt-Punkts einsetzen.",
+      "Don't Unschärfe oder Material auf Karten, Hinweisen oder Gruppen legen.",
+      "Don't Modale Dialoge für Bestätigungen oder Erfolge öffnen.",
+      "Don't Vortitel-Kleinzeilen in Versalien über Überschriften setzen.",
+      "Don't gehostete Webfonts, Neon auf Schwarz, Ringe oder Gamification einführen.",
+      "Don't Text 3 für Lesetext verwenden.",
+      "Don't eigenwillige Steuerelemente bauen, wo iOS ein Standard-Element hat (Schalter, Segment, Inset-Liste)."
+    ]
+  }
+}
