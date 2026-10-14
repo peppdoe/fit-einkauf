@@ -18,35 +18,60 @@ const training = (extra = {}) => ({
 });
 
 describe('wochenKalender', () => {
-  it('erledigt aus dem Log, heute und danach als Vorschau der Rotation', () => {
+  const kurz = (tage) => tage.map((t) => t.einheiten.map((e) => e.kurz).join() || t.status);
+
+  it('erledigt aus dem Log, danach ein Ruhetag, dann jeden zweiten Tag die nächste Einheit', () => {
+    // Montag und Dienstag trainiert: Mittwoch (heute) ist Ruhetag, Donnerstag kommt Oberkörper B.
     const tage = wochenKalender(training(), plan, '2026-10-14');
     expect(tage.map((t) => t.datum)).toEqual([
       '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-17', '2026-10-18',
     ]);
-    expect(tage.map((t) => t.status)).toEqual(['erledigt', 'erledigt', 'heute', 'geplant', 'geplant', 'geplant', 'geplant']);
-    expect(tage.map((t) => t.einheiten.map((e) => e.kurz).join())).toEqual(['OK A', 'Beine', 'OK B', 'B & C', 'OK A', 'Beine', 'OK B']);
+    expect(tage.map((t) => t.status)).toEqual(['erledigt', 'erledigt', 'ruhe', 'geplant', 'ruhe', 'geplant', 'ruhe']);
+    expect(kurz(tage)).toEqual(['OK A', 'Beine', 'ruhe', 'OK B', 'ruhe', 'B & C', 'ruhe']);
   });
 
-  it('heute schon trainiert: Vorschau beginnt morgen', () => {
+  it('heute schon trainiert: morgen Ruhetag, übermorgen die nächste Einheit', () => {
     const t = training({ naechsteEinheit: 3, log: [...training().log, eintrag('2026-10-14', 3)] });
     const tage = wochenKalender(t, plan, '2026-10-14');
     expect(tage[2]).toEqual({ datum: '2026-10-14', status: 'erledigt', einheiten: [{ id: 'ok-b', name: 'Oberkörper B', kurz: 'OK B' }] });
-    expect(tage[3].einheiten[0].kurz).toBe('B & C');
+    expect(tage[3]).toEqual({ datum: '2026-10-15', status: 'ruhe', einheiten: [] });
+    expect(tage[4].einheiten[0].kurz).toBe('B & C');
   });
 
-  it('ausgelassener Tag in der Vergangenheit ist frei, laufende Einheit heute', () => {
-    const t = training({ log: [eintrag('2026-10-12', 1)], naechsteEinheit: 1, laufend: { datum: '2026-10-14' } });
+  it('letztes Training länger her: heute ist geplant', () => {
+    const tage = wochenKalender(training({ log: [eintrag('2026-10-05', 1)], naechsteEinheit: 1 }), plan, '2026-10-14');
+    expect(tage.slice(0, 2).map((t) => t.status)).toEqual(['frei', 'frei']);
+    expect(tage[2]).toMatchObject({ status: 'heute', einheiten: [{ kurz: 'Beine' }] });
+    expect(kurz(tage).slice(3)).toEqual(['ruhe', 'OK B', 'ruhe', 'B & C']);
+  });
+
+  it('laufende Einheit heute, auch direkt nach einem Trainingstag; danach Ruhetag', () => {
+    const t = training({ log: [eintrag('2026-10-12', 1), eintrag('2026-10-13', 2)], naechsteEinheit: 2, laufend: { datum: '2026-10-14' } });
     const tage = wochenKalender(t, plan, '2026-10-14');
+    expect(tage[2]).toMatchObject({ status: 'laeuft', einheiten: [{ kurz: 'OK B' }] });
+    expect(tage[3].status).toBe('ruhe');
+    expect(tage[4].einheiten[0].kurz).toBe('B & C');
+  });
+
+  it('ausgelassener Tag in der Vergangenheit ist frei', () => {
+    const tage = wochenKalender(training({ log: [eintrag('2026-10-12', 1)], naechsteEinheit: 1 }), plan, '2026-10-14');
     expect(tage[1]).toEqual({ datum: '2026-10-13', status: 'frei', einheiten: [] });
-    expect(tage[2].status).toBe('laeuft');
-    expect(tage[2].einheiten[0].kurz).toBe('Beine');
+    expect(tage[2].status).toBe('heute');
+  });
+
+  it('rund 4 Einheiten pro Woche', () => {
+    const t = training({ log: [], naechsteEinheit: 0 });
+    const geplant = (v) => wochenKalender(t, plan, '2026-10-12', v).filter((x) => x.einheiten.length).length;
+    expect([geplant(0), geplant(1)]).toEqual([4, 3]);
   });
 
   it('nächste Woche setzt die Rotation fort; ohne kurz gilt der Name', () => {
     const ohneKurz = { einheiten: plan.einheiten.map(({ id, name }) => ({ id, name })) };
     const tage = wochenKalender(training(), ohneKurz, '2026-10-14', 1);
     expect(tage[0].datum).toBe('2026-10-19');
-    expect(tage[0].einheiten[0]).toEqual({ id: 'beine-core', name: 'Beine & Core', kurz: 'Beine & Core' });
+    // Geplant: Do 15 OK B, Sa 17 B & C, Mo 19 OK A
+    expect(tage[0]).toEqual({ datum: '2026-10-19', status: 'geplant', einheiten: [{ id: 'ok-a', name: 'Oberkörper A', kurz: 'Oberkörper A' }] });
+    expect(tage[1].status).toBe('ruhe');
   });
 
   it('unbekannte Einheit im Log stürzt nicht ab', () => {

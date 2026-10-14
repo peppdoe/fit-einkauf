@@ -7,12 +7,14 @@ import { wochenKalender, trainingsSumme } from '../logik/uebersicht.js';
 import { typischerTag } from '../logik/naehrwerte.js';
 import { bedarf, einkaufsliste } from '../logik/einkaufsliste.js';
 import { wochenschnitte, trendProMonat } from '../logik/gewicht.js';
+import { exportFaellig } from '../speicher.js';
+import { exportieren, erinnerungHtml } from './sicherung.js';
 import * as pause from './pause.js';
 
 const WT = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 const WT_LANG = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 const MONATE = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-const STATUS = { erledigt: 'erledigt', frei: 'kein Training', heute: 'heute', laeuft: 'läuft', geplant: 'geplant' };
+const STATUS = { erledigt: 'erledigt', frei: 'kein Training', heute: 'heute', laeuft: 'läuft', geplant: 'geplant', ruhe: 'Ruhetag' };
 
 // Nur für diese Ansicht, wird nicht gespeichert: angezeigte Woche, gewählter Tag, Zeitraum der Zusammenfassung.
 const ansicht = { versatz: 0, tag: null, zeitraum: 'woche' };
@@ -40,14 +42,15 @@ export function zeige(wurzel, ctx) {
       <h1 class="titelleiste__titel">Heute</h1>
       <p class="titelleiste__unter">${esc(langDatum(datum))}</p>
     </header>
-    ${heuteKarte(ctx, datum)}
+    ${exportFaellig(ctx.zustand, datum) ? erinnerungHtml(ctx.zustand) : ''}
+    ${heuteKarte(ctx, datum, tage)}
     ${wocheHtml(tage, datum)}
     ${zusammenfassungHtml(ctx, tage)}
     ${essenHtml(ctx)}
     ${einkaufGewichtHtml(ctx)}`;
 }
 
-function heuteKarte(ctx, datum) {
+function heuteKarte(ctx, datum, tage) {
   const { zustand, daten } = ctx;
   const t = zustand.training;
   const n = daten.plan.einheiten.length;
@@ -62,7 +65,7 @@ function heuteKarte(ctx, datum) {
         <p class="heute-karte__unter">Einheit ${heuteErledigt.einheit} von ${n}</p></div>
       </div>
       <p class="heute-karte__fertig">${sym('haken')}Erledigt – stark.</p>
-      <p>${s.amZiel} von ${s.saetze} Sätzen am Ziel. Morgen: ${esc(naechsteEinheit(t, daten.plan).name)}.</p>
+      <p>${s.amZiel} von ${s.saetze} Sätzen am Ziel. Morgen ist Ruhetag, übermorgen ${esc(naechsteEinheit(t, daten.plan).name)}.</p>
     </div></section>`;
   }
   const einheit = naechsteEinheit(t, daten.plan);
@@ -87,6 +90,7 @@ function heuteKarte(ctx, datum) {
       <p class="heute-karte__unter">Einheit ${nummer} von ${n} · ${unter}</p></div>
     </div>
     <ul class="heute-karte__bloecke">${bloecke}</ul>
+    ${!l && tage.find((x) => x.datum === datum)?.status === 'ruhe' ? '<p class="heute-karte__unter">Heute ist Ruhetag laut Plan. Wenn du Lust hast, geht es trotzdem.</p>' : ''}
     ${knopf(l, t.vorschlaege.length > 0)}
   </div></section>`;
 }
@@ -104,9 +108,9 @@ function wocheHtml(tage, datum) {
   const name = { 0: 'Diese Woche', 1: 'Nächste Woche', '-1': 'Letzte Woche' }[versatz] ?? `${tagNr(tage[0].datum)}.–${tagNr(tage[6].datum)}.`;
   const knoepfe = tage.map((t, i) => {
     const klasse = ['tag', t.datum === datum && t.status !== 'erledigt' ? 'tag--heute' : '',
-      t.status === 'erledigt' ? 'tag--erledigt' : '', t.status === 'frei' ? 'tag--frei' : ''].filter(Boolean).join(' ');
+      t.status === 'erledigt' ? 'tag--erledigt' : '', t.status === 'frei' || t.status === 'ruhe' ? 'tag--frei' : ''].filter(Boolean).join(' ');
     const kurz = t.einheiten.map((e) => e.kurz).join(' + ');
-    const marke = t.status === 'erledigt' ? `${sym('haken')}${esc(kurz)}` : t.einheiten.length ? esc(kurz) : '–';
+    const marke = t.status === 'erledigt' ? `${sym('haken')}${esc(kurz)}` : t.einheiten.length ? esc(kurz) : t.status === 'ruhe' ? 'Ruhe' : '–';
     const vorlesen = `${WT_LANG[i]} ${tagNr(t.datum)}.: ${t.einheiten.map((e) => e.name).join(' und ') || 'kein Training'}, ${STATUS[t.status]}`;
     return `<button class="${klasse}" type="button" data-aktion="tag" data-tag="${t.datum}" aria-pressed="${t.datum === ansicht.tag}" aria-label="${esc(vorlesen)}">
       <span class="tag__wt">${WT[i]}</span><span class="tag__zahl">${tagNr(t.datum)}</span><span class="tag__marke">${marke}</span>
@@ -121,7 +125,7 @@ function wocheHtml(tage, datum) {
       </div>
     </div>
     <div class="gruppe__inhalt woche" role="group" aria-label="Tage der Woche">${knoepfe}</div>
-    <p class="gruppe__fuss">Ab heute geplant nach der Rotation. Lässt du einen Tag aus, rückt alles einen Tag weiter.</p>
+    <p class="gruppe__fuss">Ab heute geplant nach der Rotation, nach jeder Einheit ein Ruhetag – so kommst du auf etwa 4 Einheiten pro Woche. Lässt du einen Tag aus, rückt der Plan mit.</p>
   </section>`;
 }
 
@@ -151,7 +155,7 @@ function zusammenfassungHtml(ctx, tage) {
   let inhalt;
   if (woche) {
     const s = trainingsSumme(zustand.training.log, daten.kettenById, tage[0].datum, tage[6].datum);
-    const offen = tage.filter((x) => x.status !== 'erledigt' && x.status !== 'frei').length;
+    const offen = tage.filter((x) => x.einheiten.length && x.status !== 'erledigt').length;
     inhalt = s.einheiten || !offen
       ? kachelnHtml(s, offen ? `${offen} noch geplant` : 'Woche abgeschlossen')
       : leer('Noch nichts trainiert', `${offen} Einheiten geplant. Die Woche liegt vor dir.`);
@@ -159,6 +163,8 @@ function zusammenfassungHtml(ctx, tage) {
     inhalt = kachelnHtml(trainingsSumme(zustand.training.log, daten.kettenById, t.datum, t.datum), t.einheiten.map((e) => e.name).join(', '));
   } else if (t.status === 'frei') {
     inhalt = leer('Kein Training', 'An diesem Tag wurde nichts eingetragen.');
+  } else if (t.status === 'ruhe') {
+    inhalt = leer('Ruhetag', 'Erholung gehört zum Plan. Trainieren kannst du trotzdem jederzeit – der Plan rückt dann mit.');
   } else {
     inhalt = geplantHtml(ctx, t);
   }
@@ -255,6 +261,7 @@ function geplantHtml(ctx, t) {
 }
 
 const AKTIONEN = {
+  export(el, ctx) { exportieren(ctx); },
   starten(el, ctx) {
     pause.tonVorbereiten();
     ctx.aendern((z) => {

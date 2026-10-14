@@ -5,12 +5,15 @@ import { zielFuer, zielwert } from './progression.js';
 const kurzVon = (einheit) => ({ id: einheit.id, name: einheit.name, kurz: einheit.kurz ?? einheit.name });
 
 // Sieben Tage ab Montag der Woche von heuteDatum (versatz: 0 = diese Woche, 1 = nächste).
-// Geplant wird ab heute (oder ab morgen, wenn heute schon trainiert wurde) jeden Tag die nächste Einheit.
+// Vorschau für etwa 4 Einheiten pro Woche: nach jedem Trainingstag ein Ruhetag, dann die nächste Einheit.
+// Der erste Plantag ist heute, frühestens aber zwei Tage nach dem letzten Training; eine laufende Einheit
+// gehört immer zu heute. Vergangene Tage ohne Training sind "frei", künftige Pausentage "ruhe".
 export function wochenKalender(training, plan, heuteDatum, versatz = 0) {
   const n = plan.einheiten.length;
   const start = plusTage(montag(heuteDatum), versatz * 7);
-  const heuteErledigt = training.log.some((e) => e.datum === heuteDatum);
-  const ersterPlanTag = heuteErledigt ? plusTage(heuteDatum, 1) : heuteDatum;
+  const letztes = training.log.reduce((max, e) => (e.datum > max ? e.datum : max), '');
+  let ersterPlanTag = heuteDatum;
+  if (!training.laufend && letztes && plusTage(letztes, 2) > heuteDatum) ersterPlanTag = plusTage(letztes, 2);
   return Array.from({ length: 7 }, (_, i) => {
     const datum = plusTage(start, i);
     const eintraege = training.log.filter((e) => e.datum === datum);
@@ -21,8 +24,10 @@ export function wochenKalender(training, plan, heuteDatum, versatz = 0) {
       });
       return { datum, status: 'erledigt', einheiten };
     }
-    if (datum < ersterPlanTag) return { datum, status: 'frei', einheiten: [] };
-    const einheit = plan.einheiten[(training.naechsteEinheit + tageZwischen(ersterPlanTag, datum)) % n];
+    if (datum < heuteDatum) return { datum, status: 'frei', einheiten: [] };
+    const abstand = tageZwischen(ersterPlanTag, datum);
+    if (abstand < 0 || abstand % 2 === 1) return { datum, status: 'ruhe', einheiten: [] };
+    const einheit = plan.einheiten[(training.naechsteEinheit + abstand / 2) % n];
     let status = 'geplant';
     if (datum === heuteDatum) status = training.laufend ? 'laeuft' : 'heute';
     return { datum, status, einheiten: [kurzVon(einheit)] };
