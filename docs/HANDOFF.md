@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-14 (Sitzung 2)
+Letzte Aktualisierung: 2026-10-14 (Sitzung 3)
 
 ## Aktueller Stand
 
@@ -9,11 +9,12 @@ Letzte Aktualisierung: 2026-10-14 (Sitzung 2)
 | 1. Brainstorming + Design-Dokument | ✅ fertig, freigegeben |
 | 2. Rezept-Startset | ✅ fertig, freigegeben |
 | 3. UI-Grundlage mit impeccable | ✅ fertig (Review: ship) |
-| 4. Umsetzungsplan (writing-plans) | ⏭️ als Nächstes |
-| 5. Umsetzung (TDD + Prüfung im mobilen Viewport) | offen |
+| 4. Umsetzungsplan (writing-plans) + Revision nach Review | ✅ fertig |
+| 5a. Scheibe 1: Training am iPhone | ✅ gebaut, ⏸️ wartet auf OK für Deployment |
+| 5b. Scheibe 2 Essen & Einkauf · 3 Gewicht & Mehr · 4 Übungsfiguren · Abschluss | offen |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Noch keine App-Logik; UI-Grundlage (CSS, Symbole, Musterseiten) steht. Git-Repo lokal angelegt (Branch `main`, Identität repo-lokal: peppdoe / haringmarc7@icloud.com). Noch kein GitHub-Remote.
+Scheibe 1 steht: Training mit 4er-Rotation, Supersätzen, Progression, gespeicherter Pause, Verlauf; Mehr mit Pause, Stange, Export/Import; offline-fähig (Service Worker), installierbar. 69 Tests grün. Git-Repo lokal angelegt (Branch `main`, Identität repo-lokal: peppdoe / haringmarc7@icloud.com). Noch kein GitHub-Remote.
 
 ## Wichtige Dateien
 
@@ -36,16 +37,17 @@ Noch keine App-Logik; UI-Grundlage (CSS, Symbole, Musterseiten) steht. Git-Repo 
 - Hosting: GitHub Pages, Repo `fit-einkauf` (öffentlich), GitHub-User peppdoe
 
 **Training**
-- Rotation nach Ablauf (immer die nächste Einheit, verpasste Tage verschieben nichts), 6 Einheiten: Oberkörper A schwer · Beine schwer · Mobilität & Core leicht · Oberkörper B schwer · Beine & Core leicht · Mobilität leicht
-- Leichte Einheiten: 2 Sätze, zählen nicht für die Progression
+- Rotation nach Ablauf (immer die nächste Einheit, verpasste Tage verschieben nichts), seit Review 4 schwere Einheiten: Oberkörper A · Beine · Oberkörper B · Beine & Core; Supersätze Drücken ⇄ Ziehen bzw. Beine ⇄ Hüfte, Pause erst nach dem Paar; Mobilität als 5-min-Block am Ende jeder Einheit; Drücken:Ziehen 1:1
+- Klimmzug-Kette beginnt mit Negativ-Klimmzug und Chin-up; Stange standardmäßig an
 - Steigerung: Ziel in allen Sätzen an 2 aufeinanderfolgenden schweren Einheiten → Vorschlag, Bestätigung per Tipp; dazu „zu schwer“ / „zu leicht“
-- Pausen-Timer im MVP (90 s schwer, 60 s leicht, änderbar)
+- Pausen-Timer: Endzeit im Zustand (übersteht Neuladen), Ton auch bei Lautlos-Schalter (audioSession), Leiste blinkt am Ende
 - Schalter „Stange vorhanden“: Tischrudern-Kette ↔ Klimmzug-Kette
 
 **Essen und Einkauf**
 - Abendgerichte: 4 Portionen pro Kochrunde (2 Abende)
 - Jause ist eigenständig (nicht die Abendreste), baustellentauglich: kalt essbar, kein Aufwärmen, möglichst ohne Kühlung. Herkunft: mitnehmen / Spar / Reste
 - Fixer Snack (Skyr-Bowl) + täglich ein Kalorien-Extra (neuer Rezept-Typ `extra`), um das Ziel von 2.950 kcal zu erreichen
+- Ziele nur kcal und Protein (Fett/KH gestrichen); typischer Tag = Wochensumme ÷ 7; Einstellung Jause-Tage (Standard 4)
 - Wochenplan wählt der Nutzer selbst aus der Bibliothek (automatische Auswahl kommt in Phase 2)
 - Markt-Zuordnung: Standard-Markt pro Zutat (Lidl / Hofer / Spar / egal), in der App änderbar
 - Grundvorrat markiert, per Schalter ausblendbar, „aufgebraucht“ bringt ihn zurück auf die Liste
@@ -62,11 +64,10 @@ Noch keine App-Logik; UI-Grundlage (CSS, Symbole, Musterseiten) steht. Git-Repo 
 
 ## Nächste Schritte
 
-1. ~~Schritt 3 – UI-Grundlage~~ erledigt. Offen daraus: Darstellung auf dem echten iPhone prüfen (SF Pro / SF Pro Rounded nur auf Windows-Ersatzschrift getestet); App-Icon fehlt noch.
-2. **Schritt 4 – Umsetzungsplan mit `superpowers:writing-plans`:** nur MVP (Training mit Progression und Logging, Einkaufsliste nach Markt und nach Rezept, Rezept-Ansicht, Grundvorrat-Filter, Gewichts-Log, Einstellungen, Export/Import). Danach die Ausführungsart wählen (inline oder mit Subagents). **Neu dazu (2026-10-14 entschieden):** Übungs-Visualisierung als eigener Planteil: selbst gezeichnete SVG-Strichfiguren im Stil von `bilder/symbole.svg`, pro Stufe Start- und Endposition (ca. 30 Stufen → ca. 60 Zeichnungen), dazu 2–3 kurze Ausführungshinweise als Text. Details (Platz in der Übungskarte, Bewegung, Textmenge) vorher mit `superpowers:brainstorming` klären.
-3. **Schritt 5 – Umsetzung:** TDD für `js/logik/*` und `speicher.js`; vor jeder Fertigmeldung `verification-before-completion` im eingebauten Browser bei 375×812.
-4. Vor dem ersten Deployment: GitHub-Repo `peppdoe/fit-einkauf` anlegen und GitHub Pages aktivieren. Vorher nachfragen, weil das veröffentlicht.
-5. Am Ende jeder Sitzung diese Datei aktualisieren.
+1. **Deployment Scheibe 1** (nur nach OK des Nutzers): GitHub-Repo `peppdoe/fit-einkauf` (öffentlich, Nutzer hat zugestimmt) anlegen, pushen, GitHub Pages aktivieren. Dann am iPhone in Safari öffnen → „Zum Home-Bildschirm“ → nur die installierte App benutzen (eigener Speicher).
+2. Am iPhone prüfen: Ton bei Lautlos, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung.
+3. Scheibe 2–4 und Abschluss nach `docs/superpowers/plans/2026-10-14-fit-einkauf-mvp.md` (Abschnitt „Revision nach Review“ zuerst lesen). Umsetzung direkt, ohne Subagents.
+4. Am Ende jeder Sitzung diese Datei aktualisieren.
 
 ## Offene Punkte
 
