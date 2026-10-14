@@ -13,7 +13,8 @@ Letzte Aktualisierung: 2026-10-14 (Sitzung 3)
 | 5a. Scheibe 1: Training am iPhone | ✅ live auf https://peppdoe.github.io/fit-einkauf/ |
 | 5b. Task 23A Startseite „Heute“ | ✅ |
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
-| 5d. Scheibe 4 Übungsfiguren (Tasks 9, 12, 16; Freigabe durch Nutzer) | ⏭️ als Nächstes |
+| 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
+| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ⏭️ als Nächstes |
 | 5e. Abschluss (Task 22) | offen |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
@@ -69,12 +70,16 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. Am iPhone prüfen (falls noch nicht): Ton bei Lautlos, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung.
-2. **Scheibe 4 – Übungsfiguren:** Task 9 (figur.js), Task 12 (Posen für alle Stufen inkl. der drei neuen: Liegestütz mit erhöhten Füßen, Negativ-Klimmzug, Chin-up; Sammelseite `muster/figuren.html`; **Nutzer gibt frei**), Task 16 (Figur in der Karte, „So geht's“-Blatt). Danach in `daten.js` die Figurenprüfung (`pruefeFigur`, `figurOk`) wieder einbauen.
-3. **Abschluss (Task 22):** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen, DESIGN.md ergänzen.
+1. **Task 16:** Figur in der Übungskarte (72 px, Start/Ende im 1,5-s-Wechsel) und „So geht's“-Blatt (beide Posen, Hinweise, „Achte darauf“). `figurHtml` in `js/ansichten/training.js` ersetzen; neue Datei `js/ansichten/figur-ansicht.js` in `sw.js` eintragen.
+2. Figurenprüfung in `daten.js` (`pruefeFigur`, `figurOk`): **bereits wieder eingebaut** (Commit mit den Figuren, Test in `tests/daten.test.js`). Nur kontrollieren, dass Task 16 `figurOk` nutzt (über `aufloesen`, liefert `figur: null` bei fehlerhafter Figur).
+3. **Task 22 Abschluss:** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen (`muster/figuren.html` bleibt als Prüfseite), DESIGN.md ergänzen.
 4. Am Ende jeder Sitzung diese Datei aktualisieren.
 
+**Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
+
 ## Offene Punkte
+
+- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken.
 
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
