@@ -1,0 +1,8 @@
+{
+  "einheiten": [
+    { "id": "ok-a", "name": "Oberkörper A", "art": "schwer", "ketten": [["druecken-horizontal", "ziehen"], "core", "mobilitaet"], "dauer": "30 min" },
+    { "id": "beine", "name": "Beine", "art": "schwer", "ketten": [["beine", "huefte"], "core", "mobilitaet"], "dauer": "30 min" },
+    { "id": "ok-b", "name": "Oberkörper B", "art": "schwer", "ketten": [["druecken-vertikal", "ziehen"], ["druecken-horizontal", "ziehen-ohne-stange"], "mobilitaet"], "dauer": "35 min" },
+    { "id": "beine-core", "name": "Beine & Core", "art": "schwer", "ketten": [["beine", "huefte"], "core", "mobilitaet"], "dauer": "30 min" }
+  ]
+}
