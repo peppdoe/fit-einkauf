@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>Heute – Fit &amp; Einkauf</title>
+  <!-- ?thema=hell|dunkel erzwingt eine Darstellung; ?stand=offen|laeuft|erledigt zeigt die Heute-Karte in diesem Zustand -->
+  <script>const t = new URLSearchParams(location.search).get("thema"); if (t) document.documentElement.dataset.theme = t;</script>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/komponenten.css">
+  <link rel="stylesheet" href="../css/uebersicht.css">
+</head>
+<body>
+<!-- Symbol „heute“ (Kalenderblatt) für die Tab-Leiste; kommt mit Task 23 in bilder/symbole.svg -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <symbol id="heute" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" stroke-width="2.4"/></symbol>
+</svg>
+
+<main class="app">
+
+  <header class="titelleiste">
+    <div class="titelleiste__aktionen"></div>
+    <h1 class="titelleiste__titel">Heute</h1>
+    <p class="titelleiste__unter" data-datum>Mittwoch, 14. Oktober</p>
+  </header>
+
+  <!-- 1. Was steht heute an: ein Tipp bis zum Training -->
+  <section class="gruppe" aria-label="Training heute">
+    <div class="gruppe__inhalt heute-karte" data-heute-karte></div>
+  </section>
+
+  <!-- 2. Kalender: diese Woche, erledigt und geplant -->
+  <section class="gruppe" aria-labelledby="woche-titel">
+    <div class="gruppe__kopf woche-kopf">
+      <h2 id="woche-titel" data-woche-titel>Diese Woche · KW 42</h2>
+      <div class="woche-kopf__pfeile">
+        <button class="knopf knopf--schlicht" type="button" data-woche="-1" aria-label="Vorige Woche">
+          <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#zurueck"/></svg>
+        </button>
+        <button class="knopf knopf--schlicht" type="button" data-woche="1" aria-label="Nächste Woche">
+          <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="gruppe__inhalt woche" data-streifen role="group" aria-label="Tage der Woche"></div>
+    <p class="gruppe__fuss" data-woche-fuss>Ab heute geplant nach der Rotation. Lässt du einen Tag aus, rückt alles einen Tag weiter.</p>
+  </section>
+
+  <!-- 3. Zusammenfassung Training: Tag (gewählter Tag im Streifen) oder Woche -->
+  <section class="gruppe" aria-labelledby="training-titel">
+    <h2 class="gruppe__kopf" id="training-titel" data-zusammenfassung-titel>Training</h2>
+    <div class="segment-rahmen uebersicht-zeitraum">
+      <fieldset class="segment" style="border: 0; margin: 0">
+        <legend class="nur-vorlesen">Zeitraum</legend>
+        <input type="radio" name="zeitraum" id="zr-tag" value="tag"><label for="zr-tag">Tag</label>
+        <input type="radio" name="zeitraum" id="zr-woche" value="woche" checked><label for="zr-woche">Woche</label>
+      </fieldset>
+    </div>
+    <div data-zusammenfassung></div>
+  </section>
+
+  <!-- 4. Essen: typischer Tag laut Wochenplan -->
+  <section class="gruppe">
+    <h2 class="gruppe__kopf">Essen</h2>
+    <div class="gruppe__inhalt">
+      <div class="naehrwert" style="--anteil: 0.893">
+        <div class="naehrwert__kopf">
+          <span class="naehrwert__name">Kalorien</span>
+          <span class="naehrwert__zahl"><b>2.636</b> von 2.950 kcal</span>
+        </div>
+        <div class="naehrwert__bahn" aria-hidden="true"><div class="naehrwert__balken"></div><div class="naehrwert__ziel"></div></div>
+      </div>
+      <div class="naehrwert naehrwert--erreicht" style="--anteil: 1.015">
+        <div class="naehrwert__kopf">
+          <span class="naehrwert__name">Protein</span>
+          <span class="naehrwert__zahl"><b>132</b> von 130 g</span>
+        </div>
+        <div class="naehrwert__bahn" aria-hidden="true"><div class="naehrwert__balken"></div><div class="naehrwert__ziel"></div></div>
+      </div>
+    </div>
+    <p class="gruppe__fuss">Ein typischer Tag laut Wochenplan: 2 Abendgerichte, 4 Jausen, Skyr-Bowl und Extras.</p>
+  </section>
+
+  <!-- 5. Einkauf und Gewicht: je eine Zeile, Tipp führt in den Bereich -->
+  <section class="gruppe" aria-label="Einkauf und Gewicht">
+    <ul class="gruppe__inhalt">
+      <li><a class="zeile zeile--mit-symbol" href="komponenten.html#einkauf">
+        <span class="zeile__icon"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#einkauf"/></svg></span>
+        <div class="zeile__haupt">
+          <div class="zeile__titel">Einkaufsliste</div>
+          <div class="zeile__unter">18 offen, 3 Märkte</div>
+        </div>
+        <span class="zeile__wert">13 von 31</span>
+        <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+      </a></li>
+      <li><a class="zeile zeile--mit-symbol" href="komponenten.html#mehr">
+        <span class="zeile__icon"><svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#waage"/></svg></span>
+        <div class="zeile__haupt">
+          <div class="zeile__titel">Gewicht</div>
+          <div class="zeile__unter">+0,4 kg pro Monat</div>
+        </div>
+        <span class="zeile__wert">70,0 kg</span>
+        <svg class="symbol zeile__chevron" aria-hidden="true"><use href="../bilder/symbole.svg#chevron"/></svg>
+      </a></li>
+    </ul>
+    <p class="gruppe__fuss">Alle Zahlen auf dieser Seite sind Musterwerte.</p>
+  </section>
+
+</main>
+
+<nav class="tableiste" aria-label="Bereiche">
+  <a class="tableiste__tab" href="heute.html" aria-current="page">
+    <svg class="symbol" aria-hidden="true"><use href="#heute"/></svg>Heute
+  </a>
+  <a class="tableiste__tab" href="training.html">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#training"/></svg>Training
+  </a>
+  <a class="tableiste__tab" href="komponenten.html#essen">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#essen"/></svg>Essen
+  </a>
+  <a class="tableiste__tab" href="komponenten.html#einkauf">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#einkauf"/></svg>Einkauf
+  </a>
+  <a class="tableiste__tab" href="komponenten.html#mehr">
+    <svg class="symbol" aria-hidden="true"><use href="../bilder/symbole.svg#mehr"/></svg>Mehr
+  </a>
+</nav>
+
+<script type="module" src="heute.js"></script>
+</body>
+</html>
