@@ -10,11 +10,14 @@ Letzte Aktualisierung: 2026-10-14 (Sitzung 3)
 | 2. Rezept-Startset | ✅ fertig, freigegeben |
 | 3. UI-Grundlage mit impeccable | ✅ fertig (Review: ship) |
 | 4. Umsetzungsplan (writing-plans) + Revision nach Review | ✅ fertig |
-| 5a. Scheibe 1: Training am iPhone | ✅ gebaut, ⏸️ wartet auf OK für Deployment |
-| 5b. Scheibe 2 Essen & Einkauf · 3 Gewicht & Mehr · 4 Übungsfiguren · Abschluss | offen |
+| 5a. Scheibe 1: Training am iPhone | ✅ live auf https://peppdoe.github.io/fit-einkauf/ |
+| 5b. Task 23A Startseite „Heute“ | ✅ |
+| 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
+| 5d. Scheibe 4 Übungsfiguren (Tasks 9, 12, 16; Freigabe durch Nutzer) | ⏭️ als Nächstes |
+| 5e. Abschluss (Task 22) | offen |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Scheibe 1 steht: Training mit 4er-Rotation, Supersätzen, Progression, gespeicherter Pause, Verlauf; Mehr mit Pause, Stange, Export/Import; offline-fähig (Service Worker), installierbar. 69 Tests grün. Git-Repo lokal angelegt (Branch `main`, Identität repo-lokal: peppdoe / haringmarc7@icloud.com). Noch kein GitHub-Remote.
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 117 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -64,9 +67,9 @@ Scheibe 1 steht: Training mit 4er-Rotation, Supersätzen, Progression, gespeiche
 
 ## Nächste Schritte
 
-1. **Deployment Scheibe 1** (nur nach OK des Nutzers): GitHub-Repo `peppdoe/fit-einkauf` (öffentlich, Nutzer hat zugestimmt) anlegen, pushen, GitHub Pages aktivieren. Dann am iPhone in Safari öffnen → „Zum Home-Bildschirm“ → nur die installierte App benutzen (eigener Speicher).
-2. Am iPhone prüfen: Ton bei Lautlos, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung.
-3. Scheibe 2–4 und Abschluss nach `docs/superpowers/plans/2026-10-14-fit-einkauf-mvp.md` (Abschnitt „Revision nach Review“ zuerst lesen). Umsetzung direkt, ohne Subagents.
+1. Am iPhone prüfen (falls noch nicht): Ton bei Lautlos, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung.
+2. **Scheibe 4 – Übungsfiguren:** Task 9 (figur.js), Task 12 (Posen für alle Stufen inkl. der drei neuen: Liegestütz mit erhöhten Füßen, Negativ-Klimmzug, Chin-up; Sammelseite `muster/figuren.html`; **Nutzer gibt frei**), Task 16 (Figur in der Karte, „So geht's“-Blatt). Danach in `daten.js` die Figurenprüfung (`pruefeFigur`, `figurOk`) wieder einbauen.
+3. **Abschluss (Task 22):** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen, DESIGN.md ergänzen.
 4. Am Ende jeder Sitzung diese Datei aktualisieren.
 
 ## Offene Punkte
