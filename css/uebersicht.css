@@ -1,0 +1,108 @@
+/* Fit & Einkauf – Übersicht (Startseite „Heute“)
+   Ergänzt komponenten.css um Heute-Karte, Wochenstreifen und Kacheln. Nur Tokens aus tokens.css. */
+
+/* ---------- Heute-Karte ---------- */
+
+.heute-karte { padding: var(--a-4); }
+.heute-karte__kopf { display: flex; align-items: center; gap: var(--a-3); }
+.heute-karte__titel { font: var(--t-titel3); }
+.heute-karte__unter { margin-top: 2px; font: var(--t-unter); color: var(--text-2); }
+.heute-karte__bloecke {
+  display: grid;
+  gap: var(--a-1);
+  margin: var(--a-3) 0 var(--a-4);
+  padding-left: 42px;                 /* bündig mit dem Titel neben dem 30-px-Symbol */
+  font: var(--t-unter);
+  color: var(--text-2);
+}
+.heute-karte__bloecke b { font-weight: 400; color: var(--text); }
+.heute-karte__fertig { display: flex; align-items: center; gap: var(--a-2); margin-top: var(--a-3); font: var(--t-kopf); color: var(--erreicht); }
+.heute-karte__fertig + p { margin-top: 2px; padding-left: 32px; font: var(--t-unter); color: var(--text-2); }
+
+/* ---------- Wochenstreifen ---------- */
+
+.woche-kopf { align-items: center; padding-right: 0; }
+.woche-kopf h2 { font: inherit; }
+.woche-kopf__pfeile { display: flex; margin: -12px 0 -8px; }
+.woche-kopf__pfeile .knopf { min-width: var(--tipp); min-height: var(--tipp); padding: 0; }
+.woche-kopf__pfeile .symbol { width: 20px; height: 20px; stroke-width: 2.2; }
+.woche-kopf__pfeile .knopf:disabled { color: var(--text-3); background: transparent; }
+
+.woche {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: var(--a-2) var(--a-1);
+}
+.tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 84px;
+  padding: var(--a-1) 0 var(--a-2);
+  border: 0;
+  border-radius: var(--r-feld);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.tag:focus-visible { outline: 3px solid var(--tint); outline-offset: -2px; }
+.tag__wt { font: 600 0.75rem/1 var(--schrift); color: var(--text-2); }
+.tag__zahl {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font: 400 1.0625rem/1 var(--schrift);
+  transition: background-color var(--kurz) var(--ease), color var(--kurz) var(--ease);
+}
+.tag__marke {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  min-height: 14px;
+  font: 500 0.6875rem/1.1 var(--schrift);   /* 11, wie Tab-Beschriftung */
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.tag__marke .symbol { width: 11px; height: 11px; stroke-width: 3; }
+
+/* Heute: Ziffer im Tint und halbfett, wie im iOS-Kalender */
+.tag--heute .tag__zahl { color: var(--tint); font-weight: 600; }
+.tag--heute .tag__marke { color: var(--tint); font-weight: 600; }
+/* Erledigt: grünes Häkchen vor dem Kürzel */
+.tag--erledigt .tag__marke { color: var(--erreicht); font-weight: 600; }
+/* Vergangen ohne Training: nur ein Strich */
+.tag--frei .tag__marke { color: var(--text-3); }
+/* Gewählter Tag: gefüllter Kreis im Tint */
+.tag[aria-pressed="true"] .tag__zahl { background: var(--tint-flaeche); color: var(--text-auf-tint); font-weight: 600; }
+
+/* ---------- Kacheln (Zusammenfassung) ---------- */
+
+.kacheln {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--a-3);
+}
+.kachel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 96px;
+  padding: var(--a-3) var(--a-4);
+  border-radius: var(--r-zelle);
+  background: var(--zelle);
+}
+.kachel__name { font: var(--t-unter); color: var(--text-2); }
+.kachel__zahl { font: var(--t-zahl-mittel); font-feature-settings: "tnum"; }
+.kachel__einheit { margin-left: 3px; font: var(--t-unter); color: var(--text-2); }
+.kachel__unter { margin-top: auto; font: var(--t-fuss); color: var(--text-2); }
+.kachel--erreicht .kachel__zahl { color: var(--erreicht); }
+
+.uebersicht-zeitraum { margin: 0 0 var(--a-3); padding: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tag__zahl { transition: none; }
+}
