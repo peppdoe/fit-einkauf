@@ -46,6 +46,7 @@ js/logik/             reine Funktionen ohne DOM-Zugriff (mit Tests abgedeckt)
   filter.js           Abneigungen auf Rezepte anwenden
   naehrwerte.js       typischer Tag im Vergleich zum Ziel
   gewicht.js          Wochenschnitt, Trend pro Monat, kcal-Empfehlung
+  figur.js            Übungsfigur aus Pose-Daten als SVG-Text (siehe 4.3.1)
 js/ansichten/         training.js, essen.js, einkauf.js, mehr.js (Einstellungen, Gewicht, Export)
 data/                 zutaten.json, rezepte.json, uebungen.json, trainingsplan.json, aktionen.json (optional)
 tests/                *.test.js pro Logik-Modul plus speicher.test.js
@@ -112,7 +113,21 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
       "ausruestung": "matte",
       "stufen": [
         { "name": "Liegestütz", "ziel": { "saetze": 3, "wdh": 15 } },
-        { "name": "Diamond-Liegestütz", "ziel": { "saetze": 3, "wdh": 12 } }
+        {
+          "name": "Diamond-Liegestütz",
+          "ziel": { "saetze": 3, "wdh": 12 },
+          "figur": {
+            "geraet": "boden",
+            "start": { "huefte": [65.4, 63.3], "rumpf": 204, "arm": [90, 90], "bein": [24, 24] },
+            "ende":  { "huefte": [69.6, 73.1], "rumpf": 190, "arm": [30, 163], "bein": [10, 10] }
+          },
+          "hinweise": [
+            "Hände unter der Brust, Daumen und Zeigefinger bilden eine Raute.",
+            "Ellbogen eng am Körper nach hinten führen.",
+            "Körper bleibt eine Linie, Brust bis knapp über die Hände."
+          ],
+          "achtung": "Hüfte nicht durchhängen lassen und den Kopf nicht vorschieben."
+        }
       ]
     }
   ]
@@ -135,6 +150,20 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
 | Mobilität | feste Routine (Hüftbeuger, Schulter, Brustwirbelsäule, Hamstrings), keine Progression |
 
 Der Schalter „Stange vorhanden“ ersetzt in allen Einheiten die Kette `ziehen-ohne-stange` durch `ziehen-stange`. Die Stufen beider Ketten bleiben getrennt gespeichert.
+
+Die Mobilitäts-Kette hat genau eine Stufe mit dem Feld `routine`: eine Liste von 4 Übungen mit `name`, `sek`, `figur`, `hinweise` (Hüftbeuger-Dehnung im Ausfallschritt, Wandengel für die Schulter, „offenes Buch“ für die Brustwirbelsäule, Hamstring-Dehnung im Sitzen; je 2 × 30–45 s).
+
+#### 4.3.1 Übungsfiguren (entschieden 2026-10-14)
+
+Jede Stufe (und jede Übung der Mobilitäts-Routine) bekommt eine schematische Strichfigur in Start- und Endposition, berechnet aus Pose-Daten (Variante B; Variante A „jede Position von Hand gezeichnet“ wurde verworfen).
+
+- **Pose:** `huefte` [x, y] im Bild 120 × 84 (Boden bei y = 80), dazu Winkel in Grad (0 = nach rechts, 90 = nach unten): `rumpf`, `arm` [Oberarm, Unterarm], `bein` [Oberschenkel, Unterschenkel]. Optional `arm2` und `bein2` für die zweite Seite (z. B. Split Squat, Archer, Pistol); fehlen sie, liegen beide Seiten übereinander. Die zweite Seite wird mit 45 % Deckkraft gezeichnet.
+- **Feste Längen:** Rumpf 30, Oberarm 15, Unterarm 14, Oberschenkel 17, Unterschenkel 17, Hals 9, Kopf-Radius 5. Strich 3,2, runde Enden, `currentColor` (folgt Hell/Dunkel).
+- **Geräte** (`figur.geraet`): `boden` | `wand` | `stange` | `tisch` | `stuhl` | `couch`. Jedes Gerät steht an fester Stelle im Bild als einfache Linie/Fläche mit 35 % Deckkraft; Posen werden dazu passend eingetragen.
+- **Seitige Übungen** („/Seite“) zeigen eine Seite.
+- **Texte:** `hinweise` 2–3 kurze Sätze zur Ausführung (Pflicht). `achtung` 1 Satz zum häufigsten Fehler, nur wo er typisch oder riskant ist: Unterarmstütz, Hollow Hold, Hollow Rocks, Pike Push-up (beide), Wand-Handstand, negative HSPU, Archer-Liegestütz, Pseudo-Planche, Tischrudern (alle drei, Tisch muss kippsicher sein), alle Klimmzug-Stufen (ohne Schwung), Bulgarian Split Squat, Shrimp Squat, Pistol (beide), Hüftbrücken, negativer Nordic Curl (Couch sichern, langsam ablassen).
+- **`figur.js`:** `poseZuSvg(pose, geraet)` → SVG-Inhalt als Text; reine Funktion, kein DOM. `pruefeFigur(stufe)` liefert eine Liste von Fehlern (fehlende Winkel, Gelenke außerhalb des Bildes, 0 oder mehr als 3 Hinweise). `daten.js` ruft sie beim Laden auf und meldet Fehler in der Konsole; eine Stufe ohne gültige Figur zeigt einfach keine Figur.
+- **Entstehung:** Die ca. 60 Posen werden vor dem Einbau auf einer Sammelseite `muster/figuren.html` (alle Stufen, Start und Ende nebeneinander) vom Nutzer durchgesehen und korrigiert.
 
 ### 4.4 `data/trainingsplan.json` – Rotation
 
@@ -226,7 +255,9 @@ Ein Rezept ist ausgeblendet, wenn ein Eintrag aus `abneigungen` (ohne Groß-/Kle
 
 ## 6. Ansichten (MVP)
 
-- **Training:** Karte „Heute: Oberkörper A (schwer)“ → Start. Pro Übung: Stufenname, Ziel, große −/+ Tasten pro Satz (vorbelegt mit dem Ziel), Satz abhaken startet den Pausen-Timer. Abschluss → Progressionsvorschläge. Verlauf pro Kette.
+- **Training:** Karte „Heute: Oberkörper A (schwer)“ → Start. Pro Übung: Stufenname, Ziel, große −/+ Tasten pro Satz (vorbelegt mit dem Ziel), Satz abhaken startet den Pausen-Timer. Abschluss → Progressionsvorschläge. Verlauf pro Kette. Aufbau und Komponenten wie `muster/training.html` und `DESIGN.md`.
+  - **Übungsfigur:** 72 px groß oben rechts in der Übungskarte; Start und Ende überblenden im Wechsel (alle 1,5 s). Bei „Bewegung reduzieren“ steht nur die Endposition. Die ganze Figur ist Tipp-Fläche (Bezeichnung „So geht's: <Stufe>“).
+  - **„So geht's“-Blatt:** öffnet von unten im Bildschirm (kein Dialogfenster), zeigt Start und Ende nebeneinander (ca. 140 px), darunter die Hinweise und, falls vorhanden, „Achte darauf: …“. Schließen mit „Fertig“ oder nach unten wischen.
 - **Essen:** Wochenplan (Abend, Jause, Snack) mit typischem Tag gegen das Ziel. Bibliothek mit Filter nach Typ; Rezept-Detail mit Zutaten, Schritten und Nährwerten; „in den Plan“ / „austauschen“.
 - **Einkauf:** Umschalter „nach Markt / nach Rezept“, Schalter „Grundvorrat ausblenden“, Zeilen abhaken, langes Drücken ändert den Markt bzw. markiert „aufgebraucht“.
 - **Mehr:** Gewicht eintragen und Verlauf, Zielwerte, Abneigungen, Pausenzeiten, Stange vorhanden, Export/Import, Export-Erinnerung.
@@ -241,6 +272,7 @@ Ein Rezept ist ausgeblendet, wenn ein Eintrag aus `abneigungen` (ohne Groß-/Kle
 ## 8. Tests
 
 - Vitest für alle Module in `js/logik/` und `speicher.js` (Validierung, Migration, Import mit Backup). Entwicklung testgetrieben.
+- `figur.test.js`: Gelenkpositionen für bekannte Posen; jede Stufe in `data/uebungen.json` besteht `pruefeFigur` (Pflicht-Winkel vorhanden, alle Gelenke im Bild, 2–3 Hinweise).
 - Wichtige Fälle: Progression mit leichten Einheiten dazwischen, Stufe am Ende der Kette; Einkaufsliste mit gemischten Einheiten, Grundvorrat aus- und eingeblendet, „aufgebraucht“; KW-Wechsel zum Jahresende; Gewichtstrend mit Lücken.
 - Oberfläche: eingebauter Browser im iPhone-Viewport 375×812, Ablauf Training und Einkauf von Hand durchgespielt, bevor etwas als fertig gilt.
 
@@ -250,6 +282,6 @@ Aktions-Check und Donnerstags-Aufgabe (`aktionen.json` und Wochenplan-Vorschlag 
 
 ## 10. Nächste Schritte
 
-1. Rezept-Startset: 6 Abendgerichte (plus 3–4 Jause-Bausteine und der Snack) zur Freigabe vorlegen.
-2. UI-Grundlage mit impeccable.
-3. Umsetzungsplan (writing-plans).
+1. ~~Rezept-Startset~~ erledigt (`docs/rezepte-startset.md`).
+2. ~~UI-Grundlage mit impeccable~~ erledigt (`DESIGN.md`, `css/`, `muster/`).
+3. Umsetzungsplan (writing-plans), inklusive Übungsfiguren als eigener Teil.
