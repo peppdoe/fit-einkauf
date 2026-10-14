@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { parseRoute } from '../js/route.js';
 
 describe('parseRoute', () => {
-  it('leer und unbekannt führen zum Training', () => {
-    expect(parseRoute('')).toEqual({ bereich: 'training', teile: [], parameter: {} });
-    expect(parseRoute('#/unsinn/x')).toEqual({ bereich: 'training', teile: [], parameter: {} });
+  it('leer und unbekannt führen zu Heute', () => {
+    expect(parseRoute('')).toEqual({ bereich: 'heute', teile: [], parameter: {} });
+    expect(parseRoute('#/unsinn/x')).toEqual({ bereich: 'heute', teile: [], parameter: {} });
+    expect(parseRoute('#/heute')).toEqual({ bereich: 'heute', teile: [], parameter: {} });
   });
   it('Bereich, Teile und Parameter', () => {
     expect(parseRoute('#/essen/rezept/huhn-reis-pfanne?tausch=abend%3A0')).toEqual({

@@ -319,7 +319,7 @@ Ruhig und sicher, wie Systemknöpfe.
 
 ### Navigation
 - **Titelleiste:** Großtitel 34 px mit Untertitel in Text 2; Aktionen als schlichte Knöpfe rechts oben.
-- **Tab-Leiste:** vier gleich breite Tabs, Material mit Unschärfe, Haarlinie oben. Symbol 26 px über 11-px-Beschriftung, inaktiv Text 2, aktiv Tint mit Strich 2,2.
+- **Tab-Leiste:** gleich breite Tabs (Heute zuerst, bis zu fünf), Material mit Unschärfe, Haarlinie oben. Symbol 26 px über 11-px-Beschriftung, inaktiv Text 2, aktiv Tint mit Strich 2,2.
 - **Zeile:** volle Breite, Haarlinie eingerückt (16 px, mit Symbol 60 px), Wert rechts in Text 2, Chevron 14 px in Text 3; gedrückt Zelle gedrückt.
 
 ### Pausen-Leiste (Signatur)
@@ -333,6 +333,11 @@ Zeile 56 px hoch mit 26-px-Kreis (1,5-px-Ring in Text 3); abgehakt füllt sich d
 
 ### Hinweis (inline statt Dialog)
 Karte im Fluss (Zelle, 12 px, 16 px Innenrand) mit 36-px-Kreissymbol in Erreicht zart, Titel in Kopf, Text in Unter, darunter eine Knopfreihe. Bestätigungen wie „Stark – nächste Stufe?“ erscheinen hier, nicht als Modal.
+
+### Übersicht „Heute“
+- **Heute-Karte** (`.heute-karte`): Zelle mit 30-px-Zeilensymbol, Titel 3, Blöcke der Einheit in Unter-Schrift, großer gefüllter Knopf; erledigt: grüner Haken „Erledigt – stark.“ statt Knopf.
+- **Wochenstreifen** (`.woche`, `.tag`): 7 Spalten Mo–So, Ziffer 17 px, heute Tint halbfett, gewählter Tag gefüllter Tint-Kreis 34 px, darunter Kürzel 11 px (erledigt Grün mit Haken, vergangen ohne Training Strich in Text 3). Ganze Spalte ist Tipp-Fläche (≥ 84 px).
+- **Kachel** (`.kacheln`, `.kachel`): 2-spaltiges Raster, Zelle, Name in Unter/Text 2, Wert in Zahl mittel (28 px gerundet), Einheit und Fußzeile in Text 2; Grün nur bei „alles erreicht“.
 
 ### Leerzustand
 Zentriert, 40-px-Symbol in Text 3, Titel in Kopf, Text höchstens 30ch, optional ein Knopf.

@@ -14,6 +14,7 @@
   <script>/* ?thema=hell|dunkel erzwingt eine Darstellung (Bildschirmfotos) */ const t = new URLSearchParams(location.search).get('thema'); if (t) document.documentElement.dataset.theme = t;</script>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/komponenten.css">
+  <link rel="stylesheet" href="css/uebersicht.css">
 </head>
 <body>
   <div id="meldung"></div>
@@ -21,6 +22,9 @@
   <div id="pause-wurzel"></div>
   <div id="blatt-wurzel"></div>
   <nav class="tableiste" aria-label="Bereiche">
+    <a class="tableiste__tab" href="#/heute" data-bereich="heute">
+      <svg class="symbol" aria-hidden="true"><use href="bilder/symbole.svg#heute"/></svg>Heute
+    </a>
     <a class="tableiste__tab" href="#/training" data-bereich="training">
       <svg class="symbol" aria-hidden="true"><use href="bilder/symbole.svg#training"/></svg>Training
     </a>

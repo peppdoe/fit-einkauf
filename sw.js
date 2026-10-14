@@ -2,12 +2,12 @@
 // beim nächsten Start neu), data/ bevorzugt aus dem Netz (Network-first). VERSION nur bei Umbauten des Caches ändern.
 const VERSION = 'fit-einkauf-1';
 const APP = [
-  "./", "index.html", "manifest.webmanifest", "css/tokens.css", "css/komponenten.css",
+  "./", "index.html", "manifest.webmanifest", "css/tokens.css", "css/komponenten.css", "css/uebersicht.css",
   "bilder/symbole.svg", "bilder/icon-512.png",
   "js/app.js", "js/route.js", "js/daten.js", "js/speicher.js",
-  "js/logik/datum.js", "js/logik/rotation.js", "js/logik/progression.js", "js/logik/einheit.js",
+  "js/logik/datum.js", "js/logik/rotation.js", "js/logik/progression.js", "js/logik/einheit.js", "js/logik/uebersicht.js",
   "js/ansichten/html.js", "js/ansichten/blatt.js", "js/ansichten/pause.js", "js/ansichten/wachhalten.js",
-  "js/ansichten/sicherung.js", "js/ansichten/training.js", "js/ansichten/mehr.js"
+  "js/ansichten/sicherung.js", "js/ansichten/heute.js", "js/ansichten/training.js", "js/ansichten/mehr.js"
 ];
 const DATEN = ["data/uebungen.json", "data/trainingsplan.json"];
 

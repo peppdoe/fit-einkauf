@@ -3,11 +3,12 @@ import { laden, speichern } from './speicher.js';
 import { ladeDaten } from './daten.js';
 import { parseRoute } from './route.js';
 import { esc } from './ansichten/html.js';
+import * as heuteAnsicht from './ansichten/heute.js';
 import * as training from './ansichten/training.js';
 import * as mehr from './ansichten/mehr.js';
 
-// Scheibe 1: Essen und Einkauf folgen; bis dahin landen ihre Adressen beim Training.
-const ANSICHTEN = { training, mehr };
+// Essen und Einkauf folgen mit Scheibe 2; bis dahin landen ihre Adressen bei Heute.
+const ANSICHTEN = { heute: heuteAnsicht, training, mehr };
 const MELDUNGEN = {
   defekt: ['Gespeicherte Daten waren beschädigt', 'Die App startet mit Standardwerten. Die alten Daten kannst du unter Mehr → Daten exportieren.'],
   'nicht-lesbar': ['Speicher nicht lesbar', 'Die App läuft mit Standardwerten. Änderungen werden eventuell nicht gespeichert.'],
@@ -56,7 +57,7 @@ meldungWurzel.addEventListener('click', (e) => {
 
 function zeichnen() {
   let route = parseRoute(location.hash);
-  if (!ANSICHTEN[route.bereich]) route = { bereich: 'training', teile: [], parameter: {} };
+  if (!ANSICHTEN[route.bereich]) route = { bereich: 'heute', teile: [], parameter: {} };
   for (const tab of document.querySelectorAll('.tableiste__tab')) {
     if (tab.dataset.bereich === route.bereich) tab.setAttribute('aria-current', 'page');
     else tab.removeAttribute('aria-current');
@@ -89,7 +90,8 @@ async function start() {
     navigator.serviceWorker.register('sw.js').catch((fehler) => console.warn('Service Worker:', fehler));
   }
   window.addEventListener('hashchange', zeichnen);
-  if (!location.hash) history.replaceState(null, '', '#/training');
+  // Ohne Adresse: laufende Einheit geht vor, sonst die Übersicht.
+  if (!location.hash) history.replaceState(null, '', ctx.zustand.training.laufend ? '#/training' : '#/heute');
   zeichnen();
 }
 
