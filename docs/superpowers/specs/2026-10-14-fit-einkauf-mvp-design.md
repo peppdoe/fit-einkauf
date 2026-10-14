@@ -93,9 +93,10 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
 }
 ```
 
-- `typ`: `abend` | `jause` | `snack`.
+- `typ`: `abend` | `jause` | `snack` | `extra`. `extra` ist ein Kalorien-Baustein (z. B. Milch, Banane, Nüsse), von dem täglich einer eingeplant wird.
+- Startinhalt: siehe `docs/rezepte-startset.md` (freigegeben).
 - `aufwand`: `leicht` | `mittel`.
-- Nur bei `jause`: `"herkunft": "mitnehmen" | "spar"`. Bei `spar` gibt es statt Zutaten eine Beschreibung (z. B. „Vollkornweckerl Schinken-Käse aus der Feinkost“), Nährwerte sind geschätzt.
+- Nur bei `jause`: `"herkunft": "mitnehmen" | "spar" | "reste"`. Bei `spar` gibt es statt Zutaten eine Beschreibung (z. B. „Vollkornweckerl Schinken-Käse aus der Feinkost“), Nährwerte sind geschätzt.
 - Mengen gelten für `portionen` Portionen. Im Wochenplan wird linear umgerechnet.
 - Jause-Bausteine sind baustellentauglich: kalt essbar, kein Aufwärmen, halten einige Stunden ohne Kühlschrank. Das Feld `"ohne_kuehlung": true | false` zeigt das an.
 - Der Protein-Snack (Skyr oder Magertopfen mit Haferflocken) ist ein `snack`-Rezept mit 1 Portion.
@@ -178,7 +179,8 @@ Format wie im Projekt-Brief, ergänzt um `"zutat": "<zutat-id>"`. Im MVP wird di
     wochenplan: { kw: "2026-W42",
                   abend: [{ rezept: "huhn-reis-pfanne", portionen: 4 }],
                   jause: [{ rezept: "weckerl-schinken-kaese", anzahl: 3 }],
-                  snack: { rezept: "skyr-haferflocken", anzahl: 7 } },
+                  snack: { rezept: "skyr-haferflocken", anzahl: 7 },
+                  extra: [{ rezept: "milch-banane-nuesse", anzahl: 3 }] },
     abgehakt: { "huehnerbrust|g": true },
     aufgebraucht: ["olivenoel"]
   },
@@ -203,7 +205,7 @@ Format wie im Projekt-Brief, ergänzt um `"zutat": "<zutat-id>"`. Im MVP wird di
 - „zu schwer“ / „zu leicht“ in der Übungsansicht verschiebt die Stufe um 1 (mit Grenzen 0 und letzte Stufe).
 
 ### 5.3 Einkaufsliste
-1. Abendgerichte: Mengen × (Plan-Portionen / Rezept-Portionen). Jause mit Herkunft „mitnehmen“ und der Snack: Mengen × Anzahl / Rezept-Portionen. Jausen mit Herkunft „spar“ fallen weg.
+1. Abendgerichte: Mengen × (Plan-Portionen / Rezept-Portionen). Jause mit Herkunft „mitnehmen“, Snack und Extras: Mengen × Anzahl / Rezept-Portionen. Jausen mit Herkunft „spar“ oder „reste“ fallen weg.
 2. Gleiche Zutat mit gleicher Einheit wird summiert. Bei verschiedenen Einheiten bleiben getrennte Zeilen (keine Umrechnung).
 3. Markt = `marktZuordnung[zutat]` ?? `standard_markt`. Gruppiert nach Markt, darin nach Kategorie.
 4. Grundvorrat: wird mit Etikett „Vorrat“ angezeigt. Ist `grundvorratAusblenden` an, wird er ausgefiltert, **außer** er steht in `aufgebraucht`.
@@ -215,7 +217,7 @@ Format wie im Projekt-Brief, ergänzt um `"zutat": "<zutat-id>"`. Im MVP wird di
 Ein Rezept ist ausgeblendet, wenn ein Eintrag aus `abneigungen` (ohne Groß-/Kleinschreibung) in `tags`, im Namen oder in den Namen seiner Zutaten vorkommt. Ausgeblendete Rezepte sind über „ausgeblendete zeigen“ erreichbar.
 
 ### 5.5 Nährwerte („typischer Tag“)
-Ø-Abendportion (gewichtet nach Portionen im Plan) + Ø-Jause (gewichtet nach Anzahl, über 5 Arbeitstage verteilt) + Snack. Angezeigt werden kcal und Protein im Vergleich zum Ziel, als Balken mit Zahl.
+Ø-Abendportion (gewichtet nach Portionen im Plan) + Ø-Jause (gewichtet nach Anzahl, über 5 Arbeitstage verteilt) + Snack + Ø-Extra (gewichtet nach Anzahl). „Reste“-Jausen zählen mit den Nährwerten des Abendgerichts. Angezeigt werden kcal und Protein im Vergleich zum Ziel, als Balken mit Zahl.
 
 ### 5.6 Gewicht
 - Wochenschnitt pro ISO-Kalenderwoche.
