@@ -1,0 +1,12 @@
+{
+  "name": "fit-einkauf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "serve": "node tools/server.mjs"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.0"
+  }
+}
