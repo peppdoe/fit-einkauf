@@ -4,6 +4,9 @@ import { naechsteEinheit, bloeckeFuerEinheit } from '../logik/rotation.js';
 import { starteEinheit } from '../logik/einheit.js';
 import { heute, plusTage, montag, tageZwischen, isoWoche } from '../logik/datum.js';
 import { wochenKalender, trainingsSumme } from '../logik/uebersicht.js';
+import { typischerTag } from '../logik/naehrwerte.js';
+import { bedarf, einkaufsliste } from '../logik/einkaufsliste.js';
+import { wochenschnitte, trendProMonat } from '../logik/gewicht.js';
 import * as pause from './pause.js';
 
 const WT = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -39,7 +42,9 @@ export function zeige(wurzel, ctx) {
     </header>
     ${heuteKarte(ctx, datum)}
     ${wocheHtml(tage, datum)}
-    ${zusammenfassungHtml(ctx, tage)}`;
+    ${zusammenfassungHtml(ctx, tage)}
+    ${essenHtml(ctx)}
+    ${einkaufGewichtHtml(ctx)}`;
 }
 
 function heuteKarte(ctx, datum) {
@@ -168,6 +173,70 @@ function zusammenfassungHtml(ctx, tage) {
     </div>
     ${inhalt}
   </section>`;
+}
+
+// Blöcke für Essen, Einkauf und Gewicht (Task 23B). Jeder Block blendet sich aus, wenn Daten fehlen.
+function naehrwertHtml(name, wert, ziel, einheit) {
+  const anteil = ziel ? wert / ziel : 0;
+  return `<div class="naehrwert${wert >= ziel ? ' naehrwert--erreicht' : ''}" style="--anteil: ${anteil.toFixed(3)}">
+    <div class="naehrwert__kopf"><span class="naehrwert__name">${esc(name)}</span>
+      <span class="naehrwert__zahl"><b>${zahl(wert)}</b> von ${zahl(ziel)} ${esc(einheit)}</span></div>
+    <div class="naehrwert__bahn" aria-hidden="true"><div class="naehrwert__balken"></div><div class="naehrwert__ziel"></div></div>
+  </div>`;
+}
+
+function essenHtml(ctx) {
+  const { zustand, daten } = ctx;
+  if (!daten.rezepteById) return '';
+  const plan = zustand.essen.wochenplan;
+  if (!plan.abend.length && !plan.jause.length) {
+    return `<section class="gruppe"><h2 class="gruppe__kopf">Essen</h2>
+      <div class="gruppe__inhalt"><a class="zeile" href="#/essen"><div class="zeile__haupt"><div class="zeile__titel">Wochenplan erstellen</div></div>
+      ${sym('chevron', 'zeile__chevron')}</a></div></section>`;
+  }
+  const { summe } = typischerTag(plan, daten.rezepteById);
+  const ziele = zustand.einstellungen.ziele;
+  return `<section class="gruppe"><h2 class="gruppe__kopf">Essen</h2>
+    <a class="gruppe__inhalt" href="#/essen" style="display: block; color: inherit; text-decoration: none">
+      ${naehrwertHtml('Kalorien', Math.round(summe.kcal), ziele.kcal, 'kcal')}
+      ${naehrwertHtml('Protein', Math.round(summe.protein), ziele.protein, 'g')}
+    </a>
+    <p class="gruppe__fuss">Ein typischer Tag laut Wochenplan.</p>
+  </section>`;
+}
+
+function einkaufZeile(ctx) {
+  const { zustand, daten } = ctx;
+  if (!daten.rezepteById) return '';
+  const liste = einkaufsliste(bedarf(zustand.essen.wochenplan, daten.rezepteById), daten.zutaten, zustand.einstellungen, zustand.essen.aufgebraucht);
+  const zeilen = liste.flatMap((m) => m.kategorien.flatMap((k) => k.zeilen.map((z) => ({ markt: m.markt, ...z }))));
+  if (!zeilen.length) return '';
+  const offen = zeilen.filter((z) => !zustand.essen.abgehakt[z.schluessel]);
+  const maerkte = new Set(offen.map((z) => z.markt)).size;
+  const unter = offen.length ? `${offen.length} offen, ${maerkte} ${maerkte === 1 ? 'Markt' : 'Märkte'}` : 'Alles abgehakt';
+  return `<li><a class="zeile zeile--mit-symbol" href="#/einkauf">
+    <span class="zeile__icon">${sym('einkauf')}</span>
+    <div class="zeile__haupt"><div class="zeile__titel">Einkaufsliste</div><div class="zeile__unter">${esc(unter)}</div></div>
+    <span class="zeile__wert">${zeilen.length - offen.length} von ${zeilen.length}</span>${sym('chevron', 'zeile__chevron')}
+  </a></li>`;
+}
+
+function gewichtZeile(ctx) {
+  const { gewicht } = ctx.zustand;
+  if (!gewicht.length) return '';
+  const woche = wochenschnitte(gewicht).at(-1);
+  const trend = trendProMonat(gewicht);
+  const unter = trend == null ? `${woche.anzahl}× gewogen diese Woche` : `${trend >= 0 ? '+' : '−'}${zahl(Math.abs(trend), 1)} kg pro Monat`;
+  return `<li><a class="zeile zeile--mit-symbol" href="#/mehr">
+    <span class="zeile__icon">${sym('waage')}</span>
+    <div class="zeile__haupt"><div class="zeile__titel">Gewicht</div><div class="zeile__unter">${esc(unter)}</div></div>
+    <span class="zeile__wert">${zahl(woche.kg, 1)} kg</span>${sym('chevron', 'zeile__chevron')}
+  </a></li>`;
+}
+
+function einkaufGewichtHtml(ctx) {
+  const zeilen = einkaufZeile(ctx) + gewichtZeile(ctx);
+  return zeilen ? `<section class="gruppe" aria-label="Einkauf und Gewicht"><ul class="gruppe__inhalt">${zeilen}</ul></section>` : '';
 }
 
 // Geplanter Tag: Übungen der Einheit mit den heutigen Stufen (Vorschau, Stufen können bis dahin steigen).
