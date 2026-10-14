@@ -392,7 +392,8 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
   bottom: 0;
   z-index: 30;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   padding-bottom: var(--sicher-unten);
   background: var(--material);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -555,4 +556,146 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
     transition-duration: 1ms !important;
     animation-duration: 1ms !important;
   }
+}
+
+/* ---------- Ergänzungen für die App (Task 14) ---------- */
+
+#meldung:not(:empty) { padding-top: var(--sicher-oben); }
+
+.titelleiste__aktionen--links { justify-content: flex-start; margin-left: calc(var(--a-3) * -1); margin-right: 0; }
+.titelleiste__titel--lang { font-size: 1.75rem; }
+
+/* Haarlinien zwischen Listeneinträgen (li > .zeile) */
+.gruppe__inhalt > li + li { position: relative; }
+.gruppe__inhalt > li + li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--a-4);
+  right: 0;
+  z-index: 1;
+  border-top: 0.5px solid var(--haarlinie);
+}
+.gruppe__inhalt > li + li:has(.abhaken)::before { left: 54px; }
+.gruppe__inhalt > li.kategorie + li::before,
+.gruppe__inhalt > li + li.kategorie::before { display: none; }
+.gruppe__inhalt--abstand { margin-top: var(--a-4); }
+
+.zeile--knopf { justify-content: center; color: var(--tint); }
+.zeile--gefahr { color: var(--gefahr); }
+.zeile:disabled { color: var(--text-3); pointer-events: none; }
+.zeile__link { display: flex; flex-direction: column; justify-content: center; min-height: var(--tipp); color: inherit; text-decoration: none; }
+.zeile__wert--tint { color: var(--tint); }
+.zeile__haupt > .zeile__titel, .zeile__haupt > .zeile__unter { display: block; }
+.zeile__icon--grau { background: var(--markt-egal); }
+.zeile[aria-current="true"] .zeile__titel { font-weight: 600; color: var(--tint); }
+.gruppe__fuss--frei { margin: var(--a-2) var(--rand) 0; }
+
+.aktionen { display: grid; gap: var(--a-2); }
+.uebung__fertig { margin-top: var(--a-4); }
+.uebung__serie { margin-top: var(--a-2); }
+.schritte {
+  display: grid;
+  gap: var(--a-2);
+  padding: var(--a-3) var(--a-4) var(--a-3) calc(var(--a-4) + 1.4em);
+  list-style: decimal;
+  font: var(--t-text);
+}
+
+/* Segment-Umschalter mit Links (Navigation statt Formular) */
+.segment a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font: 500 0.9375rem/1 var(--schrift);
+}
+.segment a::after { content: ""; position: absolute; inset: -4px 0; }
+.segment a[aria-current] {
+  background: var(--zelle);
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Abhaken: langes Drücken ohne iOS-Textauswahl */
+.abhaken { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+
+/* ---------- Kleiner Zähler in Zeilen ---------- */
+
+.mini-zaehler { display: flex; flex: none; align-items: center; gap: var(--a-1); }
+.mini-zaehler button {
+  display: grid;
+  place-items: center;
+  width: var(--tipp);
+  height: var(--tipp);
+  border: 0;
+  border-radius: var(--r-feld);
+  background: var(--zelle-2);
+  color: var(--tint);
+}
+.mini-zaehler button:active { background: var(--zelle-gedrueckt); }
+.mini-zaehler button:disabled { color: var(--text-3); pointer-events: none; }
+.mini-zaehler .symbol { width: 18px; height: 18px; stroke-width: 2.4; }
+.mini-zaehler output { min-width: 3ch; text-align: center; font: var(--t-kopf); }
+
+/* ---------- Eingabefelder ---------- */
+
+.eingabe {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--tipp);
+  padding: 0 var(--a-3);
+  border: 0;
+  border-radius: var(--r-feld);
+  background: var(--zelle-2);
+  color: var(--text);
+  font: var(--t-text);
+}
+.eingabe::placeholder { color: var(--text-2); }
+.eingabe:focus-visible { outline: 3px solid var(--tint); outline-offset: 0; }
+.eingabe--kurz { flex: none; width: 112px; text-align: right; }
+.eingabe::-webkit-inner-spin-button, .eingabe::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ---------- Blatt von unten (statt Dialogfenster) ---------- */
+
+.blatt-huelle {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.32);
+  animation: blatt-einblenden var(--mittel) var(--ease);
+}
+.blatt {
+  max-height: 88dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--a-2) var(--rand) calc(var(--a-6) + var(--sicher-unten));
+  border-radius: var(--r-material) var(--r-material) 0 0;
+  background: var(--grund);
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.18);
+  transition: transform var(--kurz) var(--ease);
+  animation: blatt-hochfahren var(--mittel) var(--ease);
+}
+.blatt:focus { outline: none; }
+.blatt__griff { width: 36px; height: 5px; margin: 0 auto var(--a-2); border-radius: 3px; background: var(--zelle-gedrueckt); touch-action: none; }
+.blatt__kopf { display: flex; align-items: center; justify-content: space-between; gap: var(--a-3); min-height: var(--tipp); touch-action: none; }
+.blatt__titel { font: var(--t-kopf); }
+.blatt .gruppe { margin-left: 0; margin-right: 0; }
+@keyframes blatt-hochfahren { from { transform: translateY(100%); } }
+@keyframes blatt-einblenden { from { opacity: 0; } }
+
+/* ---------- Pausen-Ende: kurz aufblinken (iPhone-Browser können nicht vibrieren) ---------- */
+
+.pause--blinken { animation: pause-blinken 0.45s var(--ease) 4; }
+@keyframes pause-blinken {
+  50% { background: var(--erreicht-zart); box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08), inset 0 0 0 2px var(--erreicht-flaeche); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pause--blinken { animation: none; box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08), inset 0 0 0 2px var(--erreicht-flaeche); }
 }

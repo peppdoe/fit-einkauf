@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "einstellungen": { "ziele": { "kcal": 2950, "protein": 130 }, "jauseTage": 4, "abneigungen": ["curry", "tofu"], "stange": true, "grundvorratAusblenden": false, "marktZuordnung": {}, "pauseSek": { "schwer": 90, "leicht": 60 } },
+  "training": {
+    "naechsteEinheit": 1, "stufen": { "druecken-horizontal": 0, "ziehen-stange": 0, "core": 0 }, "laufend": null,
+    "vorschlaege": [{ "kette": "druecken-horizontal", "nach": 1, "name": "Diamond-Liegestütz", "ziel": { "saetze": 3, "wdh": 12 } }],
+    "log": [
+      { "datum": "2026-10-07", "einheit": 1, "art": "schwer", "uebungen": [
+        { "kette": "druecken-horizontal", "stufe": 0, "saetze": [15, 15, 15] },
+        { "kette": "ziehen-stange", "stufe": 0, "saetze": [5, 4, 4] },
+        { "kette": "core", "stufe": 0, "saetze": [45, 45, 40] },
+        { "kette": "mobilitaet", "stufe": 0, "teil": 0, "saetze": [45] } ] },
+      { "datum": "2026-10-13", "einheit": 1, "art": "schwer", "uebungen": [
+        { "kette": "druecken-horizontal", "stufe": 0, "saetze": [15, 15, 16] },
+        { "kette": "ziehen-stange", "stufe": 0, "saetze": [5, 5, 5] },
+        { "kette": "core", "stufe": 0, "saetze": [45, 45, 45] } ] }
+    ]
+  },
+  "essen": { "wochenplan": { "kw": "2026-W42", "abend": [], "jause": [], "snack": { "rezept": "skyr-haferflocken", "anzahl": 7 }, "extra": [] }, "abgehakt": {}, "aufgebraucht": [] },
+  "gewicht": [],
+  "letzterExport": "2026-09-20"
+}

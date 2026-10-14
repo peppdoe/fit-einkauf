@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Fit &amp; Einkauf">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>Fit &amp; Einkauf</title>
+  <script>/* ?thema=hell|dunkel erzwingt eine Darstellung (Bildschirmfotos) */ const t = new URLSearchParams(location.search).get('thema'); if (t) document.documentElement.dataset.theme = t;</script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/komponenten.css">
+</head>
+<body>
+  <div id="meldung"></div>
+  <main class="app" id="haupt"></main>
+  <div id="pause-wurzel"></div>
+  <div id="blatt-wurzel"></div>
+  <nav class="tableiste" aria-label="Bereiche">
+    <a class="tableiste__tab" href="#/training" data-bereich="training">
+      <svg class="symbol" aria-hidden="true"><use href="bilder/symbole.svg#training"/></svg>Training
+    </a>
+    <a class="tableiste__tab" href="#/mehr" data-bereich="mehr">
+      <svg class="symbol" aria-hidden="true"><use href="bilder/symbole.svg#mehr"/></svg>Mehr
+    </a>
+  </nav>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Rahmen</title>
+<style>html, body { margin: 0; background: #888; } iframe { display: block; border: 0; }</style>
+<script type="module">
+  // Zeigt eine Seite in 375 px Breite und lädt optional einen Testzustand aus tools/zustaende/.
+  const p = new URLSearchParams(location.search);
+  localStorage.removeItem('fitEinkauf');
+  if (p.get('zustand')) {
+    localStorage.setItem('fitEinkauf', await (await fetch(`zustaende/${p.get('zustand')}.json`)).text());
+  }
+  const rahmen = document.createElement('iframe');
+  rahmen.width = 375;
+  rahmen.height = p.get('h') || 812;
+  rahmen.src = p.get('u') || '/index.html';
+  document.body.append(rahmen);
+</script>

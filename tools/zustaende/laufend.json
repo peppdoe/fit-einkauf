@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "einstellungen": { "ziele": { "kcal": 2950, "protein": 130 }, "jauseTage": 4, "abneigungen": ["curry", "tofu"], "stange": true, "grundvorratAusblenden": false, "marktZuordnung": {}, "pauseSek": { "schwer": 90, "leicht": 60 } },
+  "training": {
+    "naechsteEinheit": 0, "stufen": { "druecken-horizontal": 1 }, "vorschlaege": [], "log": [],
+    "laufend": { "index": 0, "art": "schwer", "datum": "2026-10-14", "aktiv": 1, "wert": 5, "pause": null, "uebungen": [
+      { "kette": "druecken-horizontal", "stufe": 1, "teil": null, "partner": 1, "saetze": [12] },
+      { "kette": "ziehen-stange", "stufe": 0, "teil": null, "partner": 0, "saetze": [] },
+      { "kette": "core", "stufe": 0, "teil": null, "partner": null, "saetze": [] },
+      { "kette": "mobilitaet", "stufe": 0, "teil": 0, "partner": null, "saetze": [] },
+      { "kette": "mobilitaet", "stufe": 0, "teil": 1, "partner": null, "saetze": [] },
+      { "kette": "mobilitaet", "stufe": 0, "teil": 2, "partner": null, "saetze": [] },
+      { "kette": "mobilitaet", "stufe": 0, "teil": 3, "partner": null, "saetze": [] }
+    ] }
+  },
+  "essen": { "wochenplan": { "kw": "2026-W42", "abend": [], "jause": [], "snack": { "rezept": "skyr-haferflocken", "anzahl": 7 }, "extra": [] }, "abgehakt": {}, "aufgebraucht": [] },
+  "gewicht": [],
+  "letzterExport": "2026-10-10"
+}
