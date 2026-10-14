@@ -88,7 +88,7 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
       "tags": ["huhn", "reis"],
       "zutaten": [{ "zutat": "huehnerbrust", "menge": 1000, "einheit": "g" }],
       "schritte": ["…"],
-      "pro_portion": { "kcal": 720, "protein_g": 55, "fett_g": 18, "kh_g": 80 }
+      "pro_portion": { "kcal": 720, "protein_g": 55 }
     }
   ]
 }
@@ -140,10 +140,10 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
 
 | Kette | Stufen |
 |---|---|
-| Drücken horizontal | Liegestütz 3×15 → Diamond 3×12 → Archer 3×6/Seite → Pseudo-Planche 3×10 |
+| Drücken horizontal | Liegestütz 3×15 → Diamond 3×12 → Liegestütz mit erhöhten Füßen 3×12 → Archer 3×6/Seite → Pseudo-Planche 3×10 |
 | Drücken vertikal | Pike Push-up 3×10 → Pike mit erhöhten Füßen 3×10 → Wand-Handstand 3×30 s → negative HSPU an der Wand 3×4 |
 | Ziehen ohne Stange | Tischrudern 3×12 → Tischrudern mit erhöhten Füßen 3×12 → einarmiges Tischrudern 3×6/Seite |
-| Ziehen mit Stange | Klimmzug 3×5 → 3×7 → 3×9 → L-Sit-Klimmzug 3×5 → Archer-Klimmzug 3×3/Seite |
+| Ziehen mit Stange | Negativ-Klimmzug 3×5 (5 s ablassen) → Chin-up 3×5 → Klimmzug 3×5 → 3×7 → 3×9 → L-Sit-Klimmzug 3×5 → Archer-Klimmzug 3×3/Seite |
 | Beine | Kniebeuge 3×20 → Bulgarian Split Squat 3×10/Seite → Shrimp Squat assistiert 3×6/Seite → Pistol assistiert 3×5/Seite → Pistol 3×5/Seite |
 | Hüfte | einbeinige Hüftbrücke 3×12/Seite → mit erhöhten Füßen 3×12/Seite → negativer Nordic Curl (Füße unter Couch) 3×4 |
 | Core | Unterarmstütz 3×45 s → Hollow Hold 3×30 s → Hollow Rocks 3×15 |
@@ -151,7 +151,7 @@ Kategorien (Reihenfolge = Laufweg im Markt): Obst & Gemüse, Brot & Gebäck, Kü
 
 Der Schalter „Stange vorhanden“ ersetzt in allen Einheiten die Kette `ziehen-ohne-stange` durch `ziehen-stange`. Die Stufen beider Ketten bleiben getrennt gespeichert.
 
-Die Mobilitäts-Kette hat genau eine Stufe mit dem Feld `routine`: eine Liste von 4 Übungen mit `name`, `sek`, `figur`, `hinweise` (Hüftbeuger-Dehnung im Ausfallschritt, Wandengel für die Schulter, „offenes Buch“ für die Brustwirbelsäule, Hamstring-Dehnung im Sitzen; je 2 × 30–45 s).
+Die Mobilitäts-Kette hat genau eine Stufe mit dem Feld `routine`: eine Liste von 4 Übungen mit `name`, `sek`, `figur`, `hinweise` (Hüftbeuger-Dehnung im Ausfallschritt, Wandengel für die Schulter, „offenes Buch“ für die Brustwirbelsäule, Hamstring-Dehnung im Sitzen; je 1 Durchgang à 30–45 s, zusammen etwa 5 min). Sie läuft als Block am Ende jeder Einheit, ohne Pausen-Timer.
 
 #### 4.3.1 Übungsfiguren (entschieden 2026-10-14)
 
@@ -161,23 +161,25 @@ Jede Stufe (und jede Übung der Mobilitäts-Routine) bekommt eine schematische S
 - **Feste Längen:** Rumpf 30, Oberarm 15, Unterarm 14, Oberschenkel 17, Unterschenkel 17, Hals 9, Kopf-Radius 5. Strich 3,2, runde Enden, `currentColor` (folgt Hell/Dunkel).
 - **Geräte** (`figur.geraet`): `boden` | `wand` | `stange` | `tisch` | `stuhl` | `couch`. Jedes Gerät steht an fester Stelle im Bild als einfache Linie/Fläche mit 35 % Deckkraft; Posen werden dazu passend eingetragen.
 - **Seitige Übungen** („/Seite“) zeigen eine Seite.
-- **Texte:** `hinweise` 2–3 kurze Sätze zur Ausführung (Pflicht). `achtung` 1 Satz zum häufigsten Fehler, nur wo er typisch oder riskant ist: Unterarmstütz, Hollow Hold, Hollow Rocks, Pike Push-up (beide), Wand-Handstand, negative HSPU, Archer-Liegestütz, Pseudo-Planche, Tischrudern (alle drei, Tisch muss kippsicher sein), alle Klimmzug-Stufen (ohne Schwung), Bulgarian Split Squat, Shrimp Squat, Pistol (beide), Hüftbrücken, negativer Nordic Curl (Couch sichern, langsam ablassen).
+- **Texte:** `hinweise` 2–3 kurze Sätze zur Ausführung (Pflicht). `achtung` 1 Satz zum häufigsten Fehler, nur wo er typisch oder riskant ist: Unterarmstütz, Hollow Hold, Hollow Rocks, Pike Push-up (beide), Wand-Handstand, negative HSPU, Archer-Liegestütz, Pseudo-Planche, Tischrudern (alle drei, Tisch muss kippsicher sein), alle Klimmzug-Stufen (ohne Schwung), Bulgarian Split Squat, Shrimp Squat, Pistol (beide), Hüftbrücken, negativer Nordic Curl (Couch sichern, langsam ablassen), Liegestütz mit erhöhten Füßen.
 - **`figur.js`:** `poseZuSvg(pose, geraet)` → SVG-Inhalt als Text; reine Funktion, kein DOM. `pruefeFigur(stufe)` liefert eine Liste von Fehlern (fehlende Winkel, Gelenke außerhalb des Bildes, 0 oder mehr als 3 Hinweise). `daten.js` ruft sie beim Laden auf und meldet Fehler in der Konsole; eine Stufe ohne gültige Figur zeigt einfach keine Figur.
 - **Entstehung:** Die ca. 60 Posen werden vor dem Einbau auf einer Sammelseite `muster/figuren.html` (alle Stufen, Start und Ende nebeneinander) vom Nutzer durchgesehen und korrigiert.
 
 ### 4.4 `data/trainingsplan.json` – Rotation
 
-| # | Einheit | Art | Ketten | Dauer |
-|---|---|---|---|---|
-| 1 | Oberkörper A | schwer | Drücken horizontal, Ziehen, Core | 25–30 min |
-| 2 | Beine | schwer | Beine, Hüfte, Core | 25 min |
-| 3 | Mobilität & Core | leicht | Mobilität, Core | 15 min |
-| 4 | Oberkörper B | schwer | Drücken vertikal, Ziehen, Drücken horizontal | 25–30 min |
-| 5 | Beine & Core | leicht | Beine, Hüfte, Core | 15–20 min |
-| 6 | Mobilität | leicht | Mobilität | 15 min |
+Geändert nach dem Plan-Review vom 14.10.2026: 4 schwere Einheiten statt 6, Drücken und Ziehen im Verhältnis 1:1, Supersätze.
 
-- **Leichte** Einheit: aktuelle Stufe, 2 statt 3 Sätze. Sie zählt nicht für die Progression.
-- **Schwere** Einheit: aktuelle Stufe mit dem vollen Ziel. Pause standardmäßig 90 s (leicht: 60 s).
+| # | Einheit | Art | Blöcke | Dauer |
+|---|---|---|---|---|
+| 1 | Oberkörper A | schwer | [Drücken horizontal ⇄ Ziehen], Core, Mobilität | 30 min |
+| 2 | Beine | schwer | [Beine ⇄ Hüfte], Core, Mobilität | 30 min |
+| 3 | Oberkörper B | schwer | [Drücken vertikal ⇄ Ziehen], [Drücken horizontal ⇄ Ziehen ohne Stange], Mobilität | 35 min |
+| 4 | Beine & Core | schwer | [Beine ⇄ Hüfte], Core, Mobilität | 30 min |
+
+- **Supersatz** `[A ⇄ B]`: in `trainingsplan.json` ein Paar `["A", "B"]` in `ketten`. Die Sätze wechseln A, B, A, B …; die Pause kommt erst nach B. Ist eine Seite fertig, geht es mit der anderen allein weiter.
+- `ziehen` ist ein Platzhalter (siehe Schalter „Stange vorhanden“). Kommt eine Kette in einer Einheit doppelt vor (ohne Stange in Oberkörper B), fällt das zweite Vorkommen weg.
+- **Schwere** Einheit: aktuelle Stufe mit dem vollen Ziel, Pause standardmäßig 90 s. Die Art „leicht“ (2 statt 3 Sätze, zählt nicht für die Progression) bleibt in der Logik erhalten, wird im Plan aber nicht mehr verwendet.
+- Pro Runde: Drücken 9 Sätze, Ziehen 9, Beine 6, Hüfte 6, Core 9.
 - Der Plan ist ein Startwert und wird nach ein paar Wochen an die Realität angepasst.
 
 ### 4.5 `data/aktionen.json` (optional im MVP)
@@ -190,9 +192,10 @@ Format wie im Projekt-Brief, ergänzt um `"zutat": "<zutat-id>"`. Im MVP wird di
 {
   schema: 1,
   einstellungen: {
-    ziele: { kcal: 2950, protein: 130, fett: 75, kh: 430 },
+    ziele: { kcal: 2950, protein: 130 },   // Fett/KH gestrichen: Rezepte haben nur kcal und Protein
+    jauseTage: 4,                         // Arbeitstage mit Jause pro Woche
     abneigungen: ["curry", "tofu"],
-    stange: false,
+    stange: true,
     grundvorratAusblenden: false,
     marktZuordnung: { /* zutatId: "Lidl" | "Hofer" | "Spar" | "egal" */ },
     pauseSek: { schwer: 90, leicht: 60 }
@@ -246,7 +249,7 @@ Format wie im Projekt-Brief, ergänzt um `"zutat": "<zutat-id>"`. Im MVP wird di
 Ein Rezept ist ausgeblendet, wenn ein Eintrag aus `abneigungen` (ohne Groß-/Kleinschreibung) in `tags`, im Namen oder in den Namen seiner Zutaten vorkommt. Ausgeblendete Rezepte sind über „ausgeblendete zeigen“ erreichbar.
 
 ### 5.5 Nährwerte („typischer Tag“)
-Ø-Abendportion (gewichtet nach Portionen im Plan) + Ø-Jause (gewichtet nach Anzahl, über 5 Arbeitstage verteilt) + Snack + Ø-Extra (gewichtet nach Anzahl). „Reste“-Jausen zählen mit den Nährwerten des Abendgerichts. Angezeigt werden kcal und Protein im Vergleich zum Ziel, als Balken mit Zahl.
+Wochensumme ÷ 7: Σ Abend (Portionen × Nährwerte) + Σ Jause (Anzahl × Nährwerte) + Snack (Anzahl × Nährwerte) + Σ Extra (Anzahl × Nährwerte), geteilt durch 7; die Tagesanteile von Abend, Jause, Snack und Extra werden einzeln ausgewiesen. „Reste“-Jausen zählen mit den Ø-Nährwerten einer Abendportion. Die Einstellung `jauseTage` (Standard 4) ist die Soll-Anzahl Jausen pro Woche; die Essen-Ansicht zeigt an, wenn weniger eingeplant sind. Angezeigt werden kcal und Protein im Vergleich zum Ziel, als Balken mit Zahl.
 
 ### 5.6 Gewicht
 - Wochenschnitt pro ISO-Kalenderwoche.
@@ -255,12 +258,12 @@ Ein Rezept ist ausgeblendet, wenn ein Eintrag aus `abneigungen` (ohne Groß-/Kle
 
 ## 6. Ansichten (MVP)
 
-- **Training:** Karte „Heute: Oberkörper A (schwer)“ → Start. Pro Übung: Stufenname, Ziel, große −/+ Tasten pro Satz (vorbelegt mit dem Ziel), Satz abhaken startet den Pausen-Timer. Abschluss → Progressionsvorschläge. Verlauf pro Kette. Aufbau und Komponenten wie `muster/training.html` und `DESIGN.md`.
+- **Training:** Karte „Heute: Oberkörper A (schwer)“ → Start. Pro Übung: Stufenname, Ziel, große −/+ Tasten pro Satz (vorbelegt mit dem Ziel), Satz abhaken startet den Pausen-Timer (Endzeit wird gespeichert und übersteht Neuladen; am Ende Ton und kurzes Aufblinken der Leiste). Ist eine Sicherung fällig, erscheint die Export-Erinnerung auch hier. Abschluss → Progressionsvorschläge. Verlauf pro Kette. Aufbau und Komponenten wie `muster/training.html` und `DESIGN.md`.
   - **Übungsfigur:** 72 px groß oben rechts in der Übungskarte; Start und Ende überblenden im Wechsel (alle 1,5 s). Bei „Bewegung reduzieren“ steht nur die Endposition. Die ganze Figur ist Tipp-Fläche (Bezeichnung „So geht's: <Stufe>“).
   - **„So geht's“-Blatt:** öffnet von unten im Bildschirm (kein Dialogfenster), zeigt Start und Ende nebeneinander (ca. 140 px), darunter die Hinweise und, falls vorhanden, „Achte darauf: …“. Schließen mit „Fertig“ oder nach unten wischen.
 - **Essen:** Wochenplan (Abend, Jause, Snack) mit typischem Tag gegen das Ziel. Bibliothek mit Filter nach Typ; Rezept-Detail mit Zutaten, Schritten und Nährwerten; „in den Plan“ / „austauschen“.
 - **Einkauf:** Umschalter „nach Markt / nach Rezept“, Schalter „Grundvorrat ausblenden“, Zeilen abhaken, langes Drücken ändert den Markt bzw. markiert „aufgebraucht“.
-- **Mehr:** Gewicht eintragen und Verlauf, Zielwerte, Abneigungen, Pausenzeiten, Stange vorhanden, Export/Import, Export-Erinnerung.
+- **Mehr:** Gewicht eintragen und Verlauf, Zielwerte (kcal, Protein), Jause-Tage, Abneigungen, Pausenzeiten, Stange vorhanden, Export/Import, Export-Erinnerung.
 
 ## 7. Fehlerbehandlung
 

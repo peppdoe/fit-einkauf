@@ -6,7 +6,7 @@
 
 **Architecture:** Statische Dateien ohne Build-Schritt. Reine Logik-Module in `js/logik/` (ohne DOM, mit Vitest getestet), Persistenz in `js/speicher.js` (localStorage, über ein übergebenes Storage-Objekt testbar), Datenladen in `js/daten.js`. Vier Ansichten in `js/ansichten/` rendern per Template-Strings in `<main id="haupt">` und behandeln Klicks per Event-Delegation über `data-aktion`. `js/app.js` hält den Zustand (`ctx`), speichert nach jeder Änderung und zeichnet die Ansicht neu. Der Router liest die Adresszeile (`#/training`, `#/essen/...`).
 
-**Tech Stack:** HTML, CSS, JavaScript (ES-Module), Vitest (nur lokal, Dev-Abhängigkeit), Node 24, Microsoft Edge headless für Bildschirmfotos, GitHub Pages (Deployment nicht Teil dieses Plans).
+**Tech Stack:** HTML, CSS, JavaScript (ES-Module), Vitest (nur lokal, Dev-Abhängigkeit), Node 24, Microsoft Edge headless für Bildschirmfotos, GitHub Pages (Deployment nach Scheibe 1, nur nach OK).
 
 **Spec:** `docs/superpowers/specs/2026-10-14-fit-einkauf-mvp-design.md` (inkl. 4.3.1 Übungsfiguren). Dazu: `DESIGN.md` (Design-System), `css/tokens.css`, `css/komponenten.css`, `muster/training.html`, `muster/komponenten.html` (Vorlagen), `docs/rezepte-startset.md` (Rezeptinhalte), `PRODUCT.md` (Tonfall).
 
@@ -33,6 +33,38 @@
 3. **Gewicht mit Komma eingetippt** („72,4“ von der iPhone-Dezimaltastatur): muss als 72,4 kg gespeichert werden, Unsinn („abc“, „7“) wird abgelehnt. → Test in Task 8.
 4. **Falsche oder zu neue Datei importiert** (Foto, kaputtes JSON, Export einer neueren App-Version): Import wird mit verständlicher Meldung abgelehnt, der aktuelle Stand bleibt unverändert. → Tests in Task 2.
 5. **Wochenplan verweist auf ein gelöschtes Rezept** (Rezept aus `rezepte.json` entfernt): Einkaufsliste und Nährwerte überspringen es ohne Absturz, die Essen-Ansicht zeigt „Unbekanntes Rezept“ mit Entfernen. → Tests in Task 6 und Task 7, Anzeige in Task 18.
+
+---
+
+## Revision nach Review (14.10.2026) – gilt vor den Task-Texten
+
+Quelle: `review-umsetzungsplan-2026-10-14.md` (Runde 1 und 2) und Rückfragen an den Nutzer. Wo ein Task-Text unten etwas anderes sagt, gilt dieser Abschnitt. Umsetzung **direkt** (ohne Subagents).
+
+### Reihenfolge in Scheiben
+
+| Scheibe | Tasks | Ergebnis |
+|---|---|---|
+| 1 Training am iPhone | 1, 2, 3, 4, 11, 13, 14, 15, schmale 20 (nur Training-Einstellungen und Daten), 21 | Training komplett nutzbar, offline, installierbar. **Danach anhalten:** Repo `peppdoe/fit-einkauf` (öffentlich) und GitHub Pages vorschlagen, erst nach OK deployen; Nutzer testet am iPhone. |
+| 2 Essen & Einkauf | 5, 6, 7, 10, 17, 18, 19 | Wochenplan, Bibliothek, Einkaufsliste |
+| 3 Gewicht & Rest von Mehr | 8, Rest von 20 | Gewicht, Ziele, Abneigungen, Jause-Tage |
+| 4 Übungsfiguren | 9, 12, 16 | Figuren mit Nutzer-Freigabe (Task 12), auch für die drei neuen Stufen |
+| Abschluss | 22 | Fotorunde, Aufräumen, Doku |
+| Später | – | `aktionen.json` befüllen (wöchentliche Routine liest Flugblätter Lidl/Hofer/Spar), Packungsgrößen, Wochenkosten, „letztes Mal“ pro Übung |
+
+`daten.js` kommt in Scheibe 1 mit `uebungen` und `trainingsplan` als Pflichtdateien; `zutaten`/`rezepte` werden in Scheibe 2 Pflicht, die Figurenprüfung (`pruefeFigur`) kommt in Scheibe 4. Bis dahin gilt eine Stufe ohne `figur` als „keine Figur“ (`aufloesen` liefert `figur: null`). `sw.js` listet in jeder Scheibe nur die vorhandenen Dateien (der Test prüft das).
+
+### Änderungen pro Task
+
+- **Global Constraints:** Startziele nur **2950 kcal, 130 g Protein** (Fett/KH gestrichen, Rezepte haben nur kcal und Protein). Neue Einstellung `jauseTage` (Standard 4). Standard `stange: true`. Deployment ist Teil von Scheibe 1, aber nur nach ausdrücklichem OK.
+- **Task 2 (Speicher):** `standardZustand().einstellungen` = `{ ziele: { kcal: 2950, protein: 130 }, jauseTage: 4, abneigungen, stange: true, grundvorratAusblenden, marktZuordnung, pauseSek }`. `Laufend` bekommt `pause: { bis: number (ms), dauer: number (s), text: string } | null` und pro Übung optional `partner: number | null` (Index der Supersatz-Partnerübung). `importieren`: `storage.getItem` in try/catch. Tests: Standardwerte (`stange` true, `jauseTage` 4, keine `fett`/`kh`), `laufend.pause` übersteht Speichern/Laden.
+- **Task 3 (Rotation):** `ketten` darf Paare enthalten (`["druecken-horizontal", "ziehen"]`). Neu `bloeckeFuerEinheit(einheit, stange): string[][]` (Platzhalter ersetzt, doppelte Ketten in der Einheit entfernt, leere Blöcke weg); `kettenFuerEinheit` liefert die flache Liste daraus. Tests: Paar bleibt Paar, Duplikat ohne Stange fällt weg.
+- **Task 7 (Nährwerte, Scheibe 2):** `typischerTag` = Wochensumme ÷ 7 je Teil (Abend Σ Portionen × Werte, Jause Σ Anzahl × Werte mit Reste = Ø-Abendportion, Snack Anzahl × Werte, Extra Σ Anzahl × Werte). Tests auf die neuen Zahlen umstellen (Beispiel aus dem Review: 7 × 1.100 + 4 × 650 + 7 × 605 + 7 × 560 → 2.636 kcal).
+- **Task 11 (Übungen):** `druecken-horizontal` bekommt nach Diamond die Stufe „Liegestütz mit erhöhten Füßen“ 3×12 (mit `achtung`); `ziehen-stange` beginnt mit „Negativ-Klimmzug“ 3×5 und „Chin-up“ 3×5 (beide mit `achtung`). Stufenzahlen: 5 / 4 / 3 / 7 / 5 / 3 / 3 / 1. Trainingsplan mit 4 Einheiten `ok-a`, `beine`, `ok-b`, `beine-core` (alle schwer, siehe Spec 4.4); jede endet mit `mobilitaet`.
+- **Task 13 (Einheit):** Routine-Teile haben `ziel = { saetze: 1, sek }`. `starteEinheit` setzt `partner` für Paare. `satzFertig`: hat die aktuelle Übung einen Partner mit offenen Sätzen → zum Partner, sonst bleiben, sonst nächste offene. Wert beim Wechsel = letzter Satz dieser Übung, sonst Ziel. Neu `pauseNach(vorher, nachher): boolean` – keine Pause nach Routine-Teilen, beim Wechsel von der ersten zur zweiten Übung eines Paars und am Ende. Tests dafür.
+- **Task 15 (Training-Ansicht):** Pause steht in `laufend.pause` (Endzeit), `pause.js` zeichnet sie nach jedem Neuzeichnen/Neuladen wieder; „+15 s“ und „Weiter“ ändern den Zustand. `tonVorbereiten()` setzt `navigator.audioSession.type = 'playback'`, wo vorhanden. Am Ende: Ton und kurzes Aufblinken der Leiste (bei „Bewegung reduzieren“ ohne Blinken). Supersatz-Paare in der Übungsliste gekennzeichnet („⇄“). Export-Erinnerung (`exportFaellig`) auch auf der Startseite; Export-Logik in `js/ansichten/sicherung.js` (`exportieren(ctx)`), die Training und Mehr teilen.
+- **Task 18 (Essen, Scheibe 2):** Nährwerte nur kcal und Protein. Hinweis, wenn weniger Jausen als `jauseTage` eingeplant sind.
+- **Task 20 (Mehr):** Scheibe 1: Gruppen „Training“ (eine Pausenzeile „Pause zwischen Sätzen“ → `pauseSek.schwer`, Schalter Stange) und „Daten“. Scheibe 3: Gewicht, Tagesziele (nur kcal, Protein), Jause-Tage (Mini-Zähler 0–7), Abneigungen.
+- **Task 21 (Offline):** App-Dateien **stale-while-revalidate** (sofort aus dem Cache, im Hintergrund aktualisieren, beim nächsten Start neu), `data/` Network-first. `VERSION` muss für Updates nicht mehr erhöht werden.
 
 ---
 
