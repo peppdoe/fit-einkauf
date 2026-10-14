@@ -5,10 +5,11 @@ import { parseRoute } from './route.js';
 import { esc } from './ansichten/html.js';
 import * as heuteAnsicht from './ansichten/heute.js';
 import * as training from './ansichten/training.js';
+import * as essen from './ansichten/essen.js';
+import * as einkauf from './ansichten/einkauf.js';
 import * as mehr from './ansichten/mehr.js';
 
-// Essen und Einkauf folgen mit Scheibe 2; bis dahin landen ihre Adressen bei Heute.
-const ANSICHTEN = { heute: heuteAnsicht, training, mehr };
+const ANSICHTEN = { heute: heuteAnsicht, training, essen, einkauf, mehr };
 const MELDUNGEN = {
   defekt: ['Gespeicherte Daten waren beschädigt', 'Die App startet mit Standardwerten. Die alten Daten kannst du unter Mehr → Daten exportieren.'],
   'nicht-lesbar': ['Speicher nicht lesbar', 'Die App läuft mit Standardwerten. Änderungen werden eventuell nicht gespeichert.'],
