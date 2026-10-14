@@ -85,6 +85,9 @@ async function start() {
     return;
   }
   navigator.storage?.persist?.().catch(() => {});
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch((fehler) => console.warn('Service Worker:', fehler));
+  }
   window.addEventListener('hashchange', zeichnen);
   if (!location.hash) history.replaceState(null, '', '#/training');
   zeichnen();
