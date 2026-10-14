@@ -1,5 +1,5 @@
 // Lädt data/*.json, prüft Verweise und baut Nachschlage-Tabellen. Fehler werden als Warnungen gemeldet, nicht geworfen.
-// Die Figurenprüfung (pruefeFigur) kommt mit Scheibe 4 dazu; bis dahin zeigt keine Stufe eine Figur.
+import { pruefeFigur } from './logik/figur.js';
 
 const ERSATZ = (id) => ({ name: id, kategorie: 'Sonstiges', grundvorrat: false, standard_markt: 'egal' });
 const PFLICHT = ['zutaten', 'rezepte', 'uebungen', 'trainingsplan'];
@@ -21,6 +21,17 @@ export function verknuepfe({ zutaten, rezepte, uebungen, plan, aktionen }) {
     for (const id of e.ketten.flat()) {
       if (id !== 'ziehen' && !kettenById[id]) warnungen.push(`Einheit ${e.name}: unbekannte Kette ${id}`);
     }
+  }
+
+  // Jede Stufe bzw. jeder Routine-Teil bekommt figurOk; eine fehlerhafte Figur wird einfach nicht gezeigt.
+  for (const k of uebungen.ketten) {
+    k.stufen.forEach((stufe, i) => {
+      for (const teil of stufe.routine ?? [stufe]) {
+        const fehler = pruefeFigur(teil);
+        teil.figurOk = fehler.length === 0;
+        if (fehler.length) warnungen.push(`${k.id}/${i} ${teil.name}: ${fehler.join(', ')}`);
+      }
+    });
   }
 
   return {

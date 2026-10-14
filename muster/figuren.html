@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Übungsfiguren – Fit &amp; Einkauf</title>
+  <script>/* ?thema=hell|dunkel erzwingt eine Darstellung */ const t = new URLSearchParams(location.search).get('thema'); if (t) document.documentElement.dataset.theme = t;</script>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/komponenten.css">
+  <style>
+    .figuren-raster { display: grid; grid-template-columns: 1fr 1fr; gap: var(--a-2); padding: var(--a-3); }
+    .figuren-raster figure { margin: 0; padding: var(--a-2); border-radius: var(--r-feld); background: var(--zelle-2); color: var(--text); }
+    .figuren-raster svg { display: block; width: 100%; height: auto; }
+    .figuren-raster figcaption { text-align: center; font: var(--t-fuss); color: var(--text-2); }
+    .figuren-text { padding: 0 var(--a-4) var(--a-3); font: var(--t-unter); color: var(--text-2); }
+    .figuren-fehler { padding: 0 var(--a-4) var(--a-3); font: var(--t-unter); color: var(--gefahr); }
+  </style>
+</head>
+<body>
+<main class="app" id="haupt"></main>
+<script type="module">
+  import { poseZuSvg, pruefeFigur } from '../js/logik/figur.js';
+
+  const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const bild = (pose, geraet, titel) => pose
+    ? `<figure><svg viewBox="0 0 120 84" aria-hidden="true">${poseZuSvg(pose, geraet)}</svg><figcaption>${titel}</figcaption></figure>`
+    : `<figure><figcaption>${titel} fehlt</figcaption></figure>`;
+
+  const { ketten } = await (await fetch('../data/uebungen.json')).json();
+  let anzahl = 0;
+  let fehlerhaft = 0;
+  const abschnitte = ketten.flatMap((kette) => kette.stufen.flatMap((stufe, i) => (stufe.routine ?? [stufe]).map((teil) => {
+    anzahl += 1;
+    const fehler = pruefeFigur(teil);
+    if (fehler.length) fehlerhaft += 1;
+    const f = teil.figur ?? {};
+    return `<section class="gruppe">
+      <h2 class="gruppe__kopf">${esc(kette.name)} · ${stufe.routine ? 'Routine' : `Stufe ${i + 1}`}</h2>
+      <div class="gruppe__inhalt">
+        <div class="zeile"><div class="zeile__haupt"><div class="zeile__titel">${esc(teil.name)}</div><div class="zeile__unter">Gerät: ${esc(f.geraet ?? '–')}</div></div></div>
+        <div class="figuren-raster">${bild(f.start, f.geraet, 'Start')}${bild(f.ende, f.geraet, 'Ende')}</div>
+        <p class="figuren-text">${(teil.hinweise ?? []).map(esc).join(' · ')}${teil.achtung ? ` · Achte darauf: ${esc(teil.achtung)}` : ''}</p>
+        ${fehler.length ? `<p class="figuren-fehler">${fehler.map(esc).join(', ')}</p>` : ''}
+      </div></section>`;
+  })));
+  document.getElementById('haupt').innerHTML = `
+    <header class="titelleiste"><div class="titelleiste__aktionen"></div>
+      <h1 class="titelleiste__titel">Übungsfiguren</h1>
+      <p class="titelleiste__unter">${anzahl} Übungen · ${fehlerhaft} mit Fehlern</p></header>${abschnitte.join('')}`;
+</script>
+</body>
+</html>

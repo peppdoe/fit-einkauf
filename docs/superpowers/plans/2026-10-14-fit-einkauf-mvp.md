@@ -2557,7 +2557,7 @@ Vorgehen pro Pose:
 Kontaktregeln (damit Figuren nicht schweben oder im Gerät stecken):
 - **Boden** (y = 80): Füße, Hände, Knie oder Rücken, die den Boden berühren, liegen bei y 77–80.
 - **Wand** (x = 8): Hände/Rücken an der Wand bei x 9–12; die Figur steht rechts davon.
-- **Stange** (y = 6, x 20–100): Hände bei y 6–8 auf der Stange.
+- **Stange** (y = 15, x 20–100; vorher y = 6, nach Nutzer-Review tiefer, damit oben der Kopf ganz über der Stange ist): Hände bei y 16 auf der Stange, im Hang Knie stark angewinkelt.
 - **Tisch** (Platte y = 42, x 28–104): Hände beim Tischrudern bei y 42–44 an der Kante, Körper darunter.
 - **Stuhl** (Sitz y = 58, x 88–112): Füße/Rist bei y 56–58 auf dem Sitz.
 - **Couch** (Oberkante y = 60, x 86–118): Ferse/Fuß bei y 58–60; beim Nordic Curl Fersen unter der Kante bei x 88–92, y 74–78.

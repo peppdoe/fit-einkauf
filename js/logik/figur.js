@@ -8,7 +8,7 @@ export const GERAETE = ['boden', 'wand', 'stange', 'tisch', 'stuhl', 'couch'];
 const GERAET_SVG = {
   boden: '',
   wand: '<path d="M8 0V80"/>',
-  stange: '<path d="M20 6H100"/>',
+  stange: '<path d="M20 15H100"/>',
   tisch: '<path d="M28 42H104M34 42V80M98 42V80"/>',
   stuhl: '<path d="M88 58H112M90 58V80M110 58V80"/>',
   couch: '<path d="M86 60H118V80M86 60V80M86 68H118"/>',

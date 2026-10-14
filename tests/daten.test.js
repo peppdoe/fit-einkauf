@@ -19,7 +19,7 @@ describe('verknuepfe', () => {
     expect(daten.rezepteById.r.name).toBe('R');
     expect(daten.aktionen).toEqual([]);
   });
-  it('meldet unbekannte Ketten im Plan (auch in Paaren, außer dem Platzhalter ziehen)', () => {
+  it('meldet unbekannte Ketten im Plan (auch in Paaren, außer dem Platzhalter ziehen) und markiert Figuren', () => {
     const { daten, warnungen } = verknuepfe({
       zutaten: {}, rezepte: { rezepte: [] },
       uebungen: { ketten: [{ id: 'core', name: 'Core', stufen: [{ name: 'Unterarmstütz', ziel: { saetze: 3, sek: 45 }, hinweise: ['a', 'b'] }] }] },
@@ -27,7 +27,8 @@ describe('verknuepfe', () => {
       aktionen: { aktionen: [{ zutat: 'reis' }] },
     });
     expect(warnungen).toContain('Einheit X: unbekannte Kette gibtsnicht');
-    expect(warnungen).toHaveLength(1);
+    expect(warnungen).toContain('core/0 Unterarmstütz: figur fehlt');
+    expect(daten.kettenById.core.stufen[0].figurOk).toBe(false);
     expect(daten.aktionen).toEqual([{ zutat: 'reis' }]);
   });
 });

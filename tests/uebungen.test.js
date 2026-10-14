@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { pruefeFigur } from '../js/logik/figur.js';
 
 const lies = (name) => JSON.parse(readFileSync(new URL(`../data/${name}.json`, import.meta.url), 'utf8'));
 const { ketten } = lies('uebungen');
@@ -71,5 +72,31 @@ describe('trainingsplan.json', () => {
     const alle = plan.einheiten.flatMap(ids);
     const zaehle = (praefix) => alle.filter((id) => id.startsWith(praefix)).length;
     expect(zaehle('druecken')).toBe(zaehle('ziehen'));
+  });
+});
+
+describe('Übungsfiguren', () => {
+  it('jede Stufe und jeder Routine-Teil hat gültige Start- und End-Pose', () => {
+    const fehler = ketten.flatMap((k) => k.stufen.flatMap((s, i) => (s.routine ?? [s])
+      .map((t) => [`${k.id}/${i} ${t.name}`, pruefeFigur(t)])
+      .filter(([, f]) => f.length)
+      .map(([n, f]) => `${n}: ${f.join(', ')}`)));
+    expect(fehler).toEqual([]);
+  });
+  it('Referenzposen aus der Spec sind unverändert', () => {
+    expect(kette('druecken-horizontal').stufen[1].figur).toEqual({
+      geraet: 'boden',
+      start: { huefte: [65.4, 63.3], rumpf: 204, arm: [90, 90], bein: [24, 24] },
+      ende: { huefte: [69.6, 73.1], rumpf: 190, arm: [30, 163], bein: [10, 10] },
+    });
+    expect(kette('beine').stufen[0].figur).toEqual({
+      geraet: 'boden',
+      start: { huefte: [60, 46], rumpf: -90, arm: [0, 0], bein: [90, 90] },
+      ende: { huefte: [51.8, 62.3], rumpf: -70, arm: [0, 0], bein: [10, 120] },
+    });
+  });
+  it('Gerät passt zur Kette', () => {
+    for (const s of kette('ziehen-stange').stufen) expect(s.figur.geraet, s.name).toBe('stange');
+    for (const s of kette('ziehen-ohne-stange').stufen) expect(s.figur.geraet, s.name).toBe('tisch');
   });
 });
