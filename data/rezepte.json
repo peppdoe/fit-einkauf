@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "rezepte": [
+    {
+      "id": "huhn-reis-pfanne", "typ": "abend", "name": "Hühner-Reis-Pfanne mit Paprika",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 30, "tags": ["huhn", "reis"],
+      "zutaten": [
+        { "zutat": "huehnerbrust", "menge": 1000, "einheit": "g" },
+        { "zutat": "reis", "menge": 800, "einheit": "g" },
+        { "zutat": "paprika", "menge": 2, "einheit": "Stück" },
+        { "zutat": "zucchini", "menge": 1, "einheit": "Stück" },
+        { "zutat": "zwiebel", "menge": 1, "einheit": "Stück" },
+        { "zutat": "olivenoel", "menge": 3, "einheit": "EL" },
+        { "zutat": "sojasauce", "menge": 4, "einheit": "EL" },
+        { "zutat": "paprikapulver" },
+        { "zutat": "knoblauch" }
+      ],
+      "schritte": ["Reis kochen.", "Huhn in Würfeln anbraten.", "Gemüse dazu, mit Sojasauce und Gewürzen abschmecken."],
+      "pro_portion": { "kcal": 1100, "protein_g": 73 }
+    },
+    {
+      "id": "spaghetti-bolognese", "typ": "abend", "name": "Spaghetti Bolognese (Rind)",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 35, "tags": ["rind", "nudeln"],
+      "zutaten": [
+        { "zutat": "rinderfaschiertes", "menge": 800, "einheit": "g" },
+        { "zutat": "vollkornspaghetti", "menge": 600, "einheit": "g" },
+        { "zutat": "passierte-tomaten", "menge": 700, "einheit": "g" },
+        { "zutat": "zwiebel", "menge": 1, "einheit": "Stück" },
+        { "zutat": "karotten", "menge": 2, "einheit": "Stück" },
+        { "zutat": "rapsoel", "menge": 1, "einheit": "EL" },
+        { "zutat": "grana", "menge": 60, "einheit": "g" },
+        { "zutat": "oregano" },
+        { "zutat": "salz" },
+        { "zutat": "pfeffer" }
+      ],
+      "schritte": ["Faschiertes mit Zwiebel und Karotte anbraten.", "Tomaten dazu, 20 min köcheln.", "Nudeln kochen."],
+      "pro_portion": { "kcal": 1130, "protein_g": 68 }
+    },
+    {
+      "id": "chili-con-carne", "typ": "abend", "name": "Chili con Carne mit Reis",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 40, "tags": ["rind", "reis", "bohnen"],
+      "zutaten": [
+        { "zutat": "rinderfaschiertes", "menge": 800, "einheit": "g" },
+        { "zutat": "kidneybohnen", "menge": 2, "einheit": "Dose" },
+        { "zutat": "mais", "menge": 1, "einheit": "Dose" },
+        { "zutat": "tomaten-gehackt", "menge": 2, "einheit": "Dose" },
+        { "zutat": "paprika", "menge": 2, "einheit": "Stück" },
+        { "zutat": "zwiebel", "menge": 1, "einheit": "Stück" },
+        { "zutat": "rapsoel", "menge": 1, "einheit": "EL" },
+        { "zutat": "reis", "menge": 500, "einheit": "g" },
+        { "zutat": "chilipulver" },
+        { "zutat": "kreuzkuemmel" },
+        { "zutat": "paprikapulver" }
+      ],
+      "schritte": ["Faschiertes und Zwiebel anbraten.", "Alles in den Topf, 25 min köcheln.", "Reis kochen. Hält im Kühlschrank gut 3 Tage."],
+      "pro_portion": { "kcal": 1160, "protein_g": 62 }
+    },
+    {
+      "id": "ofenkartoffeln-pute", "typ": "abend", "name": "Ofenkartoffeln mit Putenbrust und Kräutertopfen",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 45, "tags": ["pute", "kartoffeln", "ofen"],
+      "zutaten": [
+        { "zutat": "putenbrust", "menge": 800, "einheit": "g" },
+        { "zutat": "kartoffeln", "menge": 2500, "einheit": "g" },
+        { "zutat": "brokkoli-tk", "menge": 500, "einheit": "g" },
+        { "zutat": "rapsoel", "menge": 6, "einheit": "EL" },
+        { "zutat": "kaese-gerieben", "menge": 100, "einheit": "g" },
+        { "zutat": "magertopfen", "menge": 500, "einheit": "g" },
+        { "zutat": "schnittlauch" },
+        { "zutat": "knoblauch" },
+        { "zutat": "salz" }
+      ],
+      "schritte": ["Kartoffeln, Pute und Brokkoli mit Öl und Gewürzen aufs Blech, 35 min ins Rohr.", "Die letzten 5 min Käse drüber.", "Topfen mit Kräutern verrühren."],
+      "pro_portion": { "kcal": 1000, "protein_g": 85 }
+    },
+    {
+      "id": "nudelauflauf-thunfisch", "typ": "abend", "name": "Nudelauflauf mit Thunfisch und Brokkoli",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 45, "tags": ["thunfisch", "nudeln", "ofen"],
+      "zutaten": [
+        { "zutat": "vollkornpenne", "menge": 600, "einheit": "g" },
+        { "zutat": "thunfisch", "menge": 3, "einheit": "Dose" },
+        { "zutat": "brokkoli-tk", "menge": 500, "einheit": "g" },
+        { "zutat": "eier", "menge": 4, "einheit": "Stück" },
+        { "zutat": "milch", "menge": 250, "einheit": "ml" },
+        { "zutat": "kaese-gerieben", "menge": 200, "einheit": "g" }
+      ],
+      "schritte": ["Nudeln kurz vorkochen.", "Mit Thunfisch und Brokkoli in die Form, Eier-Milch drüber.", "Käse drauf, 25 min ins Rohr."],
+      "pro_portion": { "kcal": 980, "protein_g": 75 }
+    },
+    {
+      "id": "gyros-pfanne", "typ": "abend", "name": "Gyros-Pfanne vom Schwein mit Reis und Skyr-Tzatziki",
+      "portionen": 4, "aufwand": "leicht", "zeit_min": 30, "tags": ["schwein", "reis"],
+      "zutaten": [
+        { "zutat": "schweinsschnitzel", "menge": 1000, "einheit": "g" },
+        { "zutat": "zwiebel", "menge": 2, "einheit": "Stück" },
+        { "zutat": "rapsoel", "menge": 3, "einheit": "EL" },
+        { "zutat": "gyrosgewuerz" },
+        { "zutat": "reis", "menge": 700, "einheit": "g" },
+        { "zutat": "skyr", "menge": 500, "einheit": "g" },
+        { "zutat": "gurke", "menge": 1, "einheit": "Stück" },
+        { "zutat": "knoblauch" }
+      ],
+      "schritte": ["Fleisch in Streifen mit Zwiebel und Gewürz scharf anbraten.", "Reis kochen.", "Gurke reiben, mit Skyr und Knoblauch verrühren."],
+      "pro_portion": { "kcal": 1055, "protein_g": 82 }
+    },
+    {
+      "id": "weckerl-schinken-kaese", "typ": "jause", "name": "Vollkornweckerl mit Putenschinken und Gouda",
+      "portionen": 1, "herkunft": "mitnehmen", "ohne_kuehlung": false,
+      "zutaten": [
+        { "zutat": "vollkornweckerl", "menge": 2, "einheit": "Stück" },
+        { "zutat": "putenschinken", "menge": 100, "einheit": "g" },
+        { "zutat": "gouda", "menge": 50, "einheit": "g" },
+        { "zutat": "butter", "menge": 10, "einheit": "g" }
+      ],
+      "schritte": ["Weckerl aufschneiden und dünn mit Butter bestreichen.", "Mit Putenschinken und Gouda belegen, einpacken."],
+      "pro_portion": { "kcal": 715, "protein_g": 44 }
+    },
+    {
+      "id": "eier-brot", "typ": "jause", "name": "Hartgekochte Eier mit Vollkornbrot und Gurke",
+      "portionen": 1, "herkunft": "mitnehmen", "ohne_kuehlung": true,
+      "zutaten": [
+        { "zutat": "eier", "menge": 3, "einheit": "Stück" },
+        { "zutat": "vollkornbrot", "menge": 3, "einheit": "Scheibe" },
+        { "zutat": "gurke", "menge": 0.5, "einheit": "Stück" },
+        { "zutat": "salz" }
+      ],
+      "schritte": ["Eier 10 min hart kochen, abschrecken.", "Mit Brot, Gurke und etwas Salz einpacken."],
+      "pro_portion": { "kcal": 590, "protein_g": 33 }
+    },
+    {
+      "id": "spar-weckerl-pudding", "typ": "jause", "name": "Schinken-Käse-Weckerl und Protein-Pudding",
+      "portionen": 1, "herkunft": "spar", "geschaetzt": true,
+      "beschreibung": "Schinken-Käse-Weckerl aus der Feinkost plus ein High-Protein-Pudding aus dem Kühlregal.",
+      "pro_portion": { "kcal": 600, "protein_g": 45 }
+    },
+    {
+      "id": "spar-leberkaessemmel", "typ": "jause", "name": "Leberkässemmel",
+      "portionen": 1, "herkunft": "spar", "geschaetzt": true,
+      "beschreibung": "Leberkässemmel aus der Feinkost.",
+      "pro_portion": { "kcal": 610, "protein_g": 23 }
+    },
+    {
+      "id": "thunfisch-bohnen-salat", "typ": "jause", "name": "Thunfisch-Bohnen-Salat im Glas mit Weckerl",
+      "portionen": 1, "herkunft": "mitnehmen", "ohne_kuehlung": false,
+      "zutaten": [
+        { "zutat": "thunfisch", "menge": 1, "einheit": "Dose" },
+        { "zutat": "weisse-bohnen", "menge": 1, "einheit": "Dose" },
+        { "zutat": "mais", "menge": 0.5, "einheit": "Dose" },
+        { "zutat": "zwiebel", "menge": 0.5, "einheit": "Stück" },
+        { "zutat": "essig" },
+        { "zutat": "rapsoel", "menge": 1, "einheit": "EL" },
+        { "zutat": "vollkornweckerl", "menge": 1, "einheit": "Stück" }
+      ],
+      "schritte": ["Thunfisch, Bohnen und Mais abtropfen lassen.", "Mit fein geschnittener Zwiebel, Essig und Öl im Glas mischen.", "Weckerl extra einpacken."],
+      "pro_portion": { "kcal": 730, "protein_g": 60 }
+    },
+    {
+      "id": "kornspitz-landjaeger", "typ": "jause", "name": "Kornspitz mit Landjäger und Bergkäse",
+      "portionen": 1, "herkunft": "mitnehmen", "ohne_kuehlung": true,
+      "zutaten": [
+        { "zutat": "kornspitz", "menge": 2, "einheit": "Stück" },
+        { "zutat": "landjaeger", "menge": 1, "einheit": "Stück" },
+        { "zutat": "bergkaese", "menge": 60, "einheit": "g" }
+      ],
+      "schritte": ["Alles einpacken, fertig."],
+      "pro_portion": { "kcal": 790, "protein_g": 40 }
+    },
+    {
+      "id": "spar-grillhendl", "typ": "jause", "name": "Grillhendl-Haxerl mit Semmel",
+      "portionen": 1, "herkunft": "spar", "geschaetzt": true,
+      "beschreibung": "Grillhendl-Haxerl aus der Feinkost und eine Semmel.",
+      "pro_portion": { "kcal": 650, "protein_g": 45 }
+    },
+    {
+      "id": "reste", "typ": "jause", "name": "Reste vom Abendessen, kalt",
+      "portionen": 1, "herkunft": "reste",
+      "beschreibung": "Am besten Gyros, Auflauf oder Chili. Nährwerte wie das Abendessen."
+    },
+    {
+      "id": "skyr-haferflocken", "typ": "snack", "name": "Skyr-Bowl",
+      "portionen": 1, "aufwand": "leicht", "zeit_min": 5,
+      "zutaten": [
+        { "zutat": "skyr", "menge": 250, "einheit": "g" },
+        { "zutat": "haferflocken", "menge": 60, "einheit": "g" },
+        { "zutat": "banane", "menge": 1, "einheit": "Stück" },
+        { "zutat": "nuesse", "menge": 20, "einheit": "g" }
+      ],
+      "schritte": ["Skyr in eine Schüssel, Haferflocken und Nüsse drüber.", "Banane in Scheiben dazu."],
+      "pro_portion": { "kcal": 605, "protein_g": 41 }
+    },
+    {
+      "id": "milch-banane-nuesse", "typ": "extra", "name": "Milch, Banane und Nüsse",
+      "portionen": 1,
+      "zutaten": [
+        { "zutat": "milch", "menge": 500, "einheit": "ml" },
+        { "zutat": "banane", "menge": 1, "einheit": "Stück" },
+        { "zutat": "nuesse", "menge": 30, "einheit": "g" }
+      ],
+      "pro_portion": { "kcal": 605, "protein_g": 24 }
+    },
+    {
+      "id": "muesli-schale", "typ": "extra", "name": "Müsli-Schale mit Apfel",
+      "portionen": 1,
+      "zutaten": [
+        { "zutat": "muesli", "menge": 80, "einheit": "g" },
+        { "zutat": "milch", "menge": 300, "einheit": "ml" },
+        { "zutat": "apfel", "menge": 1, "einheit": "Stück" }
+      ],
+      "pro_portion": { "kcal": 565, "protein_g": 19 }
+    },
+    {
+      "id": "erdnussbutterbrot", "typ": "extra", "name": "Erdnussbutterbrot mit Banane",
+      "portionen": 1,
+      "zutaten": [
+        { "zutat": "vollkornbrot", "menge": 2, "einheit": "Scheibe" },
+        { "zutat": "erdnussbutter", "menge": 2, "einheit": "EL" },
+        { "zutat": "banane", "menge": 1, "einheit": "Stück" }
+      ],
+      "pro_portion": { "kcal": 515, "protein_g": 17 }
+    }
+  ]
+}

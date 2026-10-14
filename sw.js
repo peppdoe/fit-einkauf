@@ -6,10 +6,11 @@ const APP = [
   "bilder/symbole.svg", "bilder/icon-512.png",
   "js/app.js", "js/route.js", "js/daten.js", "js/speicher.js",
   "js/logik/datum.js", "js/logik/rotation.js", "js/logik/progression.js", "js/logik/einheit.js", "js/logik/uebersicht.js",
+  "js/logik/filter.js", "js/logik/einkaufsliste.js",
   "js/ansichten/html.js", "js/ansichten/blatt.js", "js/ansichten/pause.js", "js/ansichten/wachhalten.js",
   "js/ansichten/sicherung.js", "js/ansichten/heute.js", "js/ansichten/training.js", "js/ansichten/mehr.js"
 ];
-const DATEN = ["data/uebungen.json", "data/trainingsplan.json"];
+const DATEN = ["data/zutaten.json", "data/rezepte.json", "data/uebungen.json", "data/trainingsplan.json"];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((cache) => cache.addAll([...APP, ...DATEN])).then(() => self.skipWaiting()));
