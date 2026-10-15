@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-15 (Sitzung 4, Task 22)
+Letzte Aktualisierung: 2026-10-15 (Sitzung 4, nach Task 22 und Feinschliff)
 
 ## Aktueller Stand
 
@@ -15,10 +15,12 @@ Letzte Aktualisierung: 2026-10-15 (Sitzung 4, Task 22)
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
 | 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
 | 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ freigegeben |
-| 5e. Abschluss (Task 22) | ✅ umgesetzt, **Review offen** (Screenshots `fotos/review-task22/`) |
+| 5e. Abschluss (Task 22) | ✅ freigegeben |
+| 5f. Feinschliff nach Task 22 | ✅ (Screenshots `fotos/review-task22b/`) |
+| **6. iPhone-Test** | ⏳ **Warten auf iPhone-Test** (Checkliste `docs/iphone-test.md`) |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 145 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 155 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -28,6 +30,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 - `PRODUCT.md` – Produktkontext für impeccable (Nutzer, Situationen, Tonfall, gewählte visuelle Haltung)
 - `DESIGN.md` (+ `.impeccable/design.json`) – Design-System: Farben mit Bedeutung, Typo, Abstände, Komponenten, Regeln
 - `css/tokens.css`, `css/komponenten.css`, `bilder/symbole.svg` – UI-Grundlage, wird von der App direkt verwendet
+- `docs/iphone-test.md` – Checkliste für den iPhone-Test (Erwartung + Ergebnis je Punkt)
 - `muster/figuren.html` – Prüfseite für alle Übungsfiguren (die übrigen Musterseiten wurden in Task 22 gelöscht, Stand in der Git-Historie)
 - `.impeccable/surfaces/muster-training-html.md` – Richtungsvertrag der UI
 
@@ -43,7 +46,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 **Training**
 - Rotation nach Ablauf (immer die nächste Einheit, verpasste Tage verschieben nichts), seit Review 4 schwere Einheiten: Oberkörper A · Beine · Oberkörper B · Beine & Core; Supersätze Drücken ⇄ Ziehen bzw. Beine ⇄ Hüfte, Pause erst nach dem Paar; Mobilität als 5-min-Block am Ende jeder Einheit; Drücken:Ziehen 1:1
 - Wochenvorschau auf „Heute“: nach jeder Einheit ein Ruhetag (ca. 4 Einheiten pro Woche); nur Anzeige, die Rotation selbst läuft weiter nach Ablauf
-- Export-Erinnerung erscheint auf Heute, Training und Mehr
+- Export-Erinnerung erscheint nur auf Heute; Mehr zeigt unter Daten „Letzte Sicherung: …“
 - Klimmzug-Kette beginnt mit Negativ-Klimmzug und Chin-up; Stange standardmäßig an
 - Steigerung: Ziel in allen Sätzen an 2 aufeinanderfolgenden schweren Einheiten → Vorschlag, Bestätigung per Tipp; dazu „zu schwer“ / „zu leicht“
 - Pausen-Timer: Endzeit im Zustand (übersteht Neuladen), Ton auch bei Lautlos-Schalter (audioSession), Leiste blinkt am Ende
@@ -70,24 +73,20 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Review Task 22 abwarten:** Screenshots `fotos/review-task22/` (Heute, Training, laufende Einheit, Verlauf, Essen, Einkauf, Mehr – je hell und dunkel; `fotos/` ist nicht im Repo). Nichts Weiteres anfangen, bis der Nutzer sich meldet.
-   - Fotorunde (Plan Schritt 2): ein Fehler gefunden und behoben – Segment-Umschalter im Dunkelmodus: gewähltes Segment war `--zelle` (#1C1C1E) und damit dunkler als die Schiene. Neues Token `--segment-wahl` (hell #FFF, dunkel #636366 wie iOS). Sonst: kein waagrechtes Scrollen, kein abgeschnittener Text, Orange nur bei der Pause, Abstand zur Tab-Leiste reicht.
-   - Ablauf (Plan Schritt 3) per Skript in Edge headless mit leerem Speicher, alle 14 Prüfungen ✓: Training starten, Figur antippen/Blatt schließen, alle Sätze mit Pausen, abschließen; 2 Abend, 2 Jausen, 1 Extra einplanen (typischer Tag 605 → 2.169 kcal); abhaken, langes Drücken → Markt-Blatt, Grundvorrat ausblenden, Nach Rezept; Gewicht eintragen; Neuladen → alles da. **Nicht geprüft:** Export/Import (Teilen-Blatt/Dateiauswahl des Systems) → iPhone-Test.
-   - Vorlagen gelöscht: `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js`. Richtungsvertrag `.impeccable/surfaces/muster-training-html.md` zeigt jetzt auf die App.
-   - DESIGN.md ergänzt: Blatt, Übungsfigur (96 px, Stand nach Task 16), Hinweis „Achte darauf“, Eingabefeld, Mini-Zähler, Segment mit Links, Segment-Token, Blatt-Tokens.
-   - Plan-Schritt 8 (Deployment ansprechen) entfällt: Repo und GitHub Pages laufen seit Scheibe 1.
-2. **iPhone-Test** (siehe Offene Punkte), dann eine Woche benutzen.
-3. Danach Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik).
-4. Am Ende jeder Sitzung diese Datei aktualisieren.
+1. **Warten auf iPhone-Test.** Der Nutzer arbeitet `docs/iphone-test.md` ab und meldet die Ergebnisse. Nichts Neues anfangen, bis sie da sind; danach Befunde beheben.
+   - Für Punkt 5 (Update) braucht der Nutzer eine kleine sichtbare Änderung: auf Zuruf pushen (z. B. ein Wort im Untertitel von „Mehr“) und danach wieder zurücknehmen.
+   - Feinschliff nach Task 22 (umgesetzt, `tests/ansichten.test.js`): Export-Erinnerung nur auf Heute; Einkauf-Kategorie „Vorrat“ heißt „Konserven & Trockenes“ (Kennzeichen „Vorrat“ = Grundvorrat bleibt); Zähler je Markt = offene Artikel (`offeneAnzahl`); Butter ist Grundvorrat; Verlauf zeigt „Noch nicht trainiert“; Abneigungen groß angezeigt, klein gespeichert.
+   - Task 22 (freigegeben): Fotorunde mit Segment-Fix (`--segment-wahl`), Ablauf-Test per Skript (14/14), Vorlagen gelöscht (nur `muster/figuren.html` bleibt), DESIGN.md ergänzt.
+2. Danach: eine Woche benutzen, dann Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik).
+3. Am Ende jeder Sitzung diese Datei aktualisieren.
 
 **Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
 ## Offene Punkte
 
-- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken, Übungsfigur antippen („So geht's“-Blatt, Tab-Leiste muss verschwinden, unten Abstand zum Home-Indikator).
+- **iPhone-Test offen:** alle Punkte in `docs/iphone-test.md` (Installieren, Ton, Wake Lock, Export/Import, Offline, Update, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
 
 - **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
-- Export/Import am iPhone prüfen (im Ablauf-Test nicht abgedeckt).
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
