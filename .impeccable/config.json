@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "monotonous-spacing",
+        "value": "*",
+        "files": [
+          "muster/figuren.html"
+        ],
+        "createdAt": "2026-10-15T19:16:25.347Z",
+        "reason": "Claude: interne Prüfseite für Figuren (kein Nutzer-UI, laut HANDOFF nur Prüfseite); Abstände stammen aus früherer Sitzung, in dieser Sitzung nur --figur-grund ergänzt"
+      }
+    ]
+  }
+}
