@@ -26,11 +26,14 @@ export function oeffne(inhalt, { titel }) {
     if (e.key === 'Escape') schliesse();
   });
   wischen(blatt);
+  // Tab-Leiste ausblenden, solange das Blatt offen ist (robuster als z-index, auch mit Home-Indikator)
+  document.body.classList.add('blatt-offen');
   blatt.focus();
   return blatt;
 }
 
 export function schliesse() {
+  document.body.classList.remove('blatt-offen');
   wurzel().innerHTML = '';
   vorherFokus?.focus?.();
   vorherFokus = null;

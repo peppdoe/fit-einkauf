@@ -41,9 +41,10 @@ const liegestuetz = { geraet: 'boden',
   ende: { huefte: [69.6, 73.1], rumpf: 190, arm: [30, 163], bein: [10, 10] } };
 const beinHang = { bein: [15, 200] }; // Knie stark angewinkelt, Füße nach hinten
 const STANGE = 16; // Hände auf der Stange (Linie bei y = 15); oben ist der Kopf ganz darüber
+// Leicht zurückgelehnt, Hände vor dem Gesicht: im Hang liegt der Arm vor dem Kopf (poseZuSvg zeichnet ihn dann obenauf).
 const klimmzug = {
-  start: { h: [60, 72], r: -90, hand: [64, STANGE], eb: -1, ...beinHang },
-  ende: { h: [60, 44], r: -90, hand: [64, STANGE], eb: 1, ...beinHang },
+  start: { h: [63, 70], r: -100, hand: [73, STANGE], eb: -1, ...beinHang },
+  ende: { h: [62, 48], r: -100, hand: [74, STANGE], eb: 1, ...beinHang },
 };
 const umgedreht = (f) => ({ start: f.ende, ende: f.start });
 
@@ -88,11 +89,12 @@ const QUELLE = {
   'Chin-up': klimmzug,
   'Klimmzug': klimmzug,
   'L-Sit-Klimmzug': {
-    start: { h: [60, 72], r: -90, hand: [64, STANGE], eb: -1, bein: [0, 0] },
-    ende: { h: [60, 44], r: -90, hand: [64, STANGE], eb: 1, bein: [0, 0] } },
+    start: { ...klimmzug.start, bein: [0, 0] },
+    ende: { ...klimmzug.ende, bein: [0, 0] } },
+  // Start normaler Hang; oben zieht der vordere Arm, der zweite liegt gestreckt weiter vorn auf der Stange
   'Archer-Klimmzug': {
-    start: { h: [56, 70], r: -90, hand: [40, STANGE], hand2: [72, STANGE], ...beinHang },
-    ende: { h: [44, 44], r: -90, hand: [40, STANGE], eb: -1, hand2: [72, STANGE], ...beinHang } },
+    start: klimmzug.start,
+    ende: { ...klimmzug.ende, hand2: [86, STANGE], eb2: -1 } },
   // Beine
   'Kniebeuge': { geraet: 'boden',
     start: { huefte: [60, 46], rumpf: -90, arm: [0, 0], bein: [90, 90] },

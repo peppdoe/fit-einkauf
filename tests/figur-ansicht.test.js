@@ -5,13 +5,16 @@ import { verknuepfe } from '../js/daten.js';
 // Ansichten ohne Browser: pause.js braucht beim Laden nur document.addEventListener, das Blatt eine Wurzel.
 const element = () => ({ addEventListener() {}, focus() {}, style: {} });
 const blattWurzel = { innerHTML: '', firstElementChild: { ...element(), firstElementChild: element() } };
-let zeige, figurMini, soGehtsOeffnen;
+const bodyKlassen = new Set();
+let zeige, figurMini, soGehtsOeffnen, blatt;
 beforeAll(async () => {
   const leer = { innerHTML: '', classList: { remove() {} } };
-  globalThis.document = { addEventListener() {}, getElementById: (id) => (id === 'blatt-wurzel' ? blattWurzel : leer), activeElement: null };
+  globalThis.document = { addEventListener() {}, getElementById: (id) => (id === 'blatt-wurzel' ? blattWurzel : leer), activeElement: null,
+    body: { classList: { add: (k) => bodyKlassen.add(k), remove: (k) => bodyKlassen.delete(k) } } };
   globalThis.cancelAnimationFrame = () => {};
   ({ zeige } = await import('../js/ansichten/training.js'));
   ({ figurMini, soGehtsOeffnen } = await import('../js/ansichten/figur-ansicht.js'));
+  blatt = await import('../js/ansichten/blatt.js');
 });
 
 const lies = (pfad) => JSON.parse(readFileSync(new URL(`../${pfad}`, import.meta.url), 'utf8'));
@@ -57,6 +60,16 @@ describe('Übungsfigur in der Karte', () => {
     const stufe = daten.kettenById['ziehen-stange'].stufen[0];
     expect(figurMini({ name: '<b>', figur: stufe.figur })).toContain('So geht\'s: &lt;b&gt;');
   });
+
+  it('Kästchen nutzt den zugeschnittenen Ausschnitt, Strich sichtbar ca. 2,8 px', () => {
+    const { daten } = laden();
+    const html = figurMini({ name: 'X', figur: daten.kettenById['ziehen-stange'].stufen[0].figur });
+    expect(html).not.toContain('viewBox="0 0 120 84"');
+    const seite = Number(html.match(/viewBox="\S+ \S+ (\S+) \1"/)[1]);
+    expect(seite).toBeLessThan(100);
+    const strich = Number(html.match(/stroke-width="([\d.]+)"\/><circle/)[1]);
+    expect((strich * 96) / seite).toBeCloseTo(2.8, 1);
+  });
 });
 
 describe('So-geht\'s-Blatt', () => {
@@ -71,6 +84,13 @@ describe('So-geht\'s-Blatt', () => {
     expect(html).toContain('<figcaption>Ende</figcaption>');
     expect(html).toContain('<li>Zwei &lt;3</li>');
     expect(html).toContain('Achte darauf:</strong> Langsam ablassen.');
+  });
+
+  it('blendet die Tab-Leiste aus, solange das Blatt offen ist', () => {
+    soGehtsOeffnen(info(null));
+    expect(bodyKlassen.has('blatt-offen')).toBe(true);
+    blatt.schliesse();
+    expect(bodyKlassen.has('blatt-offen')).toBe(false);
   });
 
   it('ohne Figur nur Hinweise, ohne achtung kein Hinweisfeld', () => {

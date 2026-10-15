@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/komponenten.css">
   <style>
     .figuren-raster { display: grid; grid-template-columns: 1fr 1fr; gap: var(--a-2); padding: var(--a-3); }
-    .figuren-raster figure { margin: 0; padding: var(--a-2); border-radius: var(--r-feld); background: var(--zelle-2); color: var(--text); }
+    .figuren-raster figure { --figur-grund: var(--zelle-2); margin: 0; padding: var(--a-2); border-radius: var(--r-feld); background: var(--figur-grund); color: var(--text); }
     .figuren-raster svg { display: block; width: 100%; height: auto; }
     .figuren-raster figcaption { text-align: center; font: var(--t-fuss); color: var(--text-2); }
     .figuren-text { padding: 0 var(--a-4) var(--a-3); font: var(--t-unter); color: var(--text-2); }

@@ -46,16 +46,51 @@ export function gelenke(pose) {
 
 const linie = (a, b) => `M${a[0]} ${a[1]}L${b[0]} ${b[1]}`;
 
-export function poseZuSvg(pose, geraet = 'boden') {
+function abstand(p, a, b) {
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy || 1)));
+  return Math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy);
+}
+
+// strich = Strichstärke der Figur in Bild-Einheiten; Boden und Gerät werden im gleichen Verhältnis dünner.
+export function poseZuSvg(pose, geraet = 'boden', strich = 3.2) {
   const g = gelenke(pose);
+  const f = strich / 3.2;
   const glieder = (s) => linie(g.schulter, s.ellbogen) + linie(s.ellbogen, s.hand) + linie(g.huefte, s.knie) + linie(s.knie, s.fuss);
+  // Kreuzt der vordere Arm den Kopf (z. B. im Hang an der Stange), liegt er sichtbar davor:
+  // obenauf gezeichnet, mit einem Rand in Hintergrundfarbe, der den Kopfkreis unterbricht.
+  const armVorKopf = Math.min(abstand(g.kopf, g.schulter, g.vorn.ellbogen), abstand(g.kopf, g.vorn.ellbogen, g.vorn.hand)) < LAENGE.kopf + strich;
+  const arm = `${linie(g.schulter, g.vorn.ellbogen)}${linie(g.vorn.ellbogen, g.vorn.hand)}`;
   return '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
-    + '<path d="M4 80.5H116" stroke-width="1.2" opacity=".35"/>'
-    + `<g stroke-width="2" opacity=".35">${GERAET_SVG[geraet] ?? ''}</g>`
-    + `<path d="${glieder(g.hinten)}" stroke-width="3.2" opacity=".45"/>`
-    + `<path d="${linie(g.huefte, g.schulter)}${glieder(g.vorn)}" stroke-width="3.2"/>`
-    + `<circle cx="${g.kopf[0]}" cy="${g.kopf[1]}" r="${LAENGE.kopf}" stroke-width="3.2"/>`
+    + `<path d="M4 80.5H116" stroke-width="${rund(1.2 * f)}" opacity=".35"/>`
+    + `<g stroke-width="${rund(2 * f)}" opacity=".35">${GERAET_SVG[geraet] ?? ''}</g>`
+    + `<path d="${glieder(g.hinten)}" stroke-width="${strich}" opacity=".45"/>`
+    + `<path d="${linie(g.huefte, g.schulter)}${glieder(g.vorn)}" stroke-width="${strich}"/>`
+    + `<circle cx="${g.kopf[0]}" cy="${g.kopf[1]}" r="${LAENGE.kopf}" stroke-width="${strich}"/>`
+    + (armVorKopf
+      ? `<path d="${arm}" style="stroke: var(--figur-grund, var(--zelle))" stroke-width="${rund(strich * 2)}"/><path d="${arm}" stroke-width="${strich}"/>`
+      : '')
     + '</g>';
+}
+
+// Quadratischer Bildausschnitt (viewBox) um beide Posen einer Figur, damit sie ihr Kästchen zu ca. 85 % füllt.
+// Gleicher Ausschnitt für Start und Ende, sonst springt die Figur beim Wechsel.
+export function ausschnitt(figur, fuellung = 0.85, rand = 2) {
+  const punkte = [figur.start, figur.ende].flatMap((pose) => {
+    const g = gelenke(pose);
+    const k = LAENGE.kopf;
+    return [g.huefte, g.schulter, ...Object.values(g.vorn), ...Object.values(g.hinten),
+      [g.kopf[0] - k, g.kopf[1] - k], [g.kopf[0] + k, g.kopf[1] + k]];
+  });
+  const xs = punkte.map((p) => p[0]);
+  const ys = punkte.map((p) => p[1]);
+  const [x0, x1, y0] = [Math.min(...xs) - rand, Math.max(...xs) + rand, Math.min(...ys) - rand];
+  let y1 = Math.max(...ys) + rand;
+  // Liegt der Boden knapp unter der Figur, ganz mit hinein – sonst klebt die Bodenlinie an der Kante.
+  if (BILD.boden < y1 + 6) y1 = Math.max(y1, BILD.boden + 0.5 + rand);
+  const seite = rund(Math.max(x1 - x0, y1 - y0) / fuellung);
+  return `${rund((x0 + x1 - seite) / 2)} ${rund((y0 + y1 - seite) / 2)} ${seite} ${seite}`;
 }
 
 const istPaar = (x) => Array.isArray(x) && x.length === 2 && x.every(Number.isFinite);

@@ -278,7 +278,8 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
 
 .uebung { padding: var(--a-4); }
 .uebung__kopf { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--a-3); }
-.uebung__name { font: var(--t-titel2); }
+.uebung__kopf > :first-child { min-width: 0; } /* Titel bricht neben der Figur um */
+.uebung__name { font: var(--t-titel2); overflow-wrap: break-word; hyphens: auto; }
 .uebung__ziel { margin-top: 2px; font: var(--t-unter); color: var(--text-2); }
 .uebung__stufe { display: flex; gap: var(--a-2); margin-top: var(--a-4); }
 .uebung__stufe .knopf { flex: 1; }
@@ -683,6 +684,8 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
   animation: blatt-hochfahren var(--mittel) var(--ease);
 }
 .blatt:focus { outline: none; }
+/* Solange ein Blatt offen ist, verschwindet die Tab-Leiste ganz (nichts schimmert durch). */
+.blatt-offen .tableiste { visibility: hidden; }
 .blatt__griff { width: 36px; height: 5px; margin: 0 auto var(--a-2); border-radius: 3px; background: var(--zelle-gedrueckt); touch-action: none; }
 .blatt__kopf { display: flex; align-items: center; justify-content: space-between; gap: var(--a-3); min-height: var(--tipp); touch-action: none; }
 .blatt__titel { font: var(--t-kopf); }
@@ -705,17 +708,20 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
 .figur-mini {
   position: relative;
   flex: none;
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   margin: -4px -4px 0 0;
   padding: 0;
+  overflow: hidden;
   border: 0;
   border-radius: var(--r-feld);
-  background: var(--zelle-2);
+  --figur-grund: var(--zelle-2); /* Rand um einen Arm, der vor dem Kopf liegt */
+  background: var(--figur-grund);
   color: var(--text);
 }
-.figur-mini svg { position: absolute; inset: 4px; width: 64px; height: 64px; }
-.figur-mini:active { background: var(--zelle-gedrueckt); }
+/* Der Bildausschnitt (viewBox) ist schon auf die Figur zugeschnitten; das SVG füllt das ganze Kästchen. */
+.figur-mini svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.figur-mini:active { --figur-grund: var(--zelle-gedrueckt); }
 /* Start und Ende überblenden im Wechsel, je 1,5 s; die Deckkraft beider ergibt immer 1 (kein leerer Moment) */
 .figur-mini__start { animation: figur-start 3s infinite; }
 .figur-mini__ende { animation: figur-ende 3s infinite; }
