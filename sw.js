@@ -13,7 +13,10 @@ const APP = [
 const DATEN = ["data/zutaten.json", "data/rezepte.json", "data/uebungen.json", "data/trainingsplan.json"];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(VERSION).then((cache) => cache.addAll([...APP, ...DATEN])).then(() => self.skipWaiting()));
+  // Frisch vom Server einlagern (no-cache), nicht aus dem Browser-Cache – sonst kann ein neuer Service Worker
+  // bis zu 10 min alte Dateien übernehmen.
+  const frisch = [...APP, ...DATEN].map((datei) => new Request(new URL(datei, self.location), { cache: 'no-cache' }));
+  e.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(frisch)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
@@ -24,8 +27,11 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// Immer beim Server nachfragen (no-cache): sonst liefert der Browser-Cache bis zu 10 min die alte Datei
+// (GitHub Pages: max-age=600) und ein Update kommt erst eine Runde später an. Unverändert = 304, kaum Daten.
+// Seitenaufrufe (navigate) lassen sich nicht mit Optionen kopieren, darum dort über die URL.
 function holenUndMerken(anfrage) {
-  return fetch(anfrage).then((antwort) => {
+  return fetch(anfrage.mode === 'navigate' ? anfrage.url : anfrage, { cache: 'no-cache' }).then((antwort) => {
     if (antwort.ok) {
       const kopie = antwort.clone();
       caches.open(VERSION).then((cache) => cache.put(anfrage, kopie));

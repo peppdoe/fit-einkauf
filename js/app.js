@@ -88,7 +88,7 @@ async function start() {
   }
   navigator.storage?.persist?.().catch(() => {});
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch((fehler) => console.warn('Service Worker:', fehler));
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch((fehler) => console.warn('Service Worker:', fehler));
   }
   window.addEventListener('hashchange', zeichnen);
   // Ohne Adresse: laufende Einheit geht vor, sonst die Übersicht.
