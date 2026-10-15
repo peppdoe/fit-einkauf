@@ -2,8 +2,8 @@
 import { esc, sym, zahl, datumKurz } from './html.js';
 import { parseKg, eintragen, wochenschnitte, trendProMonat, empfehlung } from '../logik/gewicht.js';
 import { heute, isoWoche } from '../logik/datum.js';
-import { exportFaellig, importieren, SCHLUESSEL } from '../speicher.js';
-import { sichern, exportieren, erinnerungHtml } from './sicherung.js';
+import { importieren, SCHLUESSEL } from '../speicher.js';
+import { sichern, exportieren } from './sicherung.js';
 
 const ZIELE = [['kcal', 'Kalorien', 'kcal'], ['protein', 'Protein', 'g']];
 let nachricht = null; // { art: 'ok' | 'fehler', text } – wird beim nächsten Zeichnen einmal gezeigt
@@ -28,7 +28,6 @@ export function zeige(wurzel, ctx) {
       <p class="titelleiste__unter">Gewicht, Ziele und Einstellungen</p>
     </header>
     ${n ? nachrichtHtml(n) : ''}
-    ${exportFaellig(z, heute()) ? erinnerungHtml(z) : ''}
     ${gewichtHtml(z)}
     ${zieleHtml(z)}
     ${abneigungenHtml(z)}
@@ -108,12 +107,15 @@ function zieleHtml(z) {
   </section>`;
 }
 
+// Gespeichert bleibt das Wort klein (Filter vergleicht klein); angezeigt mit großem Anfangsbuchstaben.
+const grossAnfang = (t) => t.charAt(0).toLocaleUpperCase('de') + t.slice(1);
+
 function abneigungenHtml(z) {
   return `<section class="gruppe">
     <h2 class="gruppe__kopf">Abneigungen</h2>
     <ul class="gruppe__inhalt">
       ${z.einstellungen.abneigungen.map((a) => `<li><div class="zeile">
-        <span class="zeile__haupt zeile__titel">${esc(a)}</span>
+        <span class="zeile__haupt zeile__titel">${esc(grossAnfang(a))}</span>
         <button class="knopf knopf--schlicht" type="button" data-aktion="abneigung-weg" data-wert="${esc(a)}">Entfernen</button>
       </div></li>`).join('')}
       <li><form class="zeile" data-formular="abneigung">

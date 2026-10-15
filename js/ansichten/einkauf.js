@@ -1,7 +1,7 @@
 // Einkauf: Liste nach Markt (abhaken, langes Drücken für Markt/Vorrat) oder nach Rezept.
 import { esc, sym, zahl, mengeText, datumKurz, sicher } from './html.js';
 import {
-  MAERKTE, bedarf, einkaufsliste, nachRezept, abhakenUmschalten, aufgebrauchtUmschalten, neueWoche, marktFuer,
+  MAERKTE, bedarf, einkaufsliste, nachRezept, abhakenUmschalten, aufgebrauchtUmschalten, neueWoche, marktFuer, offeneAnzahl,
 } from '../logik/einkaufsliste.js';
 import { isoWoche, heute } from '../logik/datum.js';
 import * as blatt from './blatt.js';
@@ -101,7 +101,7 @@ export function zeige(wurzel, ctx, route) {
       <h2 class="marktkopf">
         <span class="marktkopf__punkt">${sym('tasche')}</span>
         <span class="marktkopf__name">${marktName(m.markt)}</span>
-        <span class="marktkopf__anzahl">${m.anzahl}</span>
+        <span class="marktkopf__anzahl" aria-label="${offeneAnzahl(m, zustand.essen.abgehakt)} offen">${offeneAnzahl(m, zustand.essen.abgehakt)}</span>
       </h2>
       <ul class="gruppe__inhalt">${m.kategorien.map((k) => `<li class="kategorie">${esc(k.kategorie)}</li>${k.zeilen.map(zeileHtml).join('')}`).join('')}</ul>
     </section>`).join('');

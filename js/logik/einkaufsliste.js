@@ -2,7 +2,7 @@
 
 export const MAERKTE = ['Lidl', 'Hofer', 'Spar', 'egal'];
 export const KATEGORIEN = [
-  'Obst & Gemüse', 'Brot & Gebäck', 'Kühlregal', 'Fleisch & Fisch', 'Tiefkühl', 'Vorrat', 'Gewürze', 'Sonstiges',
+  'Obst & Gemüse', 'Brot & Gebäck', 'Kühlregal', 'Fleisch & Fisch', 'Tiefkühl', 'Konserven & Trockenes', 'Gewürze', 'Sonstiges',
 ];
 const MASS_EINHEITEN = ['g', 'ml'];
 
@@ -104,6 +104,11 @@ export function einkaufsliste(bedarfListe, zutaten, einstellungen, aufgebraucht,
     }));
     return { markt, anzahl: geordnet.reduce((s, k) => s + k.zeilen.length, 0), kategorien: geordnet };
   });
+}
+
+// Offene (nicht abgehakte) Artikel eines Markts aus einkaufsliste().
+export function offeneAnzahl(markt, abgehakt) {
+  return markt.kategorien.reduce((s, k) => s + k.zeilen.filter((z) => !abgehakt[z.schluessel]).length, 0);
 }
 
 export function nachRezept(wochenplan, rezepteById, zutaten) {

@@ -4,8 +4,6 @@ import { naechsteEinheit, abschliessen, ueberspringen, bloeckeFuerEinheit } from
 import { zielFuer, zielwert, erreicht, erfolgsserie, vorschlaegeNachAbschluss, stufeVerschieben } from '../logik/progression.js';
 import { aufloesen, schrittweite, starteEinheit, satzFertig, waehle, pauseNach, eintragAusLaufend } from '../logik/einheit.js';
 import { heute } from '../logik/datum.js';
-import { exportFaellig } from '../speicher.js';
-import { exportieren, erinnerungHtml } from './sicherung.js';
 import * as pause from './pause.js';
 import * as wach from './wachhalten.js';
 import { figurMini, soGehtsOeffnen } from './figur-ansicht.js';
@@ -72,7 +70,6 @@ function zeigeStart(wurzel, ctx) {
       <h1 class="titelleiste__titel">${esc(einheit.name)}</h1>
       <p class="titelleiste__unter">Heute · Einheit ${nummer} von ${daten.plan.einheiten.length} · ${esc(einheit.dauer)}</p>
     </header>
-    ${exportFaellig(zustand, heute()) ? erinnerungHtml(zustand) : ''}
     ${vorschlaegeHtml(zustand.training.vorschlaege)}
     <section class="gruppe">
       <h2 class="gruppe__kopf">Übungen</h2>
@@ -226,7 +223,7 @@ function zeigeVerlauf(wurzel, ctx) {
     }).join('');
     return `<section class="gruppe">
       <h2 class="gruppe__kopf">${esc(kette.name)}</h2>
-      <ul class="gruppe__inhalt"><li><div class="zeile"><div class="zeile__haupt zeile__titel">Aktuell: ${esc(aktuell.name)}</div></div></li>${zeilen}</ul>
+      <ul class="gruppe__inhalt"><li><div class="zeile"><div class="zeile__haupt zeile__titel">Aktuell: ${esc(aktuell.name)}</div></div></li>${zeilen || '<li><div class="zeile"><div class="zeile__haupt zeile__unter">Noch nicht trainiert</div></div></li>'}</ul>
     </section>`;
   }).join('');
   const leer = log.length ? '' : `
@@ -279,7 +276,6 @@ const AKTIONEN = {
     wach.aus();
     ctx.aendern((z) => { z.training = ueberspringen(z.training, ctx.daten.plan); });
   },
-  export(el, ctx) { exportieren(ctx); },
   'vorschlag-ja'(el, ctx) {
     const kette = ctx.daten.kettenById[el.dataset.kette];
     ctx.aendern((z) => {

@@ -1,17 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import {
   bedarf, runde, einkaufsliste, nachRezept, aktionFuer, marktFuer,
-  abhakenUmschalten, aufgebrauchtUmschalten, neueWoche,
+  abhakenUmschalten, aufgebrauchtUmschalten, neueWoche, offeneAnzahl,
 } from '../js/logik/einkaufsliste.js';
 
 const zutaten = {
   huhn: { name: 'Hühnerbrustfilet', kategorie: 'Fleisch & Fisch', grundvorrat: false, standard_markt: 'Hofer' },
-  reis: { name: 'Reis', kategorie: 'Vorrat', grundvorrat: true, standard_markt: 'egal' },
+  reis: { name: 'Reis', kategorie: 'Konserven & Trockenes', grundvorrat: true, standard_markt: 'egal' },
   paprika: { name: 'Paprika', kategorie: 'Obst & Gemüse', grundvorrat: false, standard_markt: 'egal' },
   eier: { name: 'Eier', kategorie: 'Kühlregal', grundvorrat: false, standard_markt: 'Lidl' },
-  oel: { name: 'Olivenöl', kategorie: 'Vorrat', grundvorrat: true, standard_markt: 'egal' },
+  oel: { name: 'Olivenöl', kategorie: 'Konserven & Trockenes', grundvorrat: true, standard_markt: 'egal' },
   salz: { name: 'Salz', kategorie: 'Gewürze', grundvorrat: true, standard_markt: 'egal' },
-  mais: { name: 'Mais', kategorie: 'Vorrat', grundvorrat: false, standard_markt: 'egal' },
+  mais: { name: 'Mais', kategorie: 'Konserven & Trockenes', grundvorrat: false, standard_markt: 'egal' },
 };
 const rezepteById = {
   pfanne: { id: 'pfanne', name: 'Pfanne', typ: 'abend', portionen: 4, zutaten: [
@@ -82,7 +82,7 @@ describe('einkaufsliste', () => {
     const liste = einkaufsliste(bedarf(plan, rezepteById), zutaten, einstellungen, []);
     expect(liste.map((m) => m.markt)).toEqual(['Lidl', 'Hofer', 'egal']);
     const egal = liste.find((m) => m.markt === 'egal');
-    expect(egal.kategorien.map((k) => k.kategorie)).toEqual(['Obst & Gemüse', 'Vorrat', 'Gewürze']);
+    expect(egal.kategorien.map((k) => k.kategorie)).toEqual(['Obst & Gemüse', 'Konserven & Trockenes', 'Gewürze']);
     expect(egal.kategorien[1].zeilen.map((z) => z.name)).toEqual(['Mais', 'Mais', 'Olivenöl', 'Reis']);
     expect(egal.anzahl).toBe(6);
     expect(finde(liste, 'reis')).toMatchObject({ menge: 900, einheit: 'g', grundvorrat: true, aufgebraucht: false });
@@ -98,7 +98,7 @@ describe('einkaufsliste', () => {
     const liste = einkaufsliste([], zutaten, einstellungen, ['oel', 'butter']);
     expect(finde(liste, 'oel')).toMatchObject({ menge: null, aufgebraucht: true });
     const egal = liste.find((m) => m.markt === 'egal');
-    expect(egal.kategorien.map((k) => k.kategorie)).toEqual(['Vorrat', 'Sonstiges']);
+    expect(egal.kategorien.map((k) => k.kategorie)).toEqual(['Konserven & Trockenes', 'Sonstiges']);
     expect(finde(liste, 'butter')).toMatchObject({ name: 'butter' });
   });
   it('eigene Markt-Zuordnung hat Vorrang', () => {
@@ -153,5 +153,17 @@ describe('Haken und Vorrat', () => {
     expect(neu.wochenplan.kw).toBe('2026-W43');
     expect(neu.wochenplan.abend).toBe(plan.abend);
     expect(neu.aufgebraucht).toEqual(['oel']);
+  });
+});
+
+describe('offene Artikel je Markt', () => {
+  it('zählt nur, was noch nicht abgehakt ist', () => {
+    const markt = { markt: 'egal', kategorien: [
+      { kategorie: 'Obst & Gemüse', zeilen: [{ schluessel: 'a' }, { schluessel: 'b' }] },
+      { kategorie: 'Konserven & Trockenes', zeilen: [{ schluessel: 'c' }] },
+    ] };
+    expect(offeneAnzahl(markt, {})).toBe(3);
+    expect(offeneAnzahl(markt, { a: true, c: true })).toBe(1);
+    expect(offeneAnzahl(markt, { a: true, b: true, c: true })).toBe(0);
   });
 });
