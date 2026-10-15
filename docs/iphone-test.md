@@ -80,9 +80,9 @@ Vorbereitung: Training → „Training starten“ → einen Satz mit „Satz …
 
 ## 5. Update kommt an
 
-- [ ] Vorher Bescheid geben – dann wird eine kleine, sichtbare Änderung gepusht (z. B. ein Wort im Untertitel von „Mehr“). Danach App **einmal öffnen und schließen**, dann **ein zweites Mal öffnen**.
+- [x] Vorher Bescheid geben – dann wird eine kleine, sichtbare Änderung gepusht (z. B. ein Wort im Untertitel von „Mehr“). Danach App **einmal öffnen und schließen**, dann **ein zweites Mal öffnen**.
   **Erwartung:** Beim ersten Öffnen noch der alte Stand (er kommt sofort aus dem Speicher, die neue Version lädt im Hintergrund). Spätestens beim zweiten Öffnen ist die Änderung zu sehen.
-  **Ergebnis (bei welchem Öffnen sichtbar?):**
+  **Ergebnis (bei welchem Öffnen sichtbar?):** 15.10.2026, Markierung „· Update-Test 1“ im Untertitel von Mehr (Commit 7258c14): erst beim **dritten** Öffnen sichtbar (erwartet: zweites). Vermutete Ursache: GitHub Pages schickt `Cache-Control: max-age=600`; das Nachladen im Service Worker kann bis zu 10 Minuten die alte Datei aus dem Browser-Cache bekommen. Möglicher Fix: im Service Worker mit `cache: 'no-cache'` nachladen (fragt per ETag beim Server nach). Markierung danach zurückgenommen.
 
 ---
 

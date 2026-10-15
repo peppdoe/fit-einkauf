@@ -25,7 +25,7 @@ export function zeige(wurzel, ctx) {
     <header class="titelleiste">
       <div class="titelleiste__aktionen"></div>
       <h1 class="titelleiste__titel">Mehr</h1>
-      <p class="titelleiste__unter">Gewicht, Ziele und Einstellungen · Update-Test 1</p>
+      <p class="titelleiste__unter">Gewicht, Ziele und Einstellungen</p>
     </header>
     ${n ? nachrichtHtml(n) : ''}
     ${gewichtHtml(z)}

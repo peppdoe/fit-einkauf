@@ -86,6 +86,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 - **iPhone-Test offen:** alle Punkte in `docs/iphone-test.md` (Installieren, Ton, Wake Lock, Export/Import, Offline, Update, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
 
+- **Update-Test (iPhone, 15.10.):** neue Version erst beim dritten Öffnen sichtbar statt beim zweiten. Vermutlich Browser-Cache (`Cache-Control: max-age=600` von GitHub Pages) beim Nachladen im Service Worker; Fix-Vorschlag `fetch(anfrage, { cache: 'no-cache' })` in `holenUndMerken` (`sw.js`), Entscheidung beim Nutzer.
 - **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
