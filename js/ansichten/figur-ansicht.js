@@ -15,7 +15,7 @@ export function figurMini(info) {
   const { start, ende, geraet } = info.figur;
   const viewBox = ausschnitt(info.figur);
   const seite = Number(viewBox.split(' ')[2]);
-  const strich = Math.round((MINI_STRICH_PX * seite / MINI_PX) * 10) / 10;
+  const strich = Math.round((MINI_STRICH_PX * seite / MINI_PX) * 100) / 100;
   return `<button class="figur-mini" type="button" data-aktion="so-gehts" aria-label="So geht's: ${esc(info.name)}">
     ${bild(start, geraet, { klasse: 'figur-mini__start', viewBox, strich })}${bild(ende, geraet, { klasse: 'figur-mini__ende', viewBox, strich })}
   </button>`;

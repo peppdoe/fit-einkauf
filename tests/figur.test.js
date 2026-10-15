@@ -42,33 +42,46 @@ describe('figur', () => {
     expect(svg).toContain('stroke-width="4"');
     expect(svg).not.toContain('stroke-width="3.2"');
   });
-  it('Arm vor dem Kopf wird mit Rand in Hintergrundfarbe obenauf gezeichnet', () => {
-    expect(poseZuSvg(stehend)).not.toContain('--figur-grund');
-    // Hang an der Stange: der Arm geht an Hals und Kopf vorbei nach oben
-    const hang = { huefte: [63, 71], rumpf: -100, arm: [-61, -58], bein: [15, 200] };
+  it('Halswinkel setzt den Kopf zur Seite, ohne Halswinkel liegt er auf der Rumpfachse', () => {
+    expect(gelenke({ ...stehend, hals: -135 }).kopf).toEqual([53.6, 9.6]);
+    expect(gelenke(stehend).kopf).toEqual([60, 7]);
+    expect(pruefePose({ ...stehend, hals: 'x' })).toEqual(['hals ungültig']);
+  });
+  it('Kopf bleibt ein geschlossener Kreis, zuletzt gezeichnet und innen in Hintergrundfarbe (Arm liegt dahinter)', () => {
+    const hang = { huefte: [63, 70], rumpf: -100, hals: -130, arm: [-61, -58], bein: [15, 200] };
     const svg = poseZuSvg(hang, 'stange');
-    expect(svg).toContain('style="stroke: var(--figur-grund, var(--zelle))" stroke-width="6.4"');
-    expect(svg.indexOf('--figur-grund')).toBeGreaterThan(svg.indexOf('<circle'));
+    expect(svg.match(/<circle/g)).toHaveLength(1);
+    expect(svg.endsWith('style="fill: var(--figur-grund, var(--zelle))"/></g>')).toBe(true);
+    expect(svg.match(/style=/g)).toHaveLength(1);
   });
-  it('eigener zweiter Arm an der Stange liegt mit Rand über der Stange', () => {
-    const oben = { huefte: [62, 50], rumpf: -100, arm: [42, -64], arm2: [-9, -9], bein: [15, 200] };
+  it('eigener zweiter Arm an der Stange wird voll gezeichnet, die Beine dahinter blass', () => {
+    const oben = { huefte: [56.6, 55.9], rumpf: -95, arm: [-146, -59], arm2: [-28, -18], bein: [15, 200], bein2: [25, 200] };
     const svg = poseZuSvg(oben, 'stange');
-    const rand = svg.indexOf('style="stroke: var(--figur-grund, var(--zelle))"');
-    expect(rand).toBeGreaterThan(svg.indexOf('M20 15H100'));
-    expect(rand).toBeLessThan(svg.indexOf('opacity=".45"/>'));
-    // ohne eigenen zweiten Arm oder ohne Stange kein Rand
-    expect(poseZuSvg({ ...oben, arm2: undefined }, 'stange')).not.toContain('--figur-grund');
-    expect(poseZuSvg(oben, 'boden')).not.toContain('--figur-grund');
+    const blass = svg.match(/<path d="([^"]*)" stroke-width="3.2" opacity=".45"\/>/)[1];
+    const voll = svg.match(/<path d="([^"]*)" stroke-width="3.2"\/>/)[1];
+    const g = gelenke(oben);
+    const zweiterArm = `M${g.schulter[0]} ${g.schulter[1]}L${g.hinten.ellbogen[0]} ${g.hinten.ellbogen[1]}`;
+    expect(voll).toContain(zweiterArm);
+    expect(blass).not.toContain(zweiterArm);
+    expect(blass).toContain(`L${g.hinten.knie[0]} ${g.hinten.knie[1]}`);
+    // ohne Stange bleibt der zweite Arm blass
+    expect(poseZuSvg(oben, 'boden').match(/<path d="([^"]*)" stroke-width="3.2" opacity=".45"\/>/)[1]).toContain(zweiterArm);
   });
-  it('ausschnitt: quadratischer Bereich um beide Posen, Figur füllt 85 %', () => {
+  it('ausschnitt: eng um beide Posen, Boden nur wenn die Figur darauf steht', () => {
     const [x, y, b, h] = ausschnitt(gueltig.figur).split(' ').map(Number);
     expect(b).toBe(h);
-    // Höhe: Kopf oben (y = 2) bis Bodenlinie (y = 80,5), dazu 2 Rand je Seite -> 82,5 / 0,85
-    expect(b).toBeCloseTo(82.5 / 0.85, 0);
-    // Kopf oben, Fuß unten und die ausgestreckte Hand (x = 89) liegen im Ausschnitt
-    expect(y).toBeLessThanOrEqual(0);
-    expect(y + h).toBeGreaterThanOrEqual(82.5);
+    // Höhe: Kopf oben (y = 2) bis Bodenlinie (y = 80,5), dazu 3 Rand je Seite -> 84,5
+    expect(b).toBeCloseTo(84.5, 0);
+    expect(y).toBeLessThanOrEqual(-1);
+    expect(y + h).toBeGreaterThanOrEqual(83.5);
     expect(x + b).toBeGreaterThan(89);
+  });
+  it('ausschnitt an der Stange: Stange oben drin, Boden weg, wenn die Füße in der Luft sind', () => {
+    const hang = { huefte: [63, 70], rumpf: -100, hals: -130, arm: [-61, -58], bein: [15, 200] };
+    const oben = { huefte: [62, 48], rumpf: -100, arm: [42, -64], bein: [15, 200] };
+    const [, y, , h] = ausschnitt({ geraet: 'stange', start: hang, ende: oben }).split(' ').map(Number);
+    expect(y).toBeLessThanOrEqual(12);
+    expect(y + h).toBeLessThan(80);
   });
   it('pruefePose meldet fehlende Winkel und Gelenke außerhalb', () => {
     expect(pruefePose(stehend)).toEqual([]);

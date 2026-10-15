@@ -10,6 +10,8 @@
   --zelle: #FFFFFF;            /* Zellen, Karten */
   --zelle-2: #F2F2F7;          /* Felder in Zellen (Satz-Felder, Zähler-Tasten) */
   --zelle-gedrueckt: #E5E5EA;  /* Zelle beim Antippen */
+  --blatt-grund: #F2F2F7;      /* Blatt von unten (im Dunkeln erhöht) */
+  --blatt-zelle: #FFFFFF;      /* Zellen im Blatt */
   --material: rgba(249, 249, 249, 0.82); /* Tab-Leiste, Pausen-Leiste (mit Unschärfe) */
   --haarlinie: rgba(60, 60, 67, 0.29);
 
@@ -91,6 +93,8 @@
     --zelle: #1C1C1E;
     --zelle-2: #2C2C2E;
     --zelle-gedrueckt: #3A3A3C;
+    --blatt-grund: #1C1C1E;
+    --blatt-zelle: #2C2C2E;
     --material: rgba(30, 30, 30, 0.8);
     --haarlinie: rgba(84, 84, 88, 0.6);
     --text: #FFFFFF;
@@ -121,6 +125,8 @@
   --zelle: #1C1C1E;
   --zelle-2: #2C2C2E;
   --zelle-gedrueckt: #3A3A3C;
+  --blatt-grund: #1C1C1E;
+  --blatt-zelle: #2C2C2E;
   --material: rgba(30, 30, 30, 0.8);
   --haarlinie: rgba(84, 84, 88, 0.6);
   --text: #FFFFFF;

@@ -14,11 +14,11 @@ Letzte Aktualisierung: 2026-10-15 (Sitzung 4)
 | 5b. Task 23A Startseite „Heute“ | ✅ |
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
 | 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
-| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ umgesetzt, Review-Runden 1 und 2 eingearbeitet, **Freigabe offen** |
+| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ umgesetzt, Review-Runden 1–3 eingearbeitet, **Freigabe offen** |
 | 5e. Abschluss (Task 22) | ⏭️ als Nächstes, erst nach Review-OK zu Task 16 |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 143 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 145 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -70,13 +70,14 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Freigabe Task 16 abwarten:** Screenshots liegen gesammelt in `fotos/review-task16/` (Karte, Blatt und Prüfseiten Klimmzug 1–5 sowie L-Sit/Archer, jeweils hell und dunkel; `fotos/` ist nicht im Repo). Erst nach OK mit Task 22 beginnen.
-   - Runde 1 (Nutzer-Review) eingearbeitet:
-     1. Klimmzug-Arme: Im Profil kreuzt ein Hang-Arm geometrisch immer den Kopf (Kopfmitte 9 über der Schulter). Lösung: Klimmzug-Posen leicht zurückgelehnt (`r: -100`), Hände vor dem Gesicht auf der Stange. Kreuzt der vordere Arm den Kopf, zeichnet `poseZuSvg` ihn obenauf mit Rand in Hintergrundfarbe (`--figur-grund`, Standard `--zelle`). Betrifft nur Figuren, deren Arm den Kopf schneidet. L-Sit und Archer nutzen die neuen Posen; Archer: Start normaler Hang, Ende zieht vorn, zweiter Arm gestreckt weiter vorn (`hand2: [86, 16]`).
-     2. Dunkelmodus: Strichfarbe war schon gleich (`--text`); unsichtbar war nur der eingefrorene Überblendungs-Moment im Foto (alte `reverse`-Animation). Jetzt im Foto klar weiß.
-     3. Kästchen 96 px, `ausschnitt(figur)` in `figur.js` schneidet die viewBox quadratisch auf beide Posen zu (85 %, Boden kommt mit, wenn er knapp darunter liegt); Strich sichtbar 2,8 px (`poseZuSvg(pose, geraet, strich)`). Titel daneben bricht um (`min-width: 0`, Silbentrennung).
-     4. Blatt offen → `body.blatt-offen`, Tab-Leiste `visibility: hidden` (gilt für alle Blätter, auch Einkauf). Blatt-Hintergrund `--grund` war schon deckend, unten `calc(24px + env(safe-area-inset-bottom))`.
-   - Runde 2 (Nutzer-Entscheidung) eingearbeitet: Archer-Ende mit Schulter etwas unter der Stange (`h: [62, 50]`); ein eigener zweiter Arm an der Stange (`arm2` bei Gerät `stange`) wird mit Rand in Hintergrundfarbe über die Stange gezeichnet. `.impeccable/config.json` committet (Ausnahme `monotonous-spacing` nur für die Prüfseite `muster/figuren.html`).
+1. **Freigabe Task 16 abwarten (Review-Runde 3 eingearbeitet):** Screenshots in `fotos/`: `figur-karte-hell/-dunkel`, `so-gehts-hell/-dunkel`, `figuren-klimmzug-hell/-dunkel` (Stufen 1–5), `figuren-klimmzug-2` (L-Sit, Archer). `fotos/` ist nicht im Repo. Erst nach OK mit Task 22 beginnen.
+   - Stand der Figuren-Darstellung (`js/logik/figur.js`):
+     - **Kopf:** optionaler Halswinkel `hals` je Pose (sonst Rumpfachse). Der Kopf wird zuletzt gezeichnet, innen in Hintergrundfarbe (`--figur-grund`, Standard `--zelle`): Was ihn berührt (Arm im Hang, Stange), liegt dahinter; der Kreis bleibt geschlossen, nichts wird ausgestanzt. `--figur-grund` setzen: `.figur-mini` (`--zelle-2`), Prüfseite (`--zelle-2`); im Blatt gilt `--zelle`.
+     - **Zweiter Arm an der Stange** (`arm2` bei Gerät `stange`, nur Archer) wird so kräftig wie der Körper gezeichnet; sonst bleibt die zweite Seite blass (45 %).
+     - **Ausschnitt** `ausschnitt(figur, rand = 3)`: quadratisch, eng um beide Posen (gleicher Ausschnitt für Start und Ende, sonst springen Figur und Stange), Stange immer drin, Boden nur, wenn die Figur darauf steht/sitzt/liegt. Klimmzüge füllen so 65–79 % der Kästchenhöhe; mehr geht mit gemeinsamem Ausschnitt nicht (Bewegungsweg ca. 23 Einheiten). Flache Übungen füllen die Breite. Kästchen 96 px, Strich sichtbar 2,8 px.
+   - Posen (`tools/figuren.mjs`): gemeinsame Hang-Pose `klimmzug.start` mit `r: -100`, `hals: -130`, Hand bei x = 73 (Arm 3,2 Einheiten vom Kopfkreis, Mittellinie; mehr geht bei Halslänge 9 nicht). Gilt für Klimmzug, Chin-up, L-Sit, Archer-Start und Negativ-Klimmzug (umgedreht). Archer-Ende: Schulter (54, 26) 10 unter der Stange, ziehende Hand x 46 (Ellbogen unten), gestreckter Arm zur Hand x ≈ 81 mit 20° Anstieg. Alle Posen bestehen `pruefeFigur` (`figurOk` true).
+   - Blatt (`css/komponenten.css`): Hintergrund `--blatt-grund`, Zellen darin `--blatt-zelle` (neue Tokens; hell wie bisher #F2F2F7/#FFF, dunkel erhöht #1C1C1E/#2C2C2E, damit Oberkante und Ecken sichtbar sind). Tab-Leiste bei offenem Blatt ausgeblendet (`body.blatt-offen`), unten `calc(24px + env(safe-area-inset-bottom))`.
+   - Übungskarte: Titel bricht neben der Figur um (`min-width: 0`, Silbentrennung). `.impeccable/config.json`: Ausnahme `monotonous-spacing` nur für `muster/figuren.html`.
    - Umgesetzt: `js/ansichten/figur-ansicht.js` (`figurMini`, `soGehtsOeffnen`), Aktion `so-gehts` in `training.js`, Stile am Ende von `komponenten.css`, Eintrag in `sw.js`. Test `tests/figur-ansicht.test.js` prüft u. a., dass eine fehlerhafte Figur (`figurOk` false) nicht angezeigt wird (läuft über `aufloesen` → `figur: null`).
    - Abweichung vom Plan: Die Überblendung nutzt zwei passende Keyframes statt `reverse`. Mit `reverse` waren am Ende jedes Durchlaufs beide Posen kurz unsichtbar.
    - Fotos vom Blatt: Headless-Edge lässt CSS-Animationen bei t = 0 stehen, das Blatt wäre dann noch unten. Deshalb mit `--force-prefers-reduced-motion` fotografieren und die Figur per kleiner Hilfsseite antippen (Hilfsseite danach gelöscht).

@@ -25,10 +25,11 @@ export function winkel(von, nach) {
   return rund((Math.atan2(nach[1] - von[1], nach[0] - von[0]) * 180) / Math.PI);
 }
 
+// pose.hals (optional): eigener Winkel für den Hals, sonst liegt der Kopf auf der Rumpfachse.
 export function gelenke(pose) {
   const huefte = pose.huefte;
   const schulter = punkt(huefte, pose.rumpf, LAENGE.rumpf);
-  const kopf = punkt(schulter, pose.rumpf, LAENGE.hals);
+  const kopf = punkt(schulter, pose.hals ?? pose.rumpf, LAENGE.hals);
   const arm = ([oben, unten]) => {
     const ellbogen = punkt(schulter, oben, LAENGE.oberarm);
     return { ellbogen, hand: punkt(ellbogen, unten, LAENGE.unterarm) };
@@ -46,43 +47,32 @@ export function gelenke(pose) {
 
 const linie = (a, b) => `M${a[0]} ${a[1]}L${b[0]} ${b[1]}`;
 
-function abstand(p, a, b) {
-  const dx = b[0] - a[0];
-  const dy = b[1] - a[1];
-  const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy || 1)));
-  return Math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy);
-}
-
 // strich = Strichstärke der Figur in Bild-Einheiten; Boden und Gerät werden im gleichen Verhältnis dünner.
 export function poseZuSvg(pose, geraet = 'boden', strich = 3.2) {
   const g = gelenke(pose);
   const f = strich / 3.2;
-  const glieder = (s) => linie(g.schulter, s.ellbogen) + linie(s.ellbogen, s.hand) + linie(g.huefte, s.knie) + linie(s.knie, s.fuss);
-  // Kreuzt der vordere Arm den Kopf (z. B. im Hang an der Stange), liegt er sichtbar davor:
-  // obenauf gezeichnet, mit einem Rand in Hintergrundfarbe, der den Kopfkreis unterbricht.
-  const armVorKopf = Math.min(abstand(g.kopf, g.schulter, g.vorn.ellbogen), abstand(g.kopf, g.vorn.ellbogen, g.vorn.hand)) < LAENGE.kopf + strich;
-  const arm = `${linie(g.schulter, g.vorn.ellbogen)}${linie(g.vorn.ellbogen, g.vorn.hand)}`;
-  const rand = (d) => `<path d="${d}" style="stroke: var(--figur-grund, var(--zelle))" stroke-width="${rund(strich * 2)}"/>`;
-  // Eigener zweiter Arm an der Stange (Archer: gestreckt auf der Stange) liegt über der Stange, mit Rand.
-  const arm2AnStange = geraet === 'stange' && pose.arm2
-    ? rand(`${linie(g.schulter, g.hinten.ellbogen)}${linie(g.hinten.ellbogen, g.hinten.hand)}`)
-    : '';
+  const arm = (s) => linie(g.schulter, s.ellbogen) + linie(s.ellbogen, s.hand);
+  const bein = (s) => linie(g.huefte, s.knie) + linie(s.knie, s.fuss);
+  // Ein eigener zweiter Arm an der Stange (Archer: gestreckt weit außen) ist Teil der Übung
+  // und wird so kräftig gezeichnet wie der Körper; sonst ist die zweite Seite blass.
+  const zweiterArmVoll = geraet === 'stange' && pose.arm2 != null;
+  const blass = (zweiterArmVoll ? '' : arm(g.hinten)) + bein(g.hinten);
+  const voll = linie(g.huefte, g.schulter) + arm(g.vorn) + bein(g.vorn) + (zweiterArmVoll ? arm(g.hinten) : '');
   return '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
     + `<path d="M4 80.5H116" stroke-width="${rund(1.2 * f)}" opacity=".35"/>`
     + `<g stroke-width="${rund(2 * f)}" opacity=".35">${GERAET_SVG[geraet] ?? ''}</g>`
-    + arm2AnStange
-    + `<path d="${glieder(g.hinten)}" stroke-width="${strich}" opacity=".45"/>`
-    + `<path d="${linie(g.huefte, g.schulter)}${glieder(g.vorn)}" stroke-width="${strich}"/>`
-    + `<circle cx="${g.kopf[0]}" cy="${g.kopf[1]}" r="${LAENGE.kopf}" stroke-width="${strich}"/>`
-    + (armVorKopf
-      ? `${rand(arm)}<path d="${arm}" stroke-width="${strich}"/>`
-      : '')
+    + `<path d="${blass}" stroke-width="${strich}" opacity=".45"/>`
+    + `<path d="${voll}" stroke-width="${strich}"/>`
+    // Kopf zuletzt und innen in Hintergrundfarbe: was ihn berührt (Arm im Hang, Stange), liegt dahinter;
+    // der Kreis bleibt geschlossen.
+    + `<circle cx="${g.kopf[0]}" cy="${g.kopf[1]}" r="${LAENGE.kopf}" stroke-width="${strich}" style="fill: var(--figur-grund, var(--zelle))"/>`
     + '</g>';
 }
 
-// Quadratischer Bildausschnitt (viewBox) um beide Posen einer Figur, damit sie ihr Kästchen zu ca. 85 % füllt.
-// Gleicher Ausschnitt für Start und Ende, sonst springt die Figur beim Wechsel.
-export function ausschnitt(figur, fuellung = 0.85, rand = 2) {
+// Quadratischer Bildausschnitt (viewBox) eng um beide Posen einer Figur, für das Kästchen in der Übungskarte.
+// Gleicher Ausschnitt für Start und Ende, sonst springen Figur und Gerät beim Wechsel.
+// Die Stange ist immer drin; der Boden nur, wenn die Figur darauf steht, sitzt oder liegt.
+export function ausschnitt(figur, rand = 3) {
   const punkte = [figur.start, figur.ende].flatMap((pose) => {
     const g = gelenke(pose);
     const k = LAENGE.kopf;
@@ -91,11 +81,12 @@ export function ausschnitt(figur, fuellung = 0.85, rand = 2) {
   });
   const xs = punkte.map((p) => p[0]);
   const ys = punkte.map((p) => p[1]);
-  const [x0, x1, y0] = [Math.min(...xs) - rand, Math.max(...xs) + rand, Math.min(...ys) - rand];
+  const [x0, x1] = [Math.min(...xs) - rand, Math.max(...xs) + rand];
+  let y0 = Math.min(...ys) - rand;
   let y1 = Math.max(...ys) + rand;
-  // Liegt der Boden knapp unter der Figur, ganz mit hinein – sonst klebt die Bodenlinie an der Kante.
-  if (BILD.boden < y1 + 6) y1 = Math.max(y1, BILD.boden + 0.5 + rand);
-  const seite = rund(Math.max(x1 - x0, y1 - y0) / fuellung);
+  if (figur.geraet === 'stange') y0 = Math.min(y0, 15 - rand);
+  if (Math.max(...ys) >= BILD.boden - 3) y1 = Math.max(y1, BILD.boden + 0.5 + rand);
+  const seite = rund(Math.max(x1 - x0, y1 - y0));
   return `${rund((x0 + x1 - seite) / 2)} ${rund((y0 + y1 - seite) / 2)} ${seite} ${seite}`;
 }
 
@@ -107,6 +98,7 @@ export function pruefePose(pose) {
   if (!Number.isFinite(pose.rumpf)) fehler.push('rumpf fehlt');
   for (const k of ['arm', 'bein']) if (!istPaar(pose[k])) fehler.push(`${k} fehlt`);
   for (const k of ['arm2', 'bein2']) if (pose[k] !== undefined && !istPaar(pose[k])) fehler.push(`${k} ungültig`);
+  if (pose.hals !== undefined && !Number.isFinite(pose.hals)) fehler.push('hals ungültig');
   if (fehler.length) return fehler;
   const g = gelenke(pose);
   const punkte = [g.huefte, g.schulter, g.kopf, ...Object.values(g.vorn), ...Object.values(g.hinten)];

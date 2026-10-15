@@ -28,6 +28,7 @@ function pose(p) {
   const arm = (w, z, s) => w ?? ik(schulter, z, LAENGE.oberarm, LAENGE.unterarm, s ?? 1);
   const bein = (w, z, s) => w ?? ik(huefte, z, LAENGE.oberschenkel, LAENGE.unterschenkel, s ?? 1);
   const ergebnis = { huefte, rumpf: r, arm: arm(p.arm, p.hand, p.eb), bein: bein(p.bein, p.fuss, p.kb) };
+  if (p.hals != null) ergebnis.hals = p.hals;
   if (p.arm2 || p.hand2) ergebnis.arm2 = arm(p.arm2, p.hand2, p.eb2);
   if (p.bein2 || p.fuss2) ergebnis.bein2 = bein(p.bein2, p.fuss2, p.kb2);
   return ergebnis;
@@ -41,9 +42,10 @@ const liegestuetz = { geraet: 'boden',
   ende: { huefte: [69.6, 73.1], rumpf: 190, arm: [30, 163], bein: [10, 10] } };
 const beinHang = { bein: [15, 200] }; // Knie stark angewinkelt, Füße nach hinten
 const STANGE = 16; // Hände auf der Stange (Linie bei y = 15); oben ist der Kopf ganz darüber
-// Leicht zurückgelehnt, Hände vor dem Gesicht: im Hang liegt der Arm vor dem Kopf (poseZuSvg zeichnet ihn dann obenauf).
+// Gemeinsame Hang-Pose (Klimmzug, Chin-up, L-Sit, Archer, Negativ-Klimmzug umgedreht): leicht zurückgelehnt,
+// Hände vor dem Gesicht; der Kopf neigt sich nach hinten (hals), damit der Arm mit Abstand vorbeiläuft.
 const klimmzug = {
-  start: { h: [63, 70], r: -100, hand: [73, STANGE], eb: -1, ...beinHang },
+  start: { h: [63, 70], r: -100, hals: -130, hand: [73, STANGE], eb: -1, ...beinHang },
   ende: { h: [62, 48], r: -100, hand: [74, STANGE], eb: 1, ...beinHang },
 };
 const umgedreht = (f) => ({ start: f.ende, ende: f.start });
@@ -91,11 +93,11 @@ const QUELLE = {
   'L-Sit-Klimmzug': {
     start: { ...klimmzug.start, bein: [0, 0] },
     ende: { ...klimmzug.ende, bein: [0, 0] } },
-  // Start normaler Hang; oben zieht der vordere Arm, der zweite liegt gestreckt weiter vorn auf der Stange
+  // Start normaler Hang. Oben zieht eine Hand (x 46, Ellbogen unten), die andere greift weit außen (x ≈ 81);
+  // die Schulter liegt 10 unter der Stange, der gestreckte Arm steigt mit ca. 20° zur Stange an.
   'Archer-Klimmzug': {
     start: klimmzug.start,
-    // Schulter etwas unter der Stange, damit der gestreckte Arm schräg zur Stange geht und sichtbar bleibt
-    ende: { ...klimmzug.ende, h: [62, 50], hand2: [86, STANGE], eb2: -1 } },
+    ende: { h: [56.6, 55.9], r: -95, hand: [46, STANGE], eb: -1, hand2: [81.5, STANGE], eb2: 1, ...beinHang } },
   // Beine
   'Kniebeuge': { geraet: 'boden',
     start: { huefte: [60, 46], rumpf: -90, arm: [0, 0], bein: [90, 90] },

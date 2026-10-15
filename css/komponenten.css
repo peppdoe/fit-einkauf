@@ -678,7 +678,9 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
   overscroll-behavior: contain;
   padding: var(--a-2) var(--rand) calc(var(--a-6) + var(--sicher-unten));
   border-radius: var(--r-material) var(--r-material) 0 0;
-  background: var(--grund);
+  /* Erhöhte Fläche: im Dunkeln heller als die Seite, damit Oberkante und Ecken sichtbar sind */
+  background: var(--blatt-grund);
+  --zelle: var(--blatt-zelle);
   box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.18);
   transition: transform var(--kurz) var(--ease);
   animation: blatt-hochfahren var(--mittel) var(--ease);
@@ -715,7 +717,7 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
   overflow: hidden;
   border: 0;
   border-radius: var(--r-feld);
-  --figur-grund: var(--zelle-2); /* Rand um einen Arm, der vor dem Kopf liegt */
+  --figur-grund: var(--zelle-2); /* Kopffüllung der Figur = Hintergrund des Kästchens */
   background: var(--figur-grund);
   color: var(--text);
 }
