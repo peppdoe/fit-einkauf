@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-16 (Sitzung 4, Update-Test erledigt)
+Letzte Aktualisierung: 2026-10-16 (Sitzung 4, MVP abgeschlossen)
 
 ## Aktueller Stand
 
@@ -17,7 +17,9 @@ Letzte Aktualisierung: 2026-10-16 (Sitzung 4, Update-Test erledigt)
 | 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ freigegeben |
 | 5e. Abschluss (Task 22) | ✅ freigegeben |
 | 5f. Feinschliff nach Task 22 | ✅ (Screenshots `fotos/review-task22b/`) |
-| **6. iPhone-Test** | ⏳ **Warten auf iPhone-Test** (Checkliste `docs/iphone-test.md`) |
+| 6. iPhone-Test | ✅ bestanden (15.10.2026, alle Punkte ok; Checkliste `docs/iphone-test.md`) |
+| **MVP** | ✅ **abgeschlossen** |
+| **7. Eine Woche echte Nutzung, dann Wunschliste** | ⏭️ als Nächstes |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
 Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 160 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
@@ -73,20 +75,18 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Warten auf iPhone-Test.** Der Nutzer arbeitet `docs/iphone-test.md` ab und meldet die Ergebnisse. Nichts Neues anfangen, bis sie da sind; danach Befunde beheben.
-   - Punkt 5 (Update) ✅ erledigt: erster Durchgang erst beim dritten Öffnen (Browser-Cache, `max-age=600` von GitHub Pages); nach dem Fix in `sw.js` (`cache: 'no-cache'` beim Nachladen und bei der Installation, `updateViaCache: 'none'`) beim zweiten Öffnen. Für weitere Update-Tests: Markierung im Untertitel von „Mehr“ pushen, danach zurücknehmen.
-   - Feinschliff nach Task 22 (umgesetzt, `tests/ansichten.test.js`): Export-Erinnerung nur auf Heute; Einkauf-Kategorie „Vorrat“ heißt „Konserven & Trockenes“ (Kennzeichen „Vorrat“ = Grundvorrat bleibt); Zähler je Markt = offene Artikel (`offeneAnzahl`); Butter ist Grundvorrat; Verlauf zeigt „Noch nicht trainiert“; Abneigungen groß angezeigt, klein gespeichert.
-   - Task 22 (freigegeben): Fotorunde mit Segment-Fix (`--segment-wahl`), Ablauf-Test per Skript (14/14), Vorlagen gelöscht (nur `muster/figuren.html` bleibt), DESIGN.md ergänzt.
-2. Danach: eine Woche benutzen, dann Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik).
+**Stand: MVP abgeschlossen, iPhone-Test bestanden.** Nächster Schritt: eine Woche echte Nutzung, dann Wunschliste.
+
+1. **Eine Woche echte Nutzung.** Nichts Neues anfangen, bis Beobachtungen aus der Nutzung gemeldet werden.
+2. **Wunschliste** aus der Woche sammeln und priorisieren; danach Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik) einordnen.
 3. Am Ende jeder Sitzung diese Datei aktualisieren.
+
+Zuletzt erledigt (Sitzung 4): Task 16 (Übungsfigur, „So geht's“-Blatt), Task 22 (Abschluss), Feinschliff nach Task 22, Update-Fix im Service Worker (`cache: 'no-cache'`, `updateViaCache: 'none'`), iPhone-Test mit allen Punkten ok.
 
 **Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
 ## Offene Punkte
 
-- **iPhone-Test offen:** übrige Punkte in `docs/iphone-test.md` (Punkt 5 Update ✅) (Installieren, Ton, Wake Lock, Export/Import, Offline, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
-
-- **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
