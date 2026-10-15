@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-15 (Sitzung 4, nach Task 22 und Feinschliff)
+Letzte Aktualisierung: 2026-10-16 (Sitzung 4, Update-Test erledigt)
 
 ## Aktueller Stand
 
@@ -20,7 +20,7 @@ Letzte Aktualisierung: 2026-10-15 (Sitzung 4, nach Task 22 und Feinschliff)
 | **6. iPhone-Test** | ⏳ **Warten auf iPhone-Test** (Checkliste `docs/iphone-test.md`) |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 155 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 160 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -74,7 +74,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 ## Nächste Schritte
 
 1. **Warten auf iPhone-Test.** Der Nutzer arbeitet `docs/iphone-test.md` ab und meldet die Ergebnisse. Nichts Neues anfangen, bis sie da sind; danach Befunde beheben.
-   - Für Punkt 5 (Update) braucht der Nutzer eine kleine sichtbare Änderung: auf Zuruf pushen (z. B. ein Wort im Untertitel von „Mehr“) und danach wieder zurücknehmen.
+   - Punkt 5 (Update) ✅ erledigt: erster Durchgang erst beim dritten Öffnen (Browser-Cache, `max-age=600` von GitHub Pages); nach dem Fix in `sw.js` (`cache: 'no-cache'` beim Nachladen und bei der Installation, `updateViaCache: 'none'`) beim zweiten Öffnen. Für weitere Update-Tests: Markierung im Untertitel von „Mehr“ pushen, danach zurücknehmen.
    - Feinschliff nach Task 22 (umgesetzt, `tests/ansichten.test.js`): Export-Erinnerung nur auf Heute; Einkauf-Kategorie „Vorrat“ heißt „Konserven & Trockenes“ (Kennzeichen „Vorrat“ = Grundvorrat bleibt); Zähler je Markt = offene Artikel (`offeneAnzahl`); Butter ist Grundvorrat; Verlauf zeigt „Noch nicht trainiert“; Abneigungen groß angezeigt, klein gespeichert.
    - Task 22 (freigegeben): Fotorunde mit Segment-Fix (`--segment-wahl`), Ablauf-Test per Skript (14/14), Vorlagen gelöscht (nur `muster/figuren.html` bleibt), DESIGN.md ergänzt.
 2. Danach: eine Woche benutzen, dann Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik).
@@ -86,7 +86,6 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 - **iPhone-Test offen:** alle Punkte in `docs/iphone-test.md` (Installieren, Ton, Wake Lock, Export/Import, Offline, Update, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
 
-- **Update-Test (iPhone, 15.10.):** neue Version erst beim dritten Öffnen sichtbar statt beim zweiten. Vermutlich Browser-Cache (`Cache-Control: max-age=600` von GitHub Pages) beim Nachladen im Service Worker; Fix-Vorschlag `fetch(anfrage, { cache: 'no-cache' })` in `holenUndMerken` (`sw.js`), Entscheidung beim Nutzer.
 - **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
