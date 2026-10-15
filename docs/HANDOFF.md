@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-14 (Sitzung 3)
+Letzte Aktualisierung: 2026-10-15 (Sitzung 4)
 
 ## Aktueller Stand
 
@@ -14,11 +14,11 @@ Letzte Aktualisierung: 2026-10-14 (Sitzung 3)
 | 5b. Task 23A Startseite „Heute“ | ✅ |
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
 | 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
-| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ⏭️ als Nächstes |
-| 5e. Abschluss (Task 22) | offen |
+| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ (Screenshots zum Review beim Nutzer) |
+| 5e. Abschluss (Task 22) | ⏭️ als Nächstes, erst nach Review-OK zu Task 16 |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 117 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 137 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -70,16 +70,18 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Task 16:** Figur in der Übungskarte (72 px, Start/Ende im 1,5-s-Wechsel) und „So geht's“-Blatt (beide Posen, Hinweise, „Achte darauf“). `figurHtml` in `js/ansichten/training.js` ersetzen; neue Datei `js/ansichten/figur-ansicht.js` in `sw.js` eintragen.
-2. Figurenprüfung in `daten.js` (`pruefeFigur`, `figurOk`): **bereits wieder eingebaut** (Commit mit den Figuren, Test in `tests/daten.test.js`). Nur kontrollieren, dass Task 16 `figurOk` nutzt (über `aufloesen`, liefert `figur: null` bei fehlerhafter Figur).
-3. **Task 22 Abschluss:** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen (`muster/figuren.html` bleibt als Prüfseite), DESIGN.md ergänzen.
-4. Am Ende jeder Sitzung diese Datei aktualisieren.
+1. **Review Task 16 abwarten:** Screenshots `fotos/figur-karte*.png`, `fotos/so-gehts-hell.png`, `fotos/so-gehts-dunkel.png` liegen beim Nutzer. Erst nach OK mit Task 22 beginnen.
+   - Umgesetzt: `js/ansichten/figur-ansicht.js` (`figurMini`, `soGehtsOeffnen`), Aktion `so-gehts` in `training.js`, Stile am Ende von `komponenten.css`, Eintrag in `sw.js`. Test `tests/figur-ansicht.test.js` prüft u. a., dass eine fehlerhafte Figur (`figurOk` false) nicht angezeigt wird (läuft über `aufloesen` → `figur: null`).
+   - Abweichung vom Plan: Die Überblendung nutzt zwei passende Keyframes statt `reverse`. Mit `reverse` waren am Ende jedes Durchlaufs beide Posen kurz unsichtbar.
+   - Fotos vom Blatt: Headless-Edge lässt CSS-Animationen bei t = 0 stehen, das Blatt wäre dann noch unten. Deshalb mit `--force-prefers-reduced-motion` fotografieren und die Figur per kleiner Hilfsseite antippen (Hilfsseite danach gelöscht).
+2. **Task 22 Abschluss:** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen (`muster/figuren.html` bleibt als Prüfseite), DESIGN.md ergänzen.
+3. Am Ende jeder Sitzung diese Datei aktualisieren.
 
 **Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
 ## Offene Punkte
 
-- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken.
+- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken, Übungsfigur antippen („So geht's“-Blatt; im Headless-Foto schimmert unten die Tab-Leiste durch, vermutlich nur ein Darstellungsfehler von `backdrop-filter` ohne GPU, am iPhone kontrollieren).
 
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
