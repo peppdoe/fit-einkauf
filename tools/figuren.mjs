@@ -94,7 +94,8 @@ const QUELLE = {
   // Start normaler Hang; oben zieht der vordere Arm, der zweite liegt gestreckt weiter vorn auf der Stange
   'Archer-Klimmzug': {
     start: klimmzug.start,
-    ende: { ...klimmzug.ende, hand2: [86, STANGE], eb2: -1 } },
+    // Schulter etwas unter der Stange, damit der gestreckte Arm schräg zur Stange geht und sichtbar bleibt
+    ende: { ...klimmzug.ende, h: [62, 50], hand2: [86, STANGE], eb2: -1 } },
   // Beine
   'Kniebeuge': { geraet: 'boden',
     start: { huefte: [60, 46], rumpf: -90, arm: [0, 0], bein: [90, 90] },

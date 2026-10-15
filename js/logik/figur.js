@@ -62,14 +62,20 @@ export function poseZuSvg(pose, geraet = 'boden', strich = 3.2) {
   // obenauf gezeichnet, mit einem Rand in Hintergrundfarbe, der den Kopfkreis unterbricht.
   const armVorKopf = Math.min(abstand(g.kopf, g.schulter, g.vorn.ellbogen), abstand(g.kopf, g.vorn.ellbogen, g.vorn.hand)) < LAENGE.kopf + strich;
   const arm = `${linie(g.schulter, g.vorn.ellbogen)}${linie(g.vorn.ellbogen, g.vorn.hand)}`;
+  const rand = (d) => `<path d="${d}" style="stroke: var(--figur-grund, var(--zelle))" stroke-width="${rund(strich * 2)}"/>`;
+  // Eigener zweiter Arm an der Stange (Archer: gestreckt auf der Stange) liegt über der Stange, mit Rand.
+  const arm2AnStange = geraet === 'stange' && pose.arm2
+    ? rand(`${linie(g.schulter, g.hinten.ellbogen)}${linie(g.hinten.ellbogen, g.hinten.hand)}`)
+    : '';
   return '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
     + `<path d="M4 80.5H116" stroke-width="${rund(1.2 * f)}" opacity=".35"/>`
     + `<g stroke-width="${rund(2 * f)}" opacity=".35">${GERAET_SVG[geraet] ?? ''}</g>`
+    + arm2AnStange
     + `<path d="${glieder(g.hinten)}" stroke-width="${strich}" opacity=".45"/>`
     + `<path d="${linie(g.huefte, g.schulter)}${glieder(g.vorn)}" stroke-width="${strich}"/>`
     + `<circle cx="${g.kopf[0]}" cy="${g.kopf[1]}" r="${LAENGE.kopf}" stroke-width="${strich}"/>`
     + (armVorKopf
-      ? `<path d="${arm}" style="stroke: var(--figur-grund, var(--zelle))" stroke-width="${rund(strich * 2)}"/><path d="${arm}" stroke-width="${strich}"/>`
+      ? `${rand(arm)}<path d="${arm}" stroke-width="${strich}"/>`
       : '')
     + '</g>';
 }

@@ -50,6 +50,16 @@ describe('figur', () => {
     expect(svg).toContain('style="stroke: var(--figur-grund, var(--zelle))" stroke-width="6.4"');
     expect(svg.indexOf('--figur-grund')).toBeGreaterThan(svg.indexOf('<circle'));
   });
+  it('eigener zweiter Arm an der Stange liegt mit Rand über der Stange', () => {
+    const oben = { huefte: [62, 50], rumpf: -100, arm: [42, -64], arm2: [-9, -9], bein: [15, 200] };
+    const svg = poseZuSvg(oben, 'stange');
+    const rand = svg.indexOf('style="stroke: var(--figur-grund, var(--zelle))"');
+    expect(rand).toBeGreaterThan(svg.indexOf('M20 15H100'));
+    expect(rand).toBeLessThan(svg.indexOf('opacity=".45"/>'));
+    // ohne eigenen zweiten Arm oder ohne Stange kein Rand
+    expect(poseZuSvg({ ...oben, arm2: undefined }, 'stange')).not.toContain('--figur-grund');
+    expect(poseZuSvg(oben, 'boden')).not.toContain('--figur-grund');
+  });
   it('ausschnitt: quadratischer Bereich um beide Posen, Figur füllt 85 %', () => {
     const [x, y, b, h] = ausschnitt(gueltig.figur).split(' ').map(Number);
     expect(b).toBe(h);
