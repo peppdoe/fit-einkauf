@@ -6,6 +6,9 @@ colors:
   zelle: "#FFFFFF"
   zelle-2: "#F2F2F7"
   zelle-gedrueckt: "#E5E5EA"
+  blatt-grund: "#F2F2F7"
+  blatt-zelle: "#FFFFFF"
+  segment-wahl: "#FFFFFF"
   material: "rgba(249, 249, 249, 0.82)"
   haarlinie: "rgba(60, 60, 67, 0.29)"
   text: "#000000"
@@ -315,7 +318,10 @@ Ruhig und sicher, wie Systemknöpfe.
 - **Satz-Felder:** 72 px hoch, 10 px Ecken, Zelle 2; Wert in Zahl mittel. Aktiv: Zelle mit 2-px-Innenring im Tint. Erreicht: Erreicht zart mit grünem Wert. Darunter: neutral. Offen: Strich in Text 3.
 - **Zähler:** Raster 76 px / Rest / 76 px; Tasten 64 px, Zelle 2, Tint-Symbol 28 px; Wert 64 px gerundet mit Einheit darunter. Gedrückt 0,94 und Zelle gedrückt; am Minimum Symbol in Text 3.
 - **Schalter:** iOS-Toggle 51 × 31 px, an = Erreicht-Fläche.
-- **Segment-Umschalter:** Zelle-gedrückt-Grund, 2 px Innenrand, gewählt = Zelle mit Schatten und halbfett.
+- **Segment-Umschalter:** Zelle-gedrückt-Grund, 2 px Innenrand, gewählt = `--segment-wahl` mit Schatten und halbfett (hell Weiß, dunkel #636366 – im Dunkeln immer heller als die Schiene).
+- **Segment mit Links** (`.segment a[aria-current]`): gleiche Optik als Navigation zwischen Unteransichten (Woche/Bibliothek, Nach Markt/Nach Rezept).
+- **Eingabefeld** (`.eingabe`, `.eingabe--kurz`): mindestens 48 px hoch, 10 px Ecken, Zelle 2, 17 px Schrift (verhindert das Zoomen auf iOS), Platzhalter in Text 2; kurz = 112 px, rechtsbündig für Zahlen.
+- **Mini-Zähler** (`.mini-zaehler`): −/+ mit 48-px-Tasten auf Zelle 2 in Listenzeilen (Portionen, Anzahl, Pause, Jause-Tage); Wert in Kopf-Schrift dazwischen, am Rand Symbol in Text 3.
 
 ### Navigation
 - **Titelleiste:** Großtitel 34 px mit Untertitel in Text 2; Aktionen als schlichte Knöpfe rechts oben.
@@ -338,6 +344,17 @@ Karte im Fluss (Zelle, 12 px, 16 px Innenrand) mit 36-px-Kreissymbol in Erreicht
 - **Heute-Karte** (`.heute-karte`): Zelle mit 30-px-Zeilensymbol, Titel 3, Blöcke der Einheit in Unter-Schrift, großer gefüllter Knopf; erledigt: grüner Haken „Erledigt – stark.“ statt Knopf.
 - **Wochenstreifen** (`.woche`, `.tag`): 7 Spalten Mo–So, Ziffer 17 px, heute Tint halbfett, gewählter Tag gefüllter Tint-Kreis 34 px, darunter Kürzel 11 px (erledigt Grün mit Haken, vergangen ohne Training Strich in Text 3). Ganze Spalte ist Tipp-Fläche (≥ 84 px).
 - **Kachel** (`.kacheln`, `.kachel`): 2-spaltiges Raster, Zelle, Name in Unter/Text 2, Wert in Zahl mittel (28 px gerundet), Einheit und Fußzeile in Text 2; Grün nur bei „alles erreicht“.
+
+### Blatt (statt Dialog)
+`.blatt-huelle`, `.blatt`: Details und Rückfragen fahren von unten hoch, die Seite dahinter 32 % abgedunkelt. Oben 18-px-Ecken mit Griff, Kopf mit Titel und „Fertig“. Schließen per „Fertig“, Tipp daneben, Escape oder Wischen nach unten. Hintergrund `--blatt-grund`, Zellen darin `--blatt-zelle` (dunkel erhöht #1C1C1E / #2C2C2E, damit Oberkante und Ecken auf Schwarz sichtbar sind). Solange ein Blatt offen ist, ist die Tab-Leiste ausgeblendet (`body.blatt-offen`); unten Abstand 24 px plus sicherer Bereich.
+
+### Übungsfigur
+- **Kästchen** (`.figur-mini`): 96 px oben rechts in der Übungskarte, Zelle 2, ein Knopf, der „So geht's“ öffnet. Start und Ende überblenden im Wechsel je 1,5 s (Deckkraft beider immer zusammen 1); bei reduzierter Bewegung nur die Endposition. Der Bildausschnitt ist eng auf beide Posen zugeschnitten (gleich für beide, Stange immer drin, Boden nur bei Bodenkontakt), Strich sichtbar 2,8 px.
+- **Strichfigur:** Strichfarbe = Textfarbe; zweite Körperseite 45 % Deckkraft, Gerät und Boden 35 %. Der Kopf wird zuletzt gezeichnet und innen in Hintergrundfarbe gefüllt (`--figur-grund`), damit Arm oder Stange dahinter liegen und der Kreis geschlossen bleibt.
+- **Im Blatt** (`.posen`): Start und Ende nebeneinander auf Zelle, Beschriftung in Fuß-Schrift; darunter Hinweise als Liste mit Tint-Punkt.
+
+### Hinweis „Achte darauf“
+`.achtung`: neutrale Fläche (Zelle, 10 px Ecken, 12 × 16 px Innenrand) mit fettem Einstieg „Achte darauf:“ in Unter-Schrift. Kein Orange und kein Rot – Orange bleibt der Pause vorbehalten.
 
 ### Leerzustand
 Zentriert, 40-px-Symbol in Text 3, Titel in Kopf, Text höchstens 30ch, optional ein Knopf.

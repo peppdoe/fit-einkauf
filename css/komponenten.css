@@ -245,7 +245,7 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
   transition: background-color var(--kurz) var(--ease);
 }
 .segment input:checked + label {
-  background: var(--zelle);
+  background: var(--segment-wahl);
   font-weight: 600;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
 }
@@ -616,7 +616,7 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
 }
 .segment a::after { content: ""; position: absolute; inset: -4px 0; }
 .segment a[aria-current] {
-  background: var(--zelle);
+  background: var(--segment-wahl);
   font-weight: 600;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
 }

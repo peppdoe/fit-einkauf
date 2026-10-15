@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-15 (Sitzung 4)
+Letzte Aktualisierung: 2026-10-15 (Sitzung 4, Task 22)
 
 ## Aktueller Stand
 
@@ -14,8 +14,8 @@ Letzte Aktualisierung: 2026-10-15 (Sitzung 4)
 | 5b. Task 23A Startseite „Heute“ | ✅ |
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
 | 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
-| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ umgesetzt, Review-Runden 1–3 eingearbeitet, **Freigabe offen** |
-| 5e. Abschluss (Task 22) | ⏭️ als Nächstes, erst nach Review-OK zu Task 16 |
+| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ freigegeben |
+| 5e. Abschluss (Task 22) | ✅ umgesetzt, **Review offen** (Screenshots `fotos/review-task22/`) |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
 Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 145 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
@@ -28,7 +28,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 - `PRODUCT.md` – Produktkontext für impeccable (Nutzer, Situationen, Tonfall, gewählte visuelle Haltung)
 - `DESIGN.md` (+ `.impeccable/design.json`) – Design-System: Farben mit Bedeutung, Typo, Abstände, Komponenten, Regeln
 - `css/tokens.css`, `css/komponenten.css`, `bilder/symbole.svg` – UI-Grundlage, wird von der App direkt verwendet
-- `muster/training.html`, `muster/komponenten.html` (+ `muster.js`, nur Demo) – Musterseiten; Vorlage für die Ansichten in Schritt 5
+- `muster/figuren.html` – Prüfseite für alle Übungsfiguren (die übrigen Musterseiten wurden in Task 22 gelöscht, Stand in der Git-Historie)
 - `.impeccable/surfaces/muster-training-html.md` – Richtungsvertrag der UI
 
 ## Entscheidungen
@@ -70,19 +70,15 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Freigabe Task 16 abwarten (Review-Runde 3 eingearbeitet):** Screenshots in `fotos/`: `figur-karte-hell/-dunkel`, `so-gehts-hell/-dunkel`, `figuren-klimmzug-hell/-dunkel` (Stufen 1–5), `figuren-klimmzug-2` (L-Sit, Archer). `fotos/` ist nicht im Repo. Erst nach OK mit Task 22 beginnen.
-   - Stand der Figuren-Darstellung (`js/logik/figur.js`):
-     - **Kopf:** optionaler Halswinkel `hals` je Pose (sonst Rumpfachse). Der Kopf wird zuletzt gezeichnet, innen in Hintergrundfarbe (`--figur-grund`, Standard `--zelle`): Was ihn berührt (Arm im Hang, Stange), liegt dahinter; der Kreis bleibt geschlossen, nichts wird ausgestanzt. `--figur-grund` setzen: `.figur-mini` (`--zelle-2`), Prüfseite (`--zelle-2`); im Blatt gilt `--zelle`.
-     - **Zweiter Arm an der Stange** (`arm2` bei Gerät `stange`, nur Archer) wird so kräftig wie der Körper gezeichnet; sonst bleibt die zweite Seite blass (45 %).
-     - **Ausschnitt** `ausschnitt(figur, rand = 3)`: quadratisch, eng um beide Posen (gleicher Ausschnitt für Start und Ende, sonst springen Figur und Stange), Stange immer drin, Boden nur, wenn die Figur darauf steht/sitzt/liegt. Klimmzüge füllen so 65–79 % der Kästchenhöhe; mehr geht mit gemeinsamem Ausschnitt nicht (Bewegungsweg ca. 23 Einheiten). Flache Übungen füllen die Breite. Kästchen 96 px, Strich sichtbar 2,8 px.
-   - Posen (`tools/figuren.mjs`): gemeinsame Hang-Pose `klimmzug.start` mit `r: -100`, `hals: -130`, Hand bei x = 73 (Arm 3,2 Einheiten vom Kopfkreis, Mittellinie; mehr geht bei Halslänge 9 nicht). Gilt für Klimmzug, Chin-up, L-Sit, Archer-Start und Negativ-Klimmzug (umgedreht). Archer-Ende: Schulter (54, 26) 10 unter der Stange, ziehende Hand x 46 (Ellbogen unten), gestreckter Arm zur Hand x ≈ 81 mit 20° Anstieg. Alle Posen bestehen `pruefeFigur` (`figurOk` true).
-   - Blatt (`css/komponenten.css`): Hintergrund `--blatt-grund`, Zellen darin `--blatt-zelle` (neue Tokens; hell wie bisher #F2F2F7/#FFF, dunkel erhöht #1C1C1E/#2C2C2E, damit Oberkante und Ecken sichtbar sind). Tab-Leiste bei offenem Blatt ausgeblendet (`body.blatt-offen`), unten `calc(24px + env(safe-area-inset-bottom))`.
-   - Übungskarte: Titel bricht neben der Figur um (`min-width: 0`, Silbentrennung). `.impeccable/config.json`: Ausnahme `monotonous-spacing` nur für `muster/figuren.html`.
-   - Umgesetzt: `js/ansichten/figur-ansicht.js` (`figurMini`, `soGehtsOeffnen`), Aktion `so-gehts` in `training.js`, Stile am Ende von `komponenten.css`, Eintrag in `sw.js`. Test `tests/figur-ansicht.test.js` prüft u. a., dass eine fehlerhafte Figur (`figurOk` false) nicht angezeigt wird (läuft über `aufloesen` → `figur: null`).
-   - Abweichung vom Plan: Die Überblendung nutzt zwei passende Keyframes statt `reverse`. Mit `reverse` waren am Ende jedes Durchlaufs beide Posen kurz unsichtbar.
-   - Fotos vom Blatt: Headless-Edge lässt CSS-Animationen bei t = 0 stehen, das Blatt wäre dann noch unten. Deshalb mit `--force-prefers-reduced-motion` fotografieren und die Figur per kleiner Hilfsseite antippen (Hilfsseite danach gelöscht).
-2. **Task 22 Abschluss:** Fotorunde inkl. `#/heute`, Vorlagen `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js` löschen (`muster/figuren.html` bleibt als Prüfseite), DESIGN.md ergänzen.
-3. Am Ende jeder Sitzung diese Datei aktualisieren.
+1. **Review Task 22 abwarten:** Screenshots `fotos/review-task22/` (Heute, Training, laufende Einheit, Verlauf, Essen, Einkauf, Mehr – je hell und dunkel; `fotos/` ist nicht im Repo). Nichts Weiteres anfangen, bis der Nutzer sich meldet.
+   - Fotorunde (Plan Schritt 2): ein Fehler gefunden und behoben – Segment-Umschalter im Dunkelmodus: gewähltes Segment war `--zelle` (#1C1C1E) und damit dunkler als die Schiene. Neues Token `--segment-wahl` (hell #FFF, dunkel #636366 wie iOS). Sonst: kein waagrechtes Scrollen, kein abgeschnittener Text, Orange nur bei der Pause, Abstand zur Tab-Leiste reicht.
+   - Ablauf (Plan Schritt 3) per Skript in Edge headless mit leerem Speicher, alle 14 Prüfungen ✓: Training starten, Figur antippen/Blatt schließen, alle Sätze mit Pausen, abschließen; 2 Abend, 2 Jausen, 1 Extra einplanen (typischer Tag 605 → 2.169 kcal); abhaken, langes Drücken → Markt-Blatt, Grundvorrat ausblenden, Nach Rezept; Gewicht eintragen; Neuladen → alles da. **Nicht geprüft:** Export/Import (Teilen-Blatt/Dateiauswahl des Systems) → iPhone-Test.
+   - Vorlagen gelöscht: `muster/training.html`, `muster/komponenten.html`, `muster/muster.js`, `muster/heute.html`, `muster/heute.js`. Richtungsvertrag `.impeccable/surfaces/muster-training-html.md` zeigt jetzt auf die App.
+   - DESIGN.md ergänzt: Blatt, Übungsfigur (96 px, Stand nach Task 16), Hinweis „Achte darauf“, Eingabefeld, Mini-Zähler, Segment mit Links, Segment-Token, Blatt-Tokens.
+   - Plan-Schritt 8 (Deployment ansprechen) entfällt: Repo und GitHub Pages laufen seit Scheibe 1.
+2. **iPhone-Test** (siehe Offene Punkte), dann eine Woche benutzen.
+3. Danach Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik).
+4. Am Ende jeder Sitzung diese Datei aktualisieren.
 
 **Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
@@ -90,5 +86,8 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 - **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken, Übungsfigur antippen („So geht's“-Blatt, Tab-Leiste muss verschwinden, unten Abstand zum Home-Indikator).
 
+- **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
+- Export/Import am iPhone prüfen (im Ablauf-Test nicht abgedeckt).
+- `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen

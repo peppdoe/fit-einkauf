@@ -1,13 +1,13 @@
 ---
 version: 1
 slug: "muster-training-html"
-primary_target: "muster/training.html"
-related_targets: ["muster/komponenten.html","css/tokens.css","css/komponenten.css"]
+primary_target: "index.html"
+related_targets: ["js/ansichten/training.js","css/tokens.css","css/komponenten.css"]
 ---
 
 # Surface: UI-Grundlage (Tokens, Komponenten, Trainings-Musterbildschirm)
 
-Scope: `css/tokens.css`, `css/komponenten.css`, `muster/komponenten.html`, `muster/training.html`. Visitor mode: Operate. Build path: code-led.
+Scope: `css/tokens.css`, `css/komponenten.css`, die App (`index.html`, `js/ansichten/`). Die Musterseiten `muster/training.html` und `muster/komponenten.html` waren die Vorlage und wurden in Task 22 gelöscht (Stand in der Git-Historie). Visitor mode: Operate. Build path: code-led.
 
 Audience/job: eine Person, iPhone-PWA. Training abends (Handy am Boden, 1–2 m), Supermarkt (eine Hand, Neonlicht), Planung am Sofa.
 

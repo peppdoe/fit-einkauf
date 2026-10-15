@@ -12,6 +12,7 @@
   --zelle-gedrueckt: #E5E5EA;  /* Zelle beim Antippen */
   --blatt-grund: #F2F2F7;      /* Blatt von unten (im Dunkeln erhöht) */
   --blatt-zelle: #FFFFFF;      /* Zellen im Blatt */
+  --segment-wahl: #FFFFFF;     /* gewähltes Segment (im Dunkeln heller als die Schiene) */
   --material: rgba(249, 249, 249, 0.82); /* Tab-Leiste, Pausen-Leiste (mit Unschärfe) */
   --haarlinie: rgba(60, 60, 67, 0.29);
 
@@ -95,6 +96,7 @@
     --zelle-gedrueckt: #3A3A3C;
     --blatt-grund: #1C1C1E;
     --blatt-zelle: #2C2C2E;
+    --segment-wahl: #636366;
     --material: rgba(30, 30, 30, 0.8);
     --haarlinie: rgba(84, 84, 88, 0.6);
     --text: #FFFFFF;
@@ -127,6 +129,7 @@
   --zelle-gedrueckt: #3A3A3C;
   --blatt-grund: #1C1C1E;
   --blatt-zelle: #2C2C2E;
+  --segment-wahl: #636366;
   --material: rgba(30, 30, 30, 0.8);
   --haarlinie: rgba(84, 84, 88, 0.6);
   --text: #FFFFFF;
