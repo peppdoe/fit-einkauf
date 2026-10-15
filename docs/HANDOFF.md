@@ -14,11 +14,11 @@ Letzte Aktualisierung: 2026-10-15 (Sitzung 4)
 | 5b. Task 23A Startseite „Heute“ | ✅ |
 | 5c. Scheibe 2 Essen & Einkauf, Scheibe 3 Gewicht & Mehr, Task 23B | ✅ |
 | 5d. Scheibe 4 Übungsfiguren: Task 9 + Task 12 (34 Figuren, vom Nutzer freigegeben) | ✅ |
-| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ (Screenshots zum Review beim Nutzer) |
+| 5d. Task 16 (Figur in der Übungskarte, „So geht's“-Blatt) | ✅ umgesetzt, Review-Runde 1 eingearbeitet, **Review-Runde 2 offen** |
 | 5e. Abschluss (Task 22) | ⏭️ als Nächstes, erst nach Review-OK zu Task 16 |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 137 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 142 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -70,7 +70,13 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-1. **Review Task 16 abwarten:** Screenshots `fotos/figur-karte*.png`, `fotos/so-gehts-hell.png`, `fotos/so-gehts-dunkel.png` liegen beim Nutzer. Erst nach OK mit Task 22 beginnen.
+1. **Review Task 16, Runde 2 abwarten:** Screenshots `fotos/figur-karte-hell.png`, `fotos/figur-karte-dunkel.png`, `fotos/so-gehts-hell.png`, `fotos/so-gehts-dunkel.png`, `fotos/figuren-klimmzug-hell.png`, `fotos/figuren-klimmzug-dunkel.png`, `fotos/figuren-klimmzug-2.png` liegen beim Nutzer. Erst nach OK mit Task 22 beginnen.
+   - Runde 1 (Nutzer-Review) eingearbeitet:
+     1. Klimmzug-Arme: Im Profil kreuzt ein Hang-Arm geometrisch immer den Kopf (Kopfmitte 9 über der Schulter). Lösung: Klimmzug-Posen leicht zurückgelehnt (`r: -100`), Hände vor dem Gesicht auf der Stange. Kreuzt der vordere Arm den Kopf, zeichnet `poseZuSvg` ihn obenauf mit Rand in Hintergrundfarbe (`--figur-grund`, Standard `--zelle`). Betrifft nur Figuren, deren Arm den Kopf schneidet. L-Sit und Archer nutzen die neuen Posen; Archer: Start normaler Hang, Ende zieht vorn, zweiter Arm gestreckt weiter vorn (`hand2: [86, 16]`).
+     2. Dunkelmodus: Strichfarbe war schon gleich (`--text`); unsichtbar war nur der eingefrorene Überblendungs-Moment im Foto (alte `reverse`-Animation). Jetzt im Foto klar weiß.
+     3. Kästchen 96 px, `ausschnitt(figur)` in `figur.js` schneidet die viewBox quadratisch auf beide Posen zu (85 %, Boden kommt mit, wenn er knapp darunter liegt); Strich sichtbar 2,8 px (`poseZuSvg(pose, geraet, strich)`). Titel daneben bricht um (`min-width: 0`, Silbentrennung).
+     4. Blatt offen → `body.blatt-offen`, Tab-Leiste `visibility: hidden` (gilt für alle Blätter, auch Einkauf). Blatt-Hintergrund `--grund` war schon deckend, unten `calc(24px + env(safe-area-inset-bottom))`.
+   - Offen für Runde 2: Beim Archer-Ende liegt der gestreckte Arm fast auf der Stange (Schulter oben auf Stangenhöhe), daher nur schwach zu sehen.
    - Umgesetzt: `js/ansichten/figur-ansicht.js` (`figurMini`, `soGehtsOeffnen`), Aktion `so-gehts` in `training.js`, Stile am Ende von `komponenten.css`, Eintrag in `sw.js`. Test `tests/figur-ansicht.test.js` prüft u. a., dass eine fehlerhafte Figur (`figurOk` false) nicht angezeigt wird (läuft über `aufloesen` → `figur: null`).
    - Abweichung vom Plan: Die Überblendung nutzt zwei passende Keyframes statt `reverse`. Mit `reverse` waren am Ende jedes Durchlaufs beide Posen kurz unsichtbar.
    - Fotos vom Blatt: Headless-Edge lässt CSS-Animationen bei t = 0 stehen, das Blatt wäre dann noch unten. Deshalb mit `--force-prefers-reduced-motion` fotografieren und die Figur per kleiner Hilfsseite antippen (Hilfsseite danach gelöscht).
@@ -81,7 +87,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Offene Punkte
 
-- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken, Übungsfigur antippen („So geht's“-Blatt; im Headless-Foto schimmert unten die Tab-Leiste durch, vermutlich nur ein Darstellungsfehler von `backdrop-filter` ohne GPU, am iPhone kontrollieren).
+- **iPhone-Test offen:** App installieren und prüfen: Ton bei Lautlos-Schalter, Bildschirm bleibt an, Pause nach Sperren/Neuladen, Export über Teilen-Blatt, SF-Pro-Darstellung, Startseite Heute, Einkauf abhaken, Übungsfigur antippen („So geht's“-Blatt, Tab-Leiste muss verschwinden, unten Abstand zum Home-Indikator).
 
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
