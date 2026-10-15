@@ -84,7 +84,7 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Offene Punkte
 
-- **iPhone-Test offen:** alle Punkte in `docs/iphone-test.md` (Installieren, Ton, Wake Lock, Export/Import, Offline, Update, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
+- **iPhone-Test offen:** übrige Punkte in `docs/iphone-test.md` (Punkt 5 Update ✅) (Installieren, Ton, Wake Lock, Export/Import, Offline, Dunkelmodus, Safe Area, Kopfabstand der Figur, Daten nach Neustart).
 
 - **Übungskarte, Kopfabstand (vom Nutzer, beim iPhone-Test ansehen):** In der Startpose stößt der Kopf fast an die Oberkante des 96-px-Kästchens. Eventuell 2–3 Einheiten mehr Rand oben (`ausschnitt` in `js/logik/figur.js`, derzeit `rand = 3` rundum).
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
