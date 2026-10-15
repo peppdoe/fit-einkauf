@@ -8,9 +8,7 @@ import { exportFaellig } from '../speicher.js';
 import { exportieren, erinnerungHtml } from './sicherung.js';
 import * as pause from './pause.js';
 import * as wach from './wachhalten.js';
-
-// Wird in Scheibe 4 (Übungsfiguren) durch die Figur ersetzt.
-const figurHtml = () => '';
+import { figurMini, soGehtsOeffnen } from './figur-ansicht.js';
 
 export function zeige(wurzel, ctx, route) {
   wurzel.onclick = (e) => {
@@ -127,7 +125,7 @@ function uebungsKarte(ctx, l) {
             ${partner ? `<p class="uebung__ziel">Im Wechsel mit ${esc(partner.name)}</p>` : ''}
             ${serie != null ? `<p class="uebung__serie"><span class="etikett etikett--tint">Serie ${Math.min(serie, 2)} von 2</span></p>` : ''}
           </div>
-          ${figurHtml(info)}
+          ${figurMini(info)}
         </div>
         ${einzeln ? '' : satzFelder(u, info, l.wert)}
         <div class="zaehler" role="group" aria-label="${masseinheit}${einzeln ? '' : ` in Satz ${u.saetze.length + 1}`}">
@@ -294,6 +292,10 @@ const AKTIONEN = {
   },
   minus(el, ctx) { wertAendern(ctx, -1); },
   plus(el, ctx) { wertAendern(ctx, 1); },
+  'so-gehts'(el, ctx) {
+    const l = ctx.zustand.training.laufend;
+    soGehtsOeffnen(aufloesen(l.uebungen[l.aktiv], ctx.daten.kettenById, l.art));
+  },
   'satz-fertig'(el, ctx) {
     pause.tonVorbereiten();
     const sek = ctx.zustand.einstellungen.pauseSek[ctx.zustand.training.laufend.art] ?? 90;

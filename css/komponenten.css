@@ -699,3 +699,47 @@ button.zeile:active, a.zeile:active, label.zeile:active { background: var(--zell
 @media (prefers-reduced-motion: reduce) {
   .pause--blinken { animation: none; box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08), inset 0 0 0 2px var(--erreicht-flaeche); }
 }
+
+/* ---------- Übungsfigur ---------- */
+
+.figur-mini {
+  position: relative;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  margin: -4px -4px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-feld);
+  background: var(--zelle-2);
+  color: var(--text);
+}
+.figur-mini svg { position: absolute; inset: 4px; width: 64px; height: 64px; }
+.figur-mini:active { background: var(--zelle-gedrueckt); }
+/* Start und Ende überblenden im Wechsel, je 1,5 s; die Deckkraft beider ergibt immer 1 (kein leerer Moment) */
+.figur-mini__start { animation: figur-start 3s infinite; }
+.figur-mini__ende { animation: figur-ende 3s infinite; }
+@keyframes figur-start {
+  0%, 40% { opacity: 1; }
+  50%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes figur-ende {
+  0%, 40% { opacity: 0; }
+  50%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .figur-mini__start { display: none; }
+  .figur-mini__ende { animation: none; opacity: 1; }
+}
+
+.posen { display: grid; grid-template-columns: 1fr 1fr; gap: var(--a-2); }
+.posen__bild { margin: 0; padding: var(--a-2); border-radius: var(--r-feld); background: var(--zelle); color: var(--text); }
+.posen__bild svg { display: block; width: 100%; height: auto; }
+.posen__bild figcaption { text-align: center; font: var(--t-fuss); color: var(--text-2); }
+.hinweise { display: grid; gap: var(--a-2); margin-top: var(--a-4); font: var(--t-text); }
+.hinweise li { display: flex; gap: var(--a-3); }
+.hinweise li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 9px; border-radius: 50%; background: var(--tint); }
+.achtung { margin-top: var(--a-4); padding: var(--a-3) var(--a-4); border-radius: var(--r-feld); background: var(--zelle); font: var(--t-unter); }
+.achtung strong { font-weight: 600; }
