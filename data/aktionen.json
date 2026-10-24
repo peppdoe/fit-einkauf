@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "aktionen": [
+    { "zutat": "rinderfaschiertes", "markt": "Hofer", "artikel": "Faschiertes gemischt 1 kg", "preis": 3.99, "gueltig_von": "2026-10-24", "gueltig_bis": "2026-10-24" },
+    { "zutat": "thunfisch", "markt": "Spar", "artikel": "SPAR MSC Thunfisch 195 g", "preis": 1.79, "gueltig_von": "2026-10-21", "gueltig_bis": "2026-10-27" },
+    { "zutat": "schweinsschnitzel", "markt": "Lidl", "artikel": "Schweinsschnitzel 500 g", "preis": 3.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" },
+    { "zutat": "zucchini", "markt": "Lidl", "artikel": "Zucchini 1 kg", "preis": 0.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" }
+  ]
+}

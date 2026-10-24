@@ -83,3 +83,20 @@ describe('echte Daten: Zutaten und Rezepte', () => {
     expect(rezepte.find((r) => r.id === 'skyr-haferflocken')?.typ).toBe('snack');
   });
 });
+
+describe('echte Daten: Aktionen', () => {
+  const zutaten = lies('zutaten');
+  const { version, aktionen } = lies('aktionen');
+  it('jede Aktion verweist auf eine bekannte Zutat, einen echten Markt und einen gültigen Zeitraum', () => {
+    expect(version).toBe(1);
+    for (const a of aktionen) {
+      const n = `${a.zutat} ${a.artikel}`;
+      expect(zutaten[a.zutat], n).toBeTruthy();
+      expect(MAERKTE.filter((m) => m !== 'egal'), n).toContain(a.markt);
+      expect(a.artikel, n).toBeTruthy();
+      expect(a.preis, n).toBeGreaterThan(0);
+      for (const d of [a.gueltig_von, a.gueltig_bis]) expect(d, n).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(a.gueltig_von <= a.gueltig_bis, n).toBe(true);
+    }
+  });
+});
