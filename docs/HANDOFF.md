@@ -95,6 +95,14 @@ Zuletzt erledigt (Sitzung 5): Ketten „Bauch im Hang“ und „Dips“ mit Figu
 
 **Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html` (mit `#kette1,kette2` nur diese Ketten). Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
+## Wochenangebote
+
+- `data/aktionen.json` wird ab 30.10.2026 jeden Freitag automatisch per PR „Wochenangebote <Datum>“ (Branch `claude/aktionen-<Datum>`) aktualisiert. Marc merged am Handy.
+- Diese Datei **nicht** selbst anlegen oder von Hand bearbeiten. Format und Logik (`js/daten.js`, `aktionFuer` in `js/logik/einkaufsliste.js`) nicht ohne Rücksprache ändern.
+- Der erste PR ergänzt `"data/aktionen.json"` in der `DATEN`-Liste von `sw.js`.
+- Vor jeder Arbeit zuerst `git pull`, damit die neue Datei da ist.
+- Die aktuelle Fassung (Aktionen KW 43/44, Commit `ea46cf7`) wurde am 24.10.2026 einmalig auf Wunsch von Hand angelegt; ab dem ersten PR gilt nur noch der automatische Weg.
+
 ## Offene Punkte
 
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
