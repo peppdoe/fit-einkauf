@@ -1,7 +1,7 @@
 // Start: Zustand laden, Daten laden, Ansicht zur Adresszeile zeichnen. ctx wird an alle Ansichten gegeben.
 import { laden, speichern } from './speicher.js';
 import { ladeDaten } from './daten.js';
-import { parseRoute } from './route.js';
+import { parseRoute, START } from './route.js';
 import { esc } from './ansichten/html.js';
 import * as heuteAnsicht from './ansichten/heute.js';
 import * as training from './ansichten/training.js';
@@ -91,8 +91,11 @@ async function start() {
     navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch((fehler) => console.warn('Service Worker:', fehler));
   }
   window.addEventListener('hashchange', zeichnen);
-  // Ohne Adresse: laufende Einheit geht vor, sonst die Übersicht.
-  if (!location.hash) history.replaceState(null, '', ctx.zustand.training.laufend ? '#/training' : '#/heute');
+  // Jeder Kaltstart vom Homescreen beginnt auf Heute, auch wenn das Symbol noch die alte start_url (#/training) hat.
+  // Im Browser-Tab bleibt eine angegebene Adresse erhalten (Neuladen, tools/foto.mjs).
+  // Eine offene Einheit bleibt im Zustand; Heute bietet dann „Training fortsetzen“ an.
+  const alsApp = navigator.standalone === true || window.matchMedia?.('(display-mode: standalone)').matches;
+  if (alsApp || !location.hash) history.replaceState(null, '', START);
   zeichnen();
 }
 

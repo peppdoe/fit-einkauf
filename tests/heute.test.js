@@ -49,3 +49,15 @@ describe('Ansicht Heute', () => {
     expect(html).toContain('nach jeder Einheit ein Ruhetag');
   });
 });
+
+describe('Heute bei offener Einheit', () => {
+  const laufend = () => JSON.parse(readFileSync(new URL('../tools/zustaende/laufend.json', import.meta.url), 'utf8'));
+  it('zeigt „Training fortsetzen“ mit Link ins Training, solange eine Einheit offen ist', () => {
+    const z = laufend();
+    expect(z.training.laufend).toBeTruthy();
+    expect(zeichne(z)).toContain('<a class="knopf knopf--gefuellt knopf--gross knopf--breit" href="#/training">Training fortsetzen</a>');
+  });
+  it('ohne offene Einheit kein „Training fortsetzen“', () => {
+    expect(zeichne(standardZustand())).not.toContain('Training fortsetzen');
+  });
+});

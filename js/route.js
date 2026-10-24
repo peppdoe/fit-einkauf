@@ -1,4 +1,6 @@
 // Router über die Adresszeile: #/bereich/teil/teil?parameter=wert
+// Startseite bei jedem Kaltstart der App (auch über das Homescreen-Symbol).
+export const START = '#/heute';
 const BEREICHE = ['heute', 'training', 'essen', 'einkauf', 'mehr'];
 
 export function parseRoute(hash) {

@@ -15,3 +15,14 @@ describe('parseRoute', () => {
     expect(parseRoute('#/training/verlauf')).toEqual({ bereich: 'training', teile: ['verlauf'], parameter: {} });
   });
 });
+
+describe('Start', () => {
+  it('App und Homescreen-Symbol starten auf Heute', async () => {
+    const { START } = await import('../js/route.js');
+    const { readFileSync } = await import('node:fs');
+    const manifest = JSON.parse(readFileSync(new URL('../manifest.webmanifest', import.meta.url), 'utf8'));
+    expect(START).toBe('#/heute');
+    expect(manifest.start_url).toBe(`./${START}`);
+    expect(parseRoute(START).bereich).toBe('heute');
+  });
+});

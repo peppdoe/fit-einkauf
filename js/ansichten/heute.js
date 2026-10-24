@@ -98,7 +98,7 @@ function heuteKarte(ctx, datum, tage) {
 // Offene Steigerungsvorschläge stehen auf der Training-Startseite; dann führt der Knopf dorthin statt direkt zu starten.
 function knopf(laufend, vorschlaege) {
   const klasse = 'knopf knopf--gefuellt knopf--gross knopf--breit';
-  if (laufend) return `<a class="${klasse}" href="#/training">Weiter trainieren</a>`;
+  if (laufend) return `<a class="${klasse}" href="#/training">Training fortsetzen</a>`;
   if (vorschlaege) return `<a class="${klasse}" href="#/training">Zum Training</a>`;
   return `<button class="${klasse}" type="button" data-aktion="starten">Training starten</button>`;
 }
