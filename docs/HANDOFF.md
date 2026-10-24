@@ -1,6 +1,6 @@
 # Handoff – fit-einkauf
 
-Letzte Aktualisierung: 2026-10-16 (Sitzung 4, MVP abgeschlossen)
+Letzte Aktualisierung: 2026-10-24 (Sitzung 5, erste Wünsche aus der Nutzung)
 
 ## Aktueller Stand
 
@@ -19,10 +19,13 @@ Letzte Aktualisierung: 2026-10-16 (Sitzung 4, MVP abgeschlossen)
 | 5f. Feinschliff nach Task 22 | ✅ (Screenshots `fotos/review-task22b/`) |
 | 6. iPhone-Test | ✅ bestanden (15.10.2026, alle Punkte ok; Checkliste `docs/iphone-test.md`) |
 | **MVP** | ✅ **abgeschlossen** |
-| **7. Eine Woche echte Nutzung, dann Wunschliste** | ⏭️ als Nächstes |
+| 7. Eine Woche echte Nutzung | ✅ |
+| 8a. Wunsch: Ketten „Bauch im Hang“ + „Dips“, Gerät Barren, Platzhalter `bauch` | ✅ (Plan `docs/superpowers/plans/2026-10-24-bauch-dips-start-heute.md`) |
+| 8b. Wunsch: App startet immer auf „Heute“ | ✅ |
+| **9. Neue Übungen am iPhone ausprobieren, weitere Wünsche sammeln** | ⏭️ als Nächstes |
 | Phase 2: Aktions-Check, Donnerstags-Aufgabe, Markt-Logik | später |
 
-Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 160 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
+Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewicht), Training (4er-Rotation, Supersätze, Progression, gespeicherte Pause), Essen (Wochenplan, Bibliothek, Rezept), Einkauf (nach Markt/Rezept), Mehr (Gewicht, Ziele, Jause-Tage, Abneigungen, Training, Daten). Offline-fähig, installierbar. 169 Tests grün. Repo öffentlich: github.com/peppdoe/fit-einkauf (GitHub Pages aus `main`; jeder Push geht live).
 
 ## Wichtige Dateien
 
@@ -46,7 +49,10 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 - Hosting: GitHub Pages, Repo `fit-einkauf` (öffentlich), GitHub-User peppdoe
 
 **Training**
-- Rotation nach Ablauf (immer die nächste Einheit, verpasste Tage verschieben nichts), seit Review 4 schwere Einheiten: Oberkörper A · Beine · Oberkörper B · Beine & Core; Supersätze Drücken ⇄ Ziehen bzw. Beine ⇄ Hüfte, Pause erst nach dem Paar; Mobilität als 5-min-Block am Ende jeder Einheit; Drücken:Ziehen 1:1
+- Rotation nach Ablauf (immer die nächste Einheit, verpasste Tage verschieben nichts), seit Review 4 schwere Einheiten: Oberkörper A · Beine · Oberkörper B · Beine & Core; Supersätze Drücken ⇄ Ziehen bzw. Beine ⇄ Hüfte, Pause erst nach dem Paar; Mobilität als 5-min-Block am Ende jeder Einheit; Drücken:Ziehen 1:1 (Drücken-Ketten beginnen mit `druecken`)
+- Platzhalter im Plan (`PLATZHALTER` in `js/logik/rotation.js`, je `[mit Stange, ohne Stange]`): `ziehen` → ziehen-stange / ziehen-ohne-stange, `bauch` → core-haengend / core. Oberkörper A nutzt `bauch`; Beine und Beine & Core bleiben bei `core` (Boden). Oberkörper B: zweiter Block Dips ⇄ Tischrudern
+- Kette „Dips“ (`druecken-dips`): Bank-Dips, Bank-Dips gestreckt (Stuhl), Negativ-Dips, Dips (Gerät `barren`, nie zwei Stühle). Kette „Bauch im Hang“ (`core-haengend`): Knee Raise, Leg Raise, Toes to Bar – Start mit hinten angewinkelten Unterschenkeln (Türrahmen zu niedrig)
+- Verlauf blendet Ketten ohne Einträge aus, die mit der aktuellen Stange-Einstellung in keiner Einheit vorkommen
 - Wochenvorschau auf „Heute“: nach jeder Einheit ein Ruhetag (ca. 4 Einheiten pro Woche); nur Anzeige, die Rotation selbst läuft weiter nach Ablauf
 - Export-Erinnerung erscheint nur auf Heute; Mehr zeigt unter Daten „Letzte Sicherung: …“
 - Klimmzug-Kette beginnt mit Negativ-Klimmzug und Chin-up; Stange standardmäßig an
@@ -64,6 +70,9 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 - Grundvorrat markiert, per Schalter ausblendbar, „aufgebraucht“ bringt ihn zurück auf die Liste
 - Abneigungen (Start: Curry, Tofu) filtern Rezepte; in der App pflegbar
 
+**Start**
+- Start vom Homescreen landet immer auf „Heute“ (`START` in `js/route.js`, `start_url` `./#/heute`); app.js setzt das im Standalone-Modus auch bei alter start_url. Im Browser-Tab bleibt eine angegebene Adresse (Neuladen, `tools/foto.mjs`). Offene Einheit bleibt; Heute zeigt „Training fortsetzen“. Zurück aus dem Hintergrund bleibt die Seite, wie sie war
+
 **UI (Schritt 3)**
 - Bewusst gewählt: iOS-Standard ohne Ironie; Messlatte Apple Fitness/Health, Things 3, Erinnerungen
 - Name am Homescreen „Fit & Einkauf“; Tonfall Du, knapp, bei Erfolgen kurze Anfeuerung („Stark – nächste Stufe?“)
@@ -75,18 +84,20 @@ Alle Bereiche laufen: Heute (Wochenkalender, Zusammenfassung, Essen/Einkauf/Gewi
 
 ## Nächste Schritte
 
-**Stand: MVP abgeschlossen, iPhone-Test bestanden.** Nächster Schritt: eine Woche echte Nutzung, dann Wunschliste.
+**Stand: zwei Wünsche aus der Nutzung umgesetzt, committet, noch nicht gepusht** (Push = live auf GitHub Pages).
 
-1. **Eine Woche echte Nutzung.** Nichts Neues anfangen, bis Beobachtungen aus der Nutzung gemeldet werden.
-2. **Wunschliste** aus der Woche sammeln und priorisieren; danach Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik) einordnen.
-3. Am Ende jeder Sitzung diese Datei aktualisieren.
+1. **Pushen**, dann am iPhone prüfen: App vom Homescreen öffnen → „Heute“ (auch mit alter Installation); „Stange vorhanden“ an → Oberkörper A zeigt Knee Raise im Hang; Oberkörper B zeigt Bank-Dips; Figuren im „So geht's“-Blatt ansehen.
+2. Startstufen der neuen Ketten über „zu leicht“ / „zu schwer“ anpassen (Start: Knee Raise bzw. Bank-Dips).
+3. Weitere Wünsche sammeln und priorisieren; danach Phase 2 (Aktions-Check, Donnerstags-Aufgabe, Markt-Logik) einordnen.
+4. Am Ende jeder Sitzung diese Datei aktualisieren.
 
-Zuletzt erledigt (Sitzung 4): Task 16 (Übungsfigur, „So geht's“-Blatt), Task 22 (Abschluss), Feinschliff nach Task 22, Update-Fix im Service Worker (`cache: 'no-cache'`, `updateViaCache: 'none'`), iPhone-Test mit allen Punkten ok.
+Zuletzt erledigt (Sitzung 5): Ketten „Bauch im Hang“ und „Dips“ mit Figuren, Gerät `barren`, Platzhalter-Tabelle (`ziehen`, `bauch`), Start auf „Heute“ mit „Training fortsetzen“. Figuren geprüft per Screenshot (`muster/figuren.html#core-haengend,druecken-dips`).
 
-**Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html`. Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
+**Figuren ändern:** Posen stehen als Gelenkpunkte in `tools/figuren.mjs`; `node tools/figuren.mjs` schreibt sie nach `data/uebungen.json`. Prüfseite: `npm run serve`, dann `http://127.0.0.1:8765/muster/figuren.html` (mit `#kette1,kette2` nur diese Ketten). Stange liegt bei y = 15 (Kopf oben ganz über der Stange).
 
 ## Offene Punkte
 
 - `.impeccable/design.json` ist älter als DESIGN.md; bei Gelegenheit mit `/impeccable document` neu erzeugen.
 - Startstufen der Übungsketten werden beim ersten Training über „zu leicht“ / „zu schwer“ angepasst
+- Ist beim Update eine Einheit offen, behält sie ihre alte Übungsliste (z. B. noch Core statt Bauch im Hang); die Heute-Karte zeigt aber schon den neuen Plan. Einmal zu Ende trainieren oder überspringen, dann stimmt es wieder
 - Nach 3–4 Wochen: Trainingsplan und kcal-Ziel an die Realität anpassen
