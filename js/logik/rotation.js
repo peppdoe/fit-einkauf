@@ -1,9 +1,12 @@
 // Rotation nach Ablauf: es kommt immer die nächste Einheit, verpasste Tage verschieben nichts.
 
-const ersetze = (id, stange) => (id === 'ziehen' ? (stange ? 'ziehen-stange' : 'ziehen-ohne-stange') : id);
+// Platzhalter im Plan: [mit Stange, ohne Stange]
+export const PLATZHALTER = { ziehen: ['ziehen-stange', 'ziehen-ohne-stange'], bauch: ['core-haengend', 'core'] };
+
+const ersetze = (id, stange) => PLATZHALTER[id]?.[stange ? 0 : 1] ?? id;
 
 // Blöcke einer Einheit: ein Eintrag ist eine Kette oder ein Supersatz-Paar ["A", "B"].
-// Der Platzhalter "ziehen" wird ersetzt; kommt eine Kette doppelt vor, fällt das spätere Vorkommen weg.
+// Platzhalter werden ersetzt; kommt eine Kette doppelt vor, fällt das spätere Vorkommen weg.
 export function bloeckeFuerEinheit(einheit, stange) {
   const gesehen = new Set();
   return einheit.ketten
@@ -15,6 +18,11 @@ export function bloeckeFuerEinheit(einheit, stange) {
 
 export function kettenFuerEinheit(einheit, stange) {
   return bloeckeFuerEinheit(einheit, stange).flat();
+}
+
+// Alle Ketten, die mit dieser Stange-Einstellung in irgendeiner Einheit vorkommen.
+export function kettenImPlan(plan, stange) {
+  return new Set(plan.einheiten.flatMap((e) => kettenFuerEinheit(e, stange)));
 }
 
 export function naechsteEinheit(training, plan) {

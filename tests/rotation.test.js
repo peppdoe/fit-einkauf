@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { bloeckeFuerEinheit, kettenFuerEinheit, naechsteEinheit, abschliessen, ueberspringen } from '../js/logik/rotation.js';
+import { bloeckeFuerEinheit, kettenFuerEinheit, kettenImPlan, naechsteEinheit, abschliessen, ueberspringen } from '../js/logik/rotation.js';
 
 const plan = {
   einheiten: [
@@ -14,6 +14,16 @@ describe('rotation', () => {
   it('ersetzt ziehen je nach Stange und liefert die flache Liste', () => {
     expect(kettenFuerEinheit(plan.einheiten[0], false)).toEqual(['druecken-horizontal', 'ziehen-ohne-stange', 'core']);
     expect(kettenFuerEinheit(plan.einheiten[0], true)).toEqual(['druecken-horizontal', 'ziehen-stange', 'core']);
+  });
+  it('ersetzt bauch je nach Stange: hängend oder am Boden', () => {
+    const e = { ketten: [['druecken-horizontal', 'ziehen'], 'bauch'] };
+    expect(kettenFuerEinheit(e, true)).toEqual(['druecken-horizontal', 'ziehen-stange', 'core-haengend']);
+    expect(kettenFuerEinheit(e, false)).toEqual(['druecken-horizontal', 'ziehen-ohne-stange', 'core']);
+  });
+  it('kettenImPlan sammelt alle aufgelösten Ketten', () => {
+    const p = { einheiten: [{ ketten: [['druecken-horizontal', 'ziehen'], 'bauch'] }, { ketten: ['beine', 'core'] }] };
+    expect([...kettenImPlan(p, true)].sort()).toEqual(['beine', 'core', 'core-haengend', 'druecken-horizontal', 'ziehen-stange']);
+    expect([...kettenImPlan(p, false)].sort()).toEqual(['beine', 'core', 'druecken-horizontal', 'ziehen-ohne-stange']);
   });
   it('Paare bleiben Blöcke', () => {
     expect(bloeckeFuerEinheit(plan.einheiten[0], true)).toEqual([['druecken-horizontal', 'ziehen-stange'], ['core']]);

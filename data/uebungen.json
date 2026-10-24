@@ -20,6 +20,15 @@
       ]
     },
     {
+      "id":"druecken-dips","name":"Dips","ausruestung":"matte",
+      "stufen": [
+        {"name":"Bank-Dips","ziel":{"saetze":3,"wdh":12},"hinweise":["Hände an der Stuhlkante neben der Hüfte, Finger nach vorn.","Knie gebeugt, Füße am Boden.","Absenken, bis die Oberarme etwa waagrecht sind, dann hochdrücken."],"achtung":"Schultern nicht nach vorn kippen lassen; nur so tief, wie es schmerzfrei geht. Der Stuhl muss an der Wand stehen.","figur":{"geraet":"stuhl","start":{"huefte":[84,59],"rumpf":-95,"arm":[72,75],"bein":[152,130]},"ende":{"huefte":[84,73],"rumpf":-95,"arm":[9,116],"bein":[203,127]}}},
+        {"name":"Bank-Dips mit gestreckten Beinen","ziel":{"saetze":3,"wdh":12},"hinweise":["Wie Bank-Dips, aber Beine gestreckt, Fersen am Boden.","Rücken nah an der Stuhlkante.","Ellbogen zeigen nach hinten, nicht zur Seite."],"achtung":"Schultern nicht nach vorn kippen lassen; nur so tief, wie es schmerzfrei geht. Der Stuhl muss an der Wand stehen.","figur":{"geraet":"stuhl","start":{"huefte":[82,60],"rumpf":-95,"arm":[68,71],"bein":[146,146]},"ende":{"huefte":[86,72],"rumpf":-92,"arm":[21,130],"bein":[166,166]}}},
+        {"name":"Negativ-Dips","ziel":{"saetze":3,"wdh":6},"hinweise":["Am Barren im Park oder an einer stabilen Küchenecke oben in den Stütz springen.","In 4–5 Sekunden kontrolliert absenken, bis die Oberarme waagrecht sind.","Unten absteigen und wieder hoch – nicht hochdrücken."],"achtung":"Keine zwei Stühle – die kippen. Nur an einem festen Barren oder einer Arbeitsplatte, die sicher hält.","figur":{"geraet":"barren","start":{"huefte":[57,47],"rumpf":-80,"arm":[81,101],"bein":[115,200]},"ende":{"huefte":[53,61],"rumpf":-65,"arm":[47,175],"bein":[135,205]}}},
+        {"name":"Dips","ziel":{"saetze":3,"wdh":8},"hinweise":["Aus dem gestreckten Stütz, Oberkörper leicht nach vorn.","Absenken, bis die Oberarme waagrecht sind.","Ganz durchdrücken, Schultern bleiben unten."],"achtung":"Nicht tiefer als waagrecht und ohne Schwung; nur an festem Barren.","figur":{"geraet":"barren","start":{"huefte":[57,47],"rumpf":-80,"arm":[81,101],"bein":[115,200]},"ende":{"huefte":[53,61],"rumpf":-65,"arm":[47,175],"bein":[135,205]}}}
+      ]
+    },
+    {
       "id":"ziehen-ohne-stange","name":"Ziehen ohne Stange","ausruestung":"matte",
       "stufen": [
         {"name":"Tischrudern","ziel":{"saetze":3,"wdh":12},"hinweise":["Unter einen stabilen Tisch legen, Tischkante schulterbreit greifen.","Körper gestreckt, Fersen am Boden.","Brust zur Tischkante ziehen, Schulterblätter zusammen."],"achtung":"Vorher prüfen, dass der Tisch nicht kippen kann – nie an leichten oder wackeligen Tischen.","figur":{"geraet":"tisch","start":{"huefte":[79.8,75.1],"rumpf":186,"arm":[-87,-93],"bein":[6,6]},"ende":{"huefte":[79.8,67.2],"rumpf":202,"arm":[-39,-166],"bein":[22,22]}}},
@@ -63,6 +72,14 @@
         {"name":"Unterarmstütz","ziel":{"saetze":3,"sek":45},"hinweise":["Ellbogen unter den Schultern.","Körper eine Linie, Gesäß und Bauch fest.","Ruhig weiteratmen."],"achtung":"Die Hüfte weder durchhängen lassen noch hochstrecken.","figur":{"geraet":"boden","start":{"huefte":[65.2,71],"rumpf":196,"arm":[90,180],"bein":[14,14]},"ende":{"huefte":[65,70.5],"rumpf":194,"arm":[90,180],"bein":[14,14]}}},
         {"name":"Hollow Hold","ziel":{"saetze":3,"sek":30},"hinweise":["Auf dem Rücken, den unteren Rücken in den Boden drücken.","Schultern und Beine leicht anheben, Arme lang über den Kopf.","Je tiefer die Beine, desto schwerer."],"achtung":"Sobald der untere Rücken abhebt: Beine höher oder Knie anwinkeln.","figur":{"geraet":"boden","start":{"huefte":[60,75.5],"rumpf":180,"arm":[180,180],"bein":[0,0]},"ende":{"huefte":[60,76],"rumpf":195,"arm":[195,195],"bein":[-12,-12]}}},
         {"name":"Hollow Rocks","ziel":{"saetze":3,"wdh":15},"hinweise":["Aus dem Hollow Hold vor und zurück schaukeln.","Die Form bleibt starr wie eine Banane.","Kleine, gleichmäßige Bewegung."],"achtung":"Der untere Rücken bleibt rund; nicht mit den Beinen Schwung holen.","figur":{"geraet":"boden","start":{"huefte":[62,76],"rumpf":205,"arm":[210,210],"bein":[-5,-5]},"ende":{"huefte":[62,76],"rumpf":185,"arm":[188,188],"bein":[-22,-22]}}}
+      ]
+    },
+    {
+      "id":"core-haengend","name":"Bauch im Hang","ausruestung":"stange",
+      "stufen": [
+        {"name":"Knee Raise im Hang","ziel":{"saetze":3,"wdh":12},"hinweise":["Aus dem Hang, Schultern aktiv nach unten ziehen.","Knie bis über Hüfthöhe heben und das Becken einrollen.","Langsam ablassen, bis die Füße wieder hinten angewinkelt sind."],"achtung":"Kein Schwung: wenn du pendelst, kurz ruhig hängen und neu ansetzen.","figur":{"geraet":"stange","start":{"huefte":[63,70],"rumpf":-100,"arm":[-65,-51],"bein":[30,205],"hals":-130},"ende":{"huefte":[63,70],"rumpf":-105,"arm":[-56,-53],"bein":[-40,90],"hals":-130}}},
+        {"name":"Leg Raise im Hang","ziel":{"saetze":3,"wdh":8},"hinweise":["Start mit hinten angewinkelten Unterschenkeln – im Türrahmen reicht die Höhe für gestreckte Beine unten nicht.","Beine gestreckt nach vorn bis mindestens waagrecht heben.","Kontrolliert ablassen, Becken bleibt eingerollt."],"achtung":"Nicht ins Hohlkreuz fallen; lieber weniger hoch und sauber.","figur":{"geraet":"stange","start":{"huefte":[63,70],"rumpf":-100,"arm":[-65,-51],"bein":[30,205],"hals":-130},"ende":{"huefte":[63,70],"rumpf":-105,"arm":[-56,-53],"bein":[-5,-5],"hals":-130}}},
+        {"name":"Toes to Bar","ziel":{"saetze":3,"wdh":5},"hinweise":["Aus dem Hang die Beine gestreckt bis zur Stange führen.","Arme bleiben fast gestreckt, Lat drückt die Stange leicht nach unten.","Langsam zurück, ohne durchzuschwingen."],"achtung":"Nur mit fest sitzender Stange und ohne Schwung – am Türrahmen ist wenig Platz nach vorn.","figur":{"geraet":"stange","start":{"huefte":[63,70],"rumpf":-100,"arm":[-65,-51],"bein":[30,205],"hals":-130},"ende":{"huefte":[60,58],"rumpf":-110,"arm":[-10,-53],"bein":[-61,-63],"hals":-150}}}
       ]
     },
     {

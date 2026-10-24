@@ -26,7 +26,10 @@
     ? `<figure><svg viewBox="0 0 120 84" aria-hidden="true">${poseZuSvg(pose, geraet)}</svg><figcaption>${titel}</figcaption></figure>`
     : `<figure><figcaption>${titel} fehlt</figcaption></figure>`;
 
-  const { ketten } = await (await fetch('../data/uebungen.json')).json();
+  // #kette1,kette2 zeigt nur diese Ketten (für Screenshots mit tools/foto.mjs)
+  const nur = location.hash.slice(1).split(',').filter(Boolean);
+  const { ketten } = await (await fetch('../data/uebungen.json'))
+    .json().then((d) => ({ ketten: nur.length ? d.ketten.filter((k) => nur.includes(k.id)) : d.ketten }));
   let anzahl = 0;
   let fehlerhaft = 0;
   const abschnitte = ketten.flatMap((kette) => kette.stufen.flatMap((stufe, i) => (stufe.routine ?? [stufe]).map((teil) => {

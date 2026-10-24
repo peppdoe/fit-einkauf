@@ -3,7 +3,7 @@
 
 export const BILD = { breite: 120, hoehe: 84, boden: 80 };
 export const LAENGE = { rumpf: 30, oberarm: 15, unterarm: 14, oberschenkel: 17, unterschenkel: 17, hals: 9, kopf: 5 };
-export const GERAETE = ['boden', 'wand', 'stange', 'tisch', 'stuhl', 'couch'];
+export const GERAETE = ['boden', 'wand', 'stange', 'tisch', 'stuhl', 'couch', 'barren'];
 
 const GERAET_SVG = {
   boden: '',
@@ -12,6 +12,8 @@ const GERAET_SVG = {
   tisch: '<path d="M28 42H104M34 42V80M98 42V80"/>',
   stuhl: '<path d="M88 58H112M90 58V80M110 58V80"/>',
   couch: '<path d="M86 60H118V80M86 60V80M86 68H118"/>',
+  // Zwei Holme leicht versetzt (der hintere tiefer), Stützen nach innen gerückt – anders als die Tischbeine.
+  barren: '<path d="M34 46H96M38 49.5H100M44 46V80M88 49.5V80"/>',
 };
 
 const rund = (n) => Math.round(n * 10) / 10 + 0; // + 0 macht aus -0 eine 0

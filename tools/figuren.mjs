@@ -49,6 +49,13 @@ const klimmzug = {
   ende: { h: [62, 48], r: -100, hand: [74, STANGE], eb: 1, ...beinHang },
 };
 const umgedreht = (f) => ({ start: f.ende, ende: f.start });
+// Hang für die Bauch-Übungen: Arme gestreckt, Knie etwas tiefer als beim Klimmzug, Unterschenkel hinten angewinkelt.
+const haengen = { h: [63, 70], r: -100, hals: -130, hand: [73, STANGE], eb: -1, bein: [30, 205] };
+// Stütz am Barren (Holm bei y = 46), Blick nach rechts, Unterschenkel hinten angewinkelt;
+// unten Oberarme etwa waagrecht, Oberkörper leicht nach vorn.
+const dips = { geraet: 'barren',
+  start: { h: [57, 47], r: -80, hand: [62, 46], eb: -1, bein: [115, 200] },
+  ende: { h: [53, 61], r: -65, hand: [62, 46], eb: -1, bein: [135, 205] } };
 
 const QUELLE = {
   // Drücken horizontal
@@ -134,6 +141,25 @@ const QUELLE = {
   'Hollow Rocks': { geraet: 'boden',
     start: { h: [62, 76], r: 205, arm: [210, 210], bein: [-5, -5] },
     ende: { h: [62, 76], r: 185, arm: [188, 188], bein: [-22, -22] } },
+  // Bauch im Hang: im Türrahmen reicht die Höhe nicht für hängende Beine, Start mit hinten angewinkelten Unterschenkeln.
+  'Knee Raise im Hang': {
+    start: haengen,
+    ende: { ...haengen, r: -105, bein: [-40, 90] } },
+  'Leg Raise im Hang': {
+    start: haengen,
+    ende: { ...haengen, r: -105, bein: [-5, -5] } },
+  'Toes to Bar': {
+    start: haengen,
+    ende: { h: [60, 58], r: -110, hals: -150, hand: [73, STANGE], eb: 1, fuss: [80, 20] } },
+  // Dips: Bank-Dips mit dem Rücken zum Stuhl (Hände an der Sitzkante), Dips im Stütz am Barren.
+  'Bank-Dips': { geraet: 'stuhl',
+    start: { h: [84, 59], r: -95, hand: [90, 58], eb: -1, fuss: [58, 80], kb: 1 },
+    ende: { h: [84, 73], r: -95, hand: [90, 58], eb: -1, fuss: [58, 80], kb: 1 } },
+  'Bank-Dips mit gestreckten Beinen': { geraet: 'stuhl',
+    start: { h: [82, 60], r: -95, hand: [90, 58], eb: -1, bein: [146, 146] },
+    ende: { h: [86, 72], r: -92, hand: [90, 58], eb: -1, bein: [166, 166] } },
+  'Negativ-Dips': dips,
+  'Dips': dips,
   // Mobilität
   'Hüftbeuger-Dehnung im Ausfallschritt': { geraet: 'boden',
     start: { h: [62, 62], r: -90, arm: [90, 90], fuss: [42, 80], kb: 1, fuss2: [87, 77], kb2: 1 },
@@ -149,7 +175,7 @@ const QUELLE = {
     ende: { h: [70, 77], r: 220, arm: [160, 160], bein: [180, 180] } },
 };
 
-const GERAET = { 'ziehen-stange': 'stange' };
+const GERAET = { 'ziehen-stange': 'stange', 'core-haengend': 'stange' };
 const fertig = (f) => (f.huefte ? f : pose(f));
 
 const datei = new URL('../data/uebungen.json', import.meta.url);

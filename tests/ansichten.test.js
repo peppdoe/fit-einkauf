@@ -69,6 +69,16 @@ describe('Verlauf', () => {
     expect(gruppe('Drücken vertikal')).toContain('Noch nicht trainiert');
     expect(gruppe('Drücken horizontal')).not.toContain('Noch nicht trainiert');
   });
+  it('Ketten, die mit der Stange-Einstellung nicht im Plan sind, fehlen ohne Einträge', () => {
+    const titel = (z) => [...zeichne('training', z, ['verlauf']).matchAll(/<h2 class="gruppe__kopf">([^<]*)<\/h2>/g)].map((m) => m[1]);
+    const mit = voll();
+    const ohne = voll();
+    ohne.einstellungen.stange = false;
+    expect(titel(mit)).toContain('Bauch im Hang');
+    expect(titel(mit)).toContain('Core');
+    expect(titel(ohne)).not.toContain('Bauch im Hang');
+    expect(titel(ohne)).toContain('Dips');
+  });
 });
 
 describe('Abneigungen', () => {

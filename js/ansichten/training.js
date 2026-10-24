@@ -1,6 +1,6 @@
 // Training: heutige Einheit, laufende Einheit mit Sätzen, Supersätzen und Pause, Verlauf pro Kette.
 import { esc, sym, zielText, datumKurz, sicher } from './html.js';
-import { naechsteEinheit, abschliessen, ueberspringen, bloeckeFuerEinheit } from '../logik/rotation.js';
+import { naechsteEinheit, abschliessen, ueberspringen, bloeckeFuerEinheit, kettenImPlan } from '../logik/rotation.js';
 import { zielFuer, zielwert, erreicht, erfolgsserie, vorschlaegeNachAbschluss, stufeVerschieben } from '../logik/progression.js';
 import { aufloesen, schrittweite, starteEinheit, satzFertig, waehle, pauseNach, eintragAusLaufend } from '../logik/einheit.js';
 import { heute } from '../logik/datum.js';
@@ -205,14 +205,15 @@ function zeigeVerlauf(wurzel, ctx) {
   const { zustand, daten } = ctx;
   wach.aus();
   const log = zustand.training.log;
-  const gruppen = daten.ketten.filter((k) => !k.stufen[0].routine).map((kette) => {
+  // Ketten, die mit der aktuellen Stange-Einstellung in keiner Einheit vorkommen, nur zeigen, wenn es Einträge gibt.
+  const imPlan = kettenImPlan(daten.plan, zustand.einstellungen.stange);
+  const gruppen =daten.ketten.filter((k) => !k.stufen[0].routine).map((kette) => {
     const aktuell = kette.stufen[stufeVon(kette, zustand.training.stufen)];
     const eintraege = log
       .flatMap((e) => e.uebungen.filter((u) => u.kette === kette.id && u.teil == null).map((u) => ({ ...u, datum: e.datum, art: e.art })))
       .reverse()
       .slice(0, 5);
-    const nichtImPlan = zustand.einstellungen.stange ? 'ziehen-ohne-stange' : 'ziehen-stange';
-    if (!eintraege.length && kette.id === nichtImPlan) return '';
+    if (!eintraege.length && !imPlan.has(kette.id)) return '';
     const zeilen = eintraege.map((e) => {
       const stufe = kette.stufen[e.stufe];
       const ok = stufe?.ziel && erreicht(e.saetze, zielFuer(stufe, e.art));

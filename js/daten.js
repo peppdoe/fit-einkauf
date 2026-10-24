@@ -1,5 +1,6 @@
 // Lädt data/*.json, prüft Verweise und baut Nachschlage-Tabellen. Fehler werden als Warnungen gemeldet, nicht geworfen.
 import { pruefeFigur } from './logik/figur.js';
+import { PLATZHALTER } from './logik/rotation.js';
 
 const ERSATZ = (id) => ({ name: id, kategorie: 'Sonstiges', grundvorrat: false, standard_markt: 'egal' });
 const PFLICHT = ['zutaten', 'rezepte', 'uebungen', 'trainingsplan'];
@@ -19,7 +20,7 @@ export function verknuepfe({ zutaten, rezepte, uebungen, plan, aktionen }) {
   const kettenById = Object.fromEntries(uebungen.ketten.map((k) => [k.id, k]));
   for (const e of plan.einheiten) {
     for (const id of e.ketten.flat()) {
-      if (id !== 'ziehen' && !kettenById[id]) warnungen.push(`Einheit ${e.name}: unbekannte Kette ${id}`);
+      if (!PLATZHALTER[id] && !kettenById[id]) warnungen.push(`Einheit ${e.name}: unbekannte Kette ${id}`);
     }
   }
 

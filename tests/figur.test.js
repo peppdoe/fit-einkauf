@@ -83,6 +83,10 @@ describe('figur', () => {
     expect(y).toBeLessThanOrEqual(12);
     expect(y + h).toBeLessThan(80);
   });
+  it('Barren ist ein eigenes Gerät mit zwei Holmen auf Hüfthöhe', () => {
+    expect(pruefeFigur({ ...gueltig, figur: { ...gueltig.figur, geraet: 'barren' } })).toEqual([]);
+    expect(poseZuSvg(stehend, 'barren')).toContain('M34 46H96M38 49.5H100');
+  });
   it('pruefePose meldet fehlende Winkel und Gelenke außerhalb', () => {
     expect(pruefePose(stehend)).toEqual([]);
     expect(pruefePose({ huefte: [60, 46], rumpf: -90, bein: [90, 90] })).toEqual(['arm fehlt']);

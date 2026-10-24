@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { pruefeFigur } from '../js/logik/figur.js';
+import { PLATZHALTER, kettenFuerEinheit } from '../js/logik/rotation.js';
 
 const lies = (name) => JSON.parse(readFileSync(new URL(`../data/${name}.json`, import.meta.url), 'utf8'));
 const { ketten } = lies('uebungen');
@@ -15,19 +16,31 @@ const MIT_ACHTUNG = [
   'Negativ-Klimmzug', 'Chin-up', 'Klimmzug', 'L-Sit-Klimmzug', 'Archer-Klimmzug',
   'Bulgarian Split Squat', 'Shrimp Squat (assistiert)', 'Pistol Squat (assistiert)', 'Pistol Squat',
   'Einbeinige Hüftbrücke', 'Einbeinige Hüftbrücke mit erhöhtem Fuß', 'Negativer Nordic Curl',
+  'Knee Raise im Hang', 'Leg Raise im Hang', 'Toes to Bar',
+  'Bank-Dips', 'Bank-Dips mit gestreckten Beinen', 'Negativ-Dips', 'Dips',
 ];
 
 describe('uebungen.json', () => {
   it('enthält alle Ketten mit den Stufenzahlen aus der Spec', () => {
     expect(ketten.map((k) => [k.id, k.stufen.length])).toEqual([
-      ['druecken-horizontal', 5], ['druecken-vertikal', 4], ['ziehen-ohne-stange', 3], ['ziehen-stange', 7],
-      ['beine', 5], ['huefte', 3], ['core', 3], ['mobilitaet', 1],
+      ['druecken-horizontal', 5], ['druecken-vertikal', 4], ['druecken-dips', 4], ['ziehen-ohne-stange', 3], ['ziehen-stange', 7],
+      ['beine', 5], ['huefte', 3], ['core', 3], ['core-haengend', 3], ['mobilitaet', 1],
     ]);
   });
   it('Klimmzug-Kette beginnt mit dem Einstieg, Archer folgt nach den erhöhten Füßen', () => {
     expect(kette('ziehen-stange').stufen.slice(0, 3).map((s) => s.name)).toEqual(['Negativ-Klimmzug', 'Chin-up', 'Klimmzug']);
     expect(kette('druecken-horizontal').stufen.map((s) => s.name)).toEqual([
       'Liegestütz', 'Diamond-Liegestütz', 'Liegestütz mit erhöhten Füßen', 'Archer-Liegestütz', 'Pseudo-Planche-Liegestütz',
+    ]);
+  });
+  it('neue Ketten: Bauch im Hang und Dips in der richtigen Reihenfolge', () => {
+    expect([kette('core-haengend').name, kette('core-haengend').ausruestung]).toEqual(['Bauch im Hang', 'stange']);
+    expect(kette('core-haengend').stufen.map((s) => [s.name, s.ziel.wdh])).toEqual([
+      ['Knee Raise im Hang', 12], ['Leg Raise im Hang', 8], ['Toes to Bar', 5],
+    ]);
+    expect([kette('druecken-dips').name, kette('druecken-dips').ausruestung]).toEqual(['Dips', 'matte']);
+    expect(kette('druecken-dips').stufen.map((s) => [s.name, s.ziel.wdh])).toEqual([
+      ['Bank-Dips', 12], ['Bank-Dips mit gestreckten Beinen', 12], ['Negativ-Dips', 6], ['Dips', 8],
     ]);
   });
   it('jede Stufe hat Ziel mit wdh oder sek und 2–3 Hinweise', () => {
@@ -57,16 +70,23 @@ describe('uebungen.json', () => {
 });
 
 describe('trainingsplan.json', () => {
-  const ids = (e) => e.ketten.flat().map((id) => (id === 'ziehen' ? 'ziehen-stange' : id));
+  const ids = (e) => kettenFuerEinheit(e, true);
   it('4 schwere Einheiten in der Reihenfolge der Spec, nur bekannte Ketten, höchstens Paare', () => {
     expect(plan.einheiten.map((e) => [e.name, e.art])).toEqual([
       ['Oberkörper A', 'schwer'], ['Beine', 'schwer'], ['Oberkörper B', 'schwer'], ['Beine & Core', 'schwer'],
     ]);
     for (const e of plan.einheiten) {
       for (const block of e.ketten) if (Array.isArray(block)) expect(block.length, e.name).toBe(2);
-      for (const id of e.ketten.flat()) expect(id === 'ziehen' || !!kette(id), `${e.name}: ${id}`).toBe(true);
+      for (const id of e.ketten.flat()) expect(!!PLATZHALTER[id] || !!kette(id), `${e.name}: ${id}`).toBe(true);
       expect(e.ketten.at(-1), e.name).toBe('mobilitaet');
     }
+  });
+  it('Bauch im Hang nur in Oberkörper A (Platzhalter bauch), Dips in Oberkörper B', () => {
+    const e = (id) => plan.einheiten.find((x) => x.id === id);
+    expect(e('ok-a').ketten).toEqual([['druecken-horizontal', 'ziehen'], 'bauch', 'mobilitaet']);
+    expect(e('ok-b').ketten[1]).toEqual(['druecken-dips', 'ziehen-ohne-stange']);
+    expect(e('beine').ketten).toContain('core');
+    expect(e('beine-core').ketten).toContain('core');
   });
   it('Drücken und Ziehen im Verhältnis 1:1 (mit Stange)', () => {
     const alle = plan.einheiten.flatMap(ids);
@@ -98,5 +118,7 @@ describe('Übungsfiguren', () => {
   it('Gerät passt zur Kette', () => {
     for (const s of kette('ziehen-stange').stufen) expect(s.figur.geraet, s.name).toBe('stange');
     for (const s of kette('ziehen-ohne-stange').stufen) expect(s.figur.geraet, s.name).toBe('tisch');
+    for (const s of kette('core-haengend').stufen) expect(s.figur.geraet, s.name).toBe('stange');
+    expect(kette('druecken-dips').stufen.map((s) => s.figur.geraet)).toEqual(['stuhl', 'stuhl', 'barren', 'barren']);
   });
 });
