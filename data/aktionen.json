@@ -1,9 +1,19 @@
 {
   "version": 1,
+  "stand": "2026-10-30",
   "aktionen": [
-    { "zutat": "rinderfaschiertes", "markt": "Hofer", "artikel": "Faschiertes gemischt 1 kg", "preis": 3.99, "gueltig_von": "2026-10-24", "gueltig_bis": "2026-10-24" },
-    { "zutat": "thunfisch", "markt": "Spar", "artikel": "SPAR MSC Thunfisch 195 g", "preis": 1.79, "gueltig_von": "2026-10-21", "gueltig_bis": "2026-10-27" },
-    { "zutat": "schweinsschnitzel", "markt": "Lidl", "artikel": "Schweinsschnitzel 500 g", "preis": 3.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" },
-    { "zutat": "zucchini", "markt": "Lidl", "artikel": "Zucchini 1 kg", "preis": 0.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" }
+    { "zutat": "rinderfaschiertes", "markt": "Lidl", "artikel": "Wiesentaler Faschiertes gemischt mager 500 g (6,98 €/kg)", "preis": 3.49, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-10-31" },
+    { "zutat": "rinderfaschiertes", "markt": "Hofer", "artikel": "Sonnhof Rinderfaschiertes 800 g (8,11 €/kg)", "preis": 6.49, "gueltig_von": "2026-10-30", "gueltig_bis": "2026-10-31" },
+    { "zutat": "rinderfaschiertes", "markt": "Hofer", "artikel": "Sonnhof Faschiertes gemischt 500 g (4,98 €/kg)", "preis": 2.49, "gueltig_von": "2026-11-02", "gueltig_bis": "2026-11-05" },
+    { "zutat": "rinderfaschiertes", "markt": "Spar", "artikel": "Tann Faschiertes gemischt 500 g (9,98 €/kg)", "preis": 4.99, "gueltig_von": "2026-10-22", "gueltig_bis": "2026-11-04" },
+    { "zutat": "schweinsschnitzel", "markt": "Lidl", "artikel": "Wiesentaler Karree-Steaks vom Schwein 400 g (6,98 €/kg)", "preis": 2.79, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-10-31" },
+    { "zutat": "kaese-gerieben", "markt": "Lidl", "artikel": "Milbona Mozzarella gerieben 500 g", "preis": 2.99, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-10-31" },
+    { "zutat": "paprika", "markt": "Lidl", "artikel": "Paprika Mix aus Österreich 500 g", "preis": 1.99, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-10-31" },
+    { "zutat": "karotten", "markt": "Lidl", "artikel": "Karotten 1 kg", "preis": 1.00, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-11-04" },
+    { "zutat": "nuesse", "markt": "Lidl", "artikel": "Alesto Cashewkerne 500 g", "preis": 4.49, "gueltig_von": "2026-10-29", "gueltig_bis": "2026-10-31" },
+    { "zutat": "kartoffeln", "markt": "Hofer", "artikel": "Zurück zum Ursprung Bio-Erdäpfel 3 kg (1,10 €/kg)", "preis": 3.29, "gueltig_von": "2026-10-30", "gueltig_bis": "2026-10-31" },
+    { "zutat": "gurke", "markt": "Hofer", "artikel": "Bio-Gurke 1 Stück", "preis": 0.59, "gueltig_von": "2026-10-30", "gueltig_bis": "2026-10-31" },
+    { "zutat": "apfel", "markt": "Hofer", "artikel": "Äpfel Berggolden aus Österreich, je kg", "preis": 1.29, "gueltig_von": "2026-10-30", "gueltig_bis": "2026-10-31" },
+    { "zutat": "banane", "markt": "Hofer", "artikel": "Bananen, je kg", "preis": 1.11, "gueltig_von": "2026-11-02", "gueltig_bis": "2026-11-05" }
   ]
 }
