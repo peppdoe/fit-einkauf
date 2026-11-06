@@ -1,9 +1,20 @@
 {
   "version": 1,
+  "stand": "2026-11-06",
   "aktionen": [
-    { "zutat": "rinderfaschiertes", "markt": "Hofer", "artikel": "Faschiertes gemischt 1 kg", "preis": 3.99, "gueltig_von": "2026-10-24", "gueltig_bis": "2026-10-24" },
-    { "zutat": "thunfisch", "markt": "Spar", "artikel": "SPAR MSC Thunfisch 195 g", "preis": 1.79, "gueltig_von": "2026-10-21", "gueltig_bis": "2026-10-27" },
-    { "zutat": "schweinsschnitzel", "markt": "Lidl", "artikel": "Schweinsschnitzel 500 g", "preis": 3.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" },
-    { "zutat": "zucchini", "markt": "Lidl", "artikel": "Zucchini 1 kg", "preis": 0.99, "gueltig_von": "2026-10-27", "gueltig_bis": "2026-10-28" }
+    { "zutat": "rinderfaschiertes", "markt": "Lidl", "artikel": "Wiesentaler Faschiertes gemischt 500 g (7,98 €/kg)", "preis": 3.99, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" },
+    { "zutat": "eier", "markt": "Hofer", "artikel": "Sonnhof Eier Bodenhaltung 15 Stück (0,20 €/Stück)", "preis": 2.99, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-12" },
+    { "zutat": "eier", "markt": "Spar", "artikel": "Große Bio-Eier 6 Stück (0,58 €/Stück)", "preis": 3.49, "gueltig_von": "2026-11-05", "gueltig_bis": "2026-11-18" },
+    { "zutat": "thunfisch", "markt": "Hofer", "artikel": "Rio Mare Thunfischfilets 2 × 160 g (12,47 €/kg)", "preis": 3.99, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" },
+    { "zutat": "putenschinken", "markt": "Hofer", "artikel": "Gourmet-Schinken 175 g (8,51 €/kg)", "preis": 1.49, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" },
+    { "zutat": "putenschinken", "markt": "Lidl", "artikel": "Wiesentaler Toastschinken 200 g (9,95 €/kg)", "preis": 1.99, "gueltig_von": "2026-11-09", "gueltig_bis": "2026-11-11" },
+    { "zutat": "gouda", "markt": "Hofer", "artikel": "Milsani Gouda Scheiben 250 g (5,96 €/kg)", "preis": 1.49, "gueltig_von": "2026-11-09", "gueltig_bis": "2026-11-12" },
+    { "zutat": "gouda", "markt": "Lidl", "artikel": "Schärdinger Käsescheiben 150 g (9,27 €/kg)", "preis": 1.39, "gueltig_von": "2026-11-09", "gueltig_bis": "2026-11-11" },
+    { "zutat": "mais", "markt": "Hofer", "artikel": "King's Crown Gemüsemais 340 g", "preis": 0.49, "gueltig_von": "2026-11-09", "gueltig_bis": "2026-11-12" },
+    { "zutat": "paprika", "markt": "Lidl", "artikel": "Spitzpaprika rot 500 g", "preis": 1.79, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" },
+    { "zutat": "karotten", "markt": "Lidl", "artikel": "Karotten aus Österreich 1 kg", "preis": 1.00, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-11" },
+    { "zutat": "apfel", "markt": "Lidl", "artikel": "Äpfel rot SweeTango, je kg", "preis": 1.49, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" },
+    { "zutat": "apfel", "markt": "Hofer", "artikel": "Zurück zum Ursprung Bio-Äpfel 1,5 kg (1,53 €/kg)", "preis": 2.29, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-12" },
+    { "zutat": "nuesse", "markt": "Lidl", "artikel": "Belbake Mandeln ganz oder gerieben 500 g (7,90 €/kg)", "preis": 3.95, "gueltig_von": "2026-11-06", "gueltig_bis": "2026-11-07" }
   ]
 }
