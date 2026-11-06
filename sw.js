@@ -10,7 +10,7 @@ const APP = [
   "js/ansichten/html.js", "js/ansichten/blatt.js", "js/ansichten/pause.js", "js/ansichten/wachhalten.js",
   "js/ansichten/sicherung.js", "js/ansichten/heute.js", "js/ansichten/training.js", "js/ansichten/figur-ansicht.js", "js/ansichten/essen.js", "js/ansichten/einkauf.js", "js/ansichten/mehr.js"
 ];
-const DATEN = ["data/zutaten.json", "data/rezepte.json", "data/uebungen.json", "data/trainingsplan.json"];
+const DATEN = ["data/zutaten.json", "data/rezepte.json", "data/uebungen.json", "data/trainingsplan.json", "data/aktionen.json"];
 
 self.addEventListener('install', (e) => {
   // Frisch vom Server einlagern (no-cache), nicht aus dem Browser-Cache – sonst kann ein neuer Service Worker
